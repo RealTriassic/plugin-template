@@ -1,17 +1,14 @@
 package dev.triassic.template.bungee;
 
-import dev.triassic.template.common.TemplateBootstrap;
-import dev.triassic.template.common.TemplateImpl;
-import dev.triassic.template.common.util.PlatformType;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.nio.file.Path;
 
-public class TemplateBungee extends Plugin implements TemplateBootstrap {
+public class TemplateBungee extends Plugin {
 
     @Override
     public void onEnable() {
-        new TemplateImpl(PlatformType.BUNGEECORD, this);
+        // bungeecord doesn't have an slf4j implementation i think, need to think of something
     }
 
     public Path dataFolder() {

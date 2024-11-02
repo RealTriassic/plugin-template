@@ -1,5 +1,8 @@
 plugins {
+    id("template.java-conventions")
     alias(libs.plugins.shadow)
+    alias(libs.plugins.blossom)
+    alias(libs.plugins.indra.git)
 }
 
 dependencies {
@@ -31,6 +34,18 @@ tasks {
             copy {
                 from(archiveFile)
                 into("${rootProject.projectDir}/build")
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        blossom {
+            javaSources {
+                property("version", project.version.toString())
+                property("gitBranch", indraGit.branchName())
+                property("gitCommit", indraGit.commit()?.name)
             }
         }
     }

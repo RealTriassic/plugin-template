@@ -1,8 +1,5 @@
-repositories {
-    maven {
-        name = "sonatype"
-        url = uri("https://oss.sonatype.org/content/groups/public/")
-    }
+plugins {
+    id("template.java-conventions")
 }
 
 dependencies {

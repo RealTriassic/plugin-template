@@ -6,6 +6,8 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         maven("https://repo.opencollab.dev/main/")
+        maven("https://oss.sonatype.org/content/groups/public/")
+        maven("https://repo.papermc.io/repository/maven-public/")
     }
 }
 

@@ -1,10 +1,13 @@
 [versions]
 adventure = "4.17.0"
+blossom = "2.1.0"
 bungeecord = "1.19-R0.1-SNAPSHOT"
 cloud = "2.0.0-beta.8"
 cloud-core = "2.0.0-rc.2"
 configurate = "4.2.0-GeyserMC-SNAPSHOT"
+indra = "3.1.3"
 paper = "1.19.4-R0.1-SNAPSHOT"
+lombok = "1.18.34"
 slf4j = "2.0.16"
 velocity = "3.4.0-SNAPSHOT"
 
@@ -17,7 +20,10 @@ cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras
 configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
 
 [plugins]
+blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
+indra-git = { id = "net.kyori.indra.git", version.ref = "indra" }
 shadow = { id = "com.gradleup.shadow", version = "8.3.4" }

@@ -1,6 +1,5 @@
 plugins {
-    id("template.java-conventions")
-    alias(libs.plugins.shadow)
+    id("template.platform-conventions")
     alias(libs.plugins.blossom)
     alias(libs.plugins.indra.git)
 }
@@ -12,31 +11,6 @@ dependencies {
     implementation(libs.cloud.core)
     implementation(libs.cloud.minecraft.extras)
     implementation(libs.configurate.yaml)
-}
-
-tasks {
-    build {
-        dependsOn(shadowJar)
-    }
-
-    shadowJar {
-        archiveBaseName.set(rootProject.name)
-        archiveClassifier.set(null as String?)
-
-        listOf(
-            "org.spongepowered",
-            "io.papermc.papertrail"
-        ).forEach {
-            relocate(it, "org.stupidcraft.infohud.lib.$it")
-        }
-
-        doLast {
-            copy {
-                from(archiveFile)
-                into("${rootProject.projectDir}/build")
-            }
-        }
-    }
 }
 
 sourceSets {

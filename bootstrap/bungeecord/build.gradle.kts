@@ -1,5 +1,5 @@
 plugins {
-    id("template.java-conventions")
+    id("template.platform-conventions")
 }
 
 dependencies {

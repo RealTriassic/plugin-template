@@ -1,22 +1,33 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "plugin-template"
-
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
         maven("https://repo.opencollab.dev/main/")
-        maven("https://oss.sonatype.org/content/groups/public/")
         maven("https://repo.papermc.io/repository/maven-public/")
+        maven("https://oss.sonatype.org/content/repositories/snapshots") {
+            mavenContent {
+                snapshotsOnly()
+            }
+        }
     }
+}
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+    includeBuild("build-logic")
 }
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-include(":common")
+rootProject.name = "plugin-template"
 
+include(":common")
 file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")

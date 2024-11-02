@@ -1,0 +1,7 @@
+name: ${name}
+version: ${version}
+main: dev.triassic.template.bukkit.TemplateBukkit
+description: ${description}
+author: ${author}
+website: ${url}
+api-version: '1.19'

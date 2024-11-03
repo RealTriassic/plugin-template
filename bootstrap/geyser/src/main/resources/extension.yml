@@ -1,6 +1,6 @@
 id: ${id}
 name: ${name}
-main: dev.triassic.template.geyser.TemplateGeyserExtension
+main: dev.triassic.template.geyser.TemplateGeyser
 api: 2.4.1
 version: ${version}
 author: ${author}

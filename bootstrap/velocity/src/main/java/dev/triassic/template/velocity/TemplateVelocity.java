@@ -18,7 +18,7 @@ import java.nio.file.Path;
         name = "TemplatePlugin",
         version = "1.0.0"
 )
-public class TemplateVelocityPlugin implements TemplateBootstrap {
+public class TemplateVelocity implements TemplateBootstrap {
 
     @Inject
     private Logger slf4jLogger;

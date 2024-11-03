@@ -1,6 +1,6 @@
 name: ${name}
 version: ${version}
-main: dev.triassic.template.bukkit.TemplateBukkitPlugin
+main: dev.triassic.template.bukkit.TemplateBukkit
 description: ${description}
 author: ${author}
 website: ${url}

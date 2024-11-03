@@ -5,7 +5,6 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.slf4j)
     compileOnly(libs.adventure.api)
     compileOnly(libs.adventure.minimessage)
     implementation(libs.cloud.core)

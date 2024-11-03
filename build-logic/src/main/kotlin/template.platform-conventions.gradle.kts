@@ -1,13 +1,9 @@
 plugins {
-    `java-library`
+    id("io.freefair.lombok")
+    id("template.shadow-conventions")
 }
 
 tasks {
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
-    }
-
     processResources {
         filesMatching(listOf("plugin.yml", "bungee.yml")) {
             expand(
@@ -21,5 +17,3 @@ tasks {
         }
     }
 }
-
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))

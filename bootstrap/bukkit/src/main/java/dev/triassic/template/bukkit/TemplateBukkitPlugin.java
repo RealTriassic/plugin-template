@@ -2,13 +2,15 @@ package dev.triassic.template.bukkit;
 
 import dev.triassic.template.common.TemplateBootstrap;
 import dev.triassic.template.common.TemplateImpl;
+import dev.triassic.template.common.TemplateLogger;
 import dev.triassic.template.common.util.PlatformType;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
-public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
+public class TemplateBukkitPlugin extends JavaPlugin implements TemplateBootstrap {
+
+    private final TemplateBukkitLogger logger = new TemplateBukkitLogger(getLogger());
 
     @Override
     public void onEnable() {
@@ -19,7 +21,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
         return this.getDataFolder().toPath();
     }
 
-    public Logger logger() {
-        return this.getSLF4JLogger();
+    public TemplateLogger logger() {
+        return this.logger;
     }
 }

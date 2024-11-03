@@ -7,6 +7,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.common.TemplateBootstrap;
 import dev.triassic.template.common.TemplateImpl;
+import dev.triassic.template.common.TemplateLogger;
 import dev.triassic.template.common.util.PlatformType;
 import org.slf4j.Logger;
 
@@ -17,12 +18,14 @@ import java.nio.file.Path;
         name = "TemplatePlugin",
         version = "1.0.0"
 )
-public class TemplateVelocity implements TemplateBootstrap {
+public class TemplateVelocityPlugin implements TemplateBootstrap {
 
     @Inject
-    private Logger logger;
+    private Logger slf4jLogger;
     @DataDirectory
     private Path dataFolder;
+
+    private final TemplateVelocityLogger logger = new TemplateVelocityLogger(slf4jLogger);
 
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
@@ -33,7 +36,7 @@ public class TemplateVelocity implements TemplateBootstrap {
         return this.dataFolder;
     }
 
-    public Logger logger() {
+    public TemplateLogger logger() {
         return this.logger;
     }
 }

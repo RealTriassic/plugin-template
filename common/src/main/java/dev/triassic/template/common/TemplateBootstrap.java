@@ -1,7 +1,5 @@
 package dev.triassic.template.common;
 
-import org.slf4j.Logger;
-
 import java.nio.file.Path;
 
 public interface TemplateBootstrap {
@@ -18,5 +16,5 @@ public interface TemplateBootstrap {
      *
      * @return the logger instance
      */
-    Logger logger();
+    TemplateLogger logger();
 }

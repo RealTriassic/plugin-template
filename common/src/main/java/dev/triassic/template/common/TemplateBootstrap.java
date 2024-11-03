@@ -9,12 +9,12 @@ public interface TemplateBootstrap {
      *
      * @return the path to the data folder
      */
-    Path dataFolder();
+    Path templateDataFolder();
 
     /**
      * Gets the platform's logger instance.
      *
      * @return the logger instance
      */
-    TemplateLogger logger();
+    TemplateLogger templateLogger();
 }

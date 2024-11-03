@@ -26,8 +26,8 @@ public final class TemplateImpl {
 
         this.platformType = platformType;
 
-        this.dataFolder = bootstrap.dataFolder();
-        this.logger = bootstrap.logger();
+        this.dataFolder = bootstrap.templateDataFolder();
+        this.logger = bootstrap.templateLogger();
 
         try {
             this.config = ConfigurationContainer.load(dataFolder, Configuration.class);

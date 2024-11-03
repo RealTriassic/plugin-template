@@ -32,11 +32,11 @@ public class TemplateVelocityPlugin implements TemplateBootstrap {
         new TemplateImpl(PlatformType.VELOCITY, this);
     }
 
-    public Path dataFolder() {
+    public Path templateDataFolder() {
         return this.dataFolder;
     }
 
-    public TemplateLogger logger() {
+    public TemplateLogger templateLogger() {
         return this.logger;
     }
 }

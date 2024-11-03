@@ -5,7 +5,7 @@ plugins {
 
 tasks {
     processResources {
-        filesMatching(listOf("plugin.yml", "bungee.yml")) {
+        filesMatching(listOf("plugin.yml", "bungee.yml", "extension.yml")) {
             expand(
                 "id" to "plugin-template",
                 "name" to "TemplatePlugin",

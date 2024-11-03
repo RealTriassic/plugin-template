@@ -1,4 +1,4 @@
-package dev.triassic.template.common.configuration;
+package dev.triassic.template.configuration;
 
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;

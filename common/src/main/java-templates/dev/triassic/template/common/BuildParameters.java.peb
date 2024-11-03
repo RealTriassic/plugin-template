@@ -1,4 +1,4 @@
-package dev.triassic.template.common;
+package dev.triassic.template;
 
 class BuildParameters {
     public static final String VERSION = "{{ version }}";

@@ -1,6 +1,6 @@
 package dev.triassic.template.geyser;
 
-import dev.triassic.template.common.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 import org.geysermc.geyser.api.extension.ExtensionLogger;
 

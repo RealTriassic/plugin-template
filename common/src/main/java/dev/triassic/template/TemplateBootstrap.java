@@ -1,4 +1,4 @@
-package dev.triassic.template.common;
+package dev.triassic.template;
 
 import java.nio.file.Path;
 

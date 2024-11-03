@@ -1,6 +1,6 @@
 package dev.triassic.template.bukkit;
 
-import dev.triassic.template.common.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 
 import java.util.logging.Level;

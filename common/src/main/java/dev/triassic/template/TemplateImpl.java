@@ -1,8 +1,8 @@
-package dev.triassic.template.common;
+package dev.triassic.template;
 
-import dev.triassic.template.common.configuration.Configuration;
-import dev.triassic.template.common.configuration.ConfigurationContainer;
-import dev.triassic.template.common.util.PlatformType;
+import dev.triassic.template.configuration.Configuration;
+import dev.triassic.template.configuration.ConfigurationContainer;
+import dev.triassic.template.util.PlatformType;
 import lombok.Getter;
 
 import java.io.IOException;

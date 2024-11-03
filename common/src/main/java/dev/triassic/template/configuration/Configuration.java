@@ -1,4 +1,4 @@
-package dev.triassic.template.common.configuration;
+package dev.triassic.template.configuration;
 
 import lombok.Getter;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;

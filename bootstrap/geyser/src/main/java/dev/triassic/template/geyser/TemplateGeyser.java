@@ -1,9 +1,9 @@
 package dev.triassic.template.geyser;
 
-import dev.triassic.template.common.TemplateBootstrap;
-import dev.triassic.template.common.TemplateImpl;
-import dev.triassic.template.common.TemplateLogger;
-import dev.triassic.template.common.util.PlatformType;
+import dev.triassic.template.TemplateBootstrap;
+import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.util.PlatformType;
 import org.geysermc.event.subscribe.Subscribe;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.extension.Extension;

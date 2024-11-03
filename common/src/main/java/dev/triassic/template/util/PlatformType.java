@@ -1,4 +1,4 @@
-package dev.triassic.template.common.util;
+package dev.triassic.template.util;
 
 public record PlatformType(String displayName, boolean isProxy) {
 

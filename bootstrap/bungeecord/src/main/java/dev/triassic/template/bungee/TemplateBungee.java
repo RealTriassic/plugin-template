@@ -17,7 +17,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
         new TemplateImpl(PlatformType.BUNGEECORD, this);
     }
 
-    public Path templateDataFolder() {
+    public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 

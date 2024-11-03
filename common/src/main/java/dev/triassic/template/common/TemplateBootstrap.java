@@ -5,11 +5,11 @@ import java.nio.file.Path;
 public interface TemplateBootstrap {
 
     /**
-     * Gets the path to the platform's data folder.
+     * Gets the path to the platform's data directory.
      *
-     * @return the path to the data folder
+     * @return the path to the data directory
      */
-    Path templateDataFolder();
+    Path dataDirectory();
 
     /**
      * Gets the platform's logger instance.

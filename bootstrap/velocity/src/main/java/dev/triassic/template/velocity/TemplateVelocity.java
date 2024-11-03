@@ -32,7 +32,7 @@ public class TemplateVelocity implements TemplateBootstrap {
         new TemplateImpl(PlatformType.VELOCITY, this);
     }
 
-    public Path templateDataFolder() {
+    public Path dataDirectory() {
         return this.dataFolder;
     }
 

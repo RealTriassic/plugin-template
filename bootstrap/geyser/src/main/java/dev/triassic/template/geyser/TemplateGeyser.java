@@ -19,7 +19,7 @@ public class TemplateGeyser implements Extension, TemplateBootstrap {
         new TemplateImpl(PlatformType.GEYSER, this);
     }
 
-    public Path templateDataFolder() {
+    public Path dataDirectory() {
         return this.dataFolder();
     }
 

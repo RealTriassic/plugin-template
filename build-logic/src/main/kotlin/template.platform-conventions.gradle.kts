@@ -1,6 +1,6 @@
 plugins {
     id("io.freefair.lombok")
-    id("template.shadow-conventions")
+    id("template.java-conventions")
 }
 
 tasks {

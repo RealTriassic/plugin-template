@@ -17,7 +17,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
         new TemplateImpl(PlatformType.BUKKIT, this);
     }
 
-    public Path templateDataFolder() {
+    public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 

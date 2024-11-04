@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     compileOnly(libs.geyser.api)
-    implementation(project(":common"))
+    implementation(project(":core"))
 }

@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.paper.api)
-    implementation(project(":common"))
+    implementation(project(":core"))
 }
 
 tasks {

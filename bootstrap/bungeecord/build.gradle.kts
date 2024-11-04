@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     compileOnly(libs.bungeecord.api)
-    implementation(project(":common"))
+    implementation(project(":core"))
 }

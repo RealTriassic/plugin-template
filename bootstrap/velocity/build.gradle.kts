@@ -5,5 +5,5 @@ plugins {
 dependencies {
     compileOnly(libs.velocity.api)
     annotationProcessor(libs.velocity.api)
-    implementation(project(":common"))
+    implementation(project(":core"))
 }

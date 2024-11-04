@@ -27,7 +27,7 @@ plugins {
 
 rootProject.name = "plugin-template"
 
-include(":common")
+include(":core")
 file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")

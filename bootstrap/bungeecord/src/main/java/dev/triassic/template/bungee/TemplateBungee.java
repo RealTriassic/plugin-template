@@ -8,7 +8,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 import java.nio.file.Path;
 
-public class TemplateBungee extends Plugin implements TemplateBootstrap {
+public final class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private final TemplateBungeeLogger logger = new TemplateBungeeLogger(getLogger());
 

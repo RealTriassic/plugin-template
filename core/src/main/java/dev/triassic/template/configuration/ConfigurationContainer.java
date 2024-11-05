@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ConfigurationContainer<C> {
+public final class ConfigurationContainer<C> {
 
     private static final String HEADER = """
             TemplatePlugin Configuration File

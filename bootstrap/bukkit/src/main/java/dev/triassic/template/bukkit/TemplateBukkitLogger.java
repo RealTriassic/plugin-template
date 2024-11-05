@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RequiredArgsConstructor
-public class TemplateBukkitLogger implements TemplateLogger {
+public final class TemplateBukkitLogger implements TemplateLogger {
 
     private final Logger logger;
 

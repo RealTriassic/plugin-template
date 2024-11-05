@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.geysermc.geyser.api.extension.ExtensionLogger;
 
 @RequiredArgsConstructor
-public class TemplateGeyserLogger implements TemplateLogger {
+public final class TemplateGeyserLogger implements TemplateLogger {
 
     private final ExtensionLogger logger;
 

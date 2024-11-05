@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Path;
 
-public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
+public final class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
     private final TemplateBukkitLogger logger = new TemplateBukkitLogger(getLogger());
 

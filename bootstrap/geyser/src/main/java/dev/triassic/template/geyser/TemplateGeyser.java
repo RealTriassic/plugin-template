@@ -10,7 +10,7 @@ import org.geysermc.geyser.api.extension.Extension;
 
 import java.nio.file.Path;
 
-public class TemplateGeyser implements Extension, TemplateBootstrap {
+public final class TemplateGeyser implements Extension, TemplateBootstrap {
 
     private final TemplateGeyserLogger logger = new TemplateGeyserLogger(logger());
 

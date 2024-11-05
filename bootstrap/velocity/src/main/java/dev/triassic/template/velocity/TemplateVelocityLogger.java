@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 
 @RequiredArgsConstructor
-public class TemplateVelocityLogger implements TemplateLogger {
+public final class TemplateVelocityLogger implements TemplateLogger {
 
     private final Logger logger;
 

@@ -2,7 +2,7 @@ package dev.triassic.template.bungee;
 
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.util.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
 import net.md_5.bungee.api.plugin.Plugin;
 

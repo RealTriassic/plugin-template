@@ -2,7 +2,7 @@ package dev.triassic.template.bukkit;
 
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.util.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
 import org.bukkit.plugin.java.JavaPlugin;
 

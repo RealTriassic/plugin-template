@@ -1,6 +1,6 @@
 package dev.triassic.template.velocity;
 
-import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.util.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 

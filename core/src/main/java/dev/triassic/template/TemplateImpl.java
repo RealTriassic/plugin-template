@@ -3,6 +3,7 @@ package dev.triassic.template;
 import dev.triassic.template.configuration.Configuration;
 import dev.triassic.template.configuration.ConfigurationContainer;
 import dev.triassic.template.util.PlatformType;
+import dev.triassic.template.util.TemplateLogger;
 import lombok.Getter;
 
 import java.io.IOException;

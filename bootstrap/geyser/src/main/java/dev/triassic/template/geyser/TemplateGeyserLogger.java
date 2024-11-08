@@ -1,11 +1,11 @@
 package dev.triassic.template.geyser;
 
-import dev.triassic.template.util.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 import org.geysermc.geyser.api.extension.ExtensionLogger;
 
 @RequiredArgsConstructor
-public final class TemplateGeyserLogger implements TemplateLogger {
+public class TemplateGeyserLogger implements TemplateLogger {
 
     private final ExtensionLogger logger;
 

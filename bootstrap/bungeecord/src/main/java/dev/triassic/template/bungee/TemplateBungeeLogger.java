@@ -1,13 +1,13 @@
 package dev.triassic.template.bungee;
 
-import dev.triassic.template.util.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RequiredArgsConstructor
-public final class TemplateBungeeLogger implements TemplateLogger {
+public class TemplateBungeeLogger implements TemplateLogger {
 
     private final Logger logger;
 

@@ -1,11 +1,11 @@
 package dev.triassic.template.velocity;
 
-import dev.triassic.template.util.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 
 @RequiredArgsConstructor
-public final class TemplateVelocityLogger implements TemplateLogger {
+public class TemplateVelocityLogger implements TemplateLogger {
 
     private final Logger logger;
 

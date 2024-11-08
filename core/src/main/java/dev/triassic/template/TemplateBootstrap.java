@@ -1,7 +1,5 @@
 package dev.triassic.template;
 
-import dev.triassic.template.util.TemplateLogger;
-
 import java.nio.file.Path;
 
 public interface TemplateBootstrap {

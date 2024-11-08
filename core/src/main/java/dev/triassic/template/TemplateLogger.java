@@ -1,4 +1,4 @@
-package dev.triassic.template.util;
+package dev.triassic.template;
 
 public interface TemplateLogger {
 

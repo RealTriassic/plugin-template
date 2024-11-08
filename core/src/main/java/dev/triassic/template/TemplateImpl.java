@@ -2,15 +2,16 @@ package dev.triassic.template;
 
 import dev.triassic.template.configuration.Configuration;
 import dev.triassic.template.configuration.ConfigurationContainer;
+import dev.triassic.template.localization.LocalizationCache;
+import dev.triassic.template.localization.MessageProvider;
 import dev.triassic.template.util.PlatformType;
-import dev.triassic.template.util.TemplateLogger;
 import lombok.Getter;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 @Getter
-public final class TemplateImpl {
+public class TemplateImpl {
 
     private final PlatformType platformType;
 
@@ -18,6 +19,7 @@ public final class TemplateImpl {
     private final TemplateLogger logger;
 
     private ConfigurationContainer<Configuration> config;
+    private LocalizationCache localizationCache;
 
     public TemplateImpl(
             final PlatformType platformType,
@@ -36,6 +38,9 @@ public final class TemplateImpl {
             logger.error("Failed to load configuration", e);
             return;
         }
+
+        this.localizationCache = new LocalizationCache(dataFolder);
+        MessageProvider.setCache(localizationCache);
 
         logger.info("Enabled in " + (System.currentTimeMillis() - startTime) + "ms");
     }

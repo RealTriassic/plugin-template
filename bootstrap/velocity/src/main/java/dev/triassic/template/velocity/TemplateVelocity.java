@@ -7,7 +7,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.util.TemplateLogger;
+import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
 import org.slf4j.Logger;
 
@@ -18,7 +18,7 @@ import java.nio.file.Path;
         name = "TemplatePlugin",
         version = "1.0.0"
 )
-public final class TemplateVelocity implements TemplateBootstrap {
+public class TemplateVelocity implements TemplateBootstrap {
 
     @Inject
     private Logger slf4jLogger;

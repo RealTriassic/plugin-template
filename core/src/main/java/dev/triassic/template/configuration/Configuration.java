@@ -8,7 +8,7 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 @Getter
 @ConfigSerializable
 @SuppressWarnings("FieldMayBeFinal")
-public final class Configuration {
+public class Configuration {
 
     @Setting("config-version")
     @Comment("Used internally, do not change.")

@@ -5,7 +5,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 
 public class MessageProvider {
@@ -22,8 +21,9 @@ public class MessageProvider {
      * @param args   arguments to format the message with
      * @return the formatted message or an empty string if the key is not found
      */
-    public static String get(@NonNull final String key, final Locale locale, final Object... args) {
-        Objects.requireNonNull(localizationCache, "LocalizationCache is not initialized. Call setLocalizationCache() first.");
+    public static String translate(@NonNull final String key, final Locale locale, final Object... args) {
+        if (localizationCache == null)
+            throw new IllegalStateException("LocalizationCache is not initialized.");
 
         final Optional<String> messageOpt = (locale == null)
                 ? localizationCache.getString(key)
@@ -39,7 +39,7 @@ public class MessageProvider {
      * @param args arguments to format the message with
      * @return the formatted message or an empty string if the key is not found
      */
-    public static String get(@NonNull final String key, final Object... args) {
-        return get(key, null, args);
+    public static String translate(@NonNull final String key, final Object... args) {
+        return translate(key, null, args);
     }
 }

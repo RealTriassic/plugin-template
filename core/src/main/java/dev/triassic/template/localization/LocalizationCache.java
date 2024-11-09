@@ -1,29 +1,23 @@
 package dev.triassic.template.localization;
 
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.ResourceBundleUtil;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LocalizationCache {
 
-    private final Locale defaultLocale;
+    private final Locale defaultLocale = Locale.getDefault();
     private final Path messagesDir;
-    private final Map<Locale, ResourceBundle> cache = new HashMap<>();
-    private final TemplateLogger logger;
+    private final Map<Locale, ResourceBundle> cache = new ConcurrentHashMap<>();
 
-    /**
-     * Initializes the LocalizationCache with default locale, messages directory, and logger.
-     *
-     * @param instance      the main application instance
-     * @param defaultLocale the default locale for retrieving messages
-     */
-    public LocalizationCache(TemplateImpl instance, Locale defaultLocale) {
+    public LocalizationCache(TemplateImpl instance) {
         this.messagesDir = instance.getDataFolder().resolve("messages");
-        this.logger = instance.getLogger();
-        this.defaultLocale = defaultLocale;
     }
 
     /**
@@ -49,13 +43,6 @@ public class LocalizationCache {
     }
 
     /**
-     * Clears all cached resource bundles, forcing reloading on subsequent requests.
-     */
-    public void resetCache() {
-        cache.clear();
-    }
-
-    /**
      * Loads a ResourceBundle for a given locale.
      *
      * @param locale the locale to load the ResourceBundle for
@@ -65,4 +52,3 @@ public class LocalizationCache {
         return ResourceBundleUtil.loadBundle("messages", messagesDir, locale);
     }
 }
-

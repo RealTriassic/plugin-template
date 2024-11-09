@@ -10,7 +10,7 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 public class Configuration {
 
     @Comment("The default locale used in messages.")
-    private String defaultLocale = "en_US";
+    private String defaultLocale = "en-US";
 
     @Comment("Used internally, do not change.")
     private int configVersion = 1;

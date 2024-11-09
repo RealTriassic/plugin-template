@@ -9,7 +9,6 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Locale;
 
 @Getter
 public class TemplateImpl {
@@ -40,10 +39,10 @@ public class TemplateImpl {
             return;
         }
 
-        this.localizationCache = new LocalizationCache(this, Locale.US);
+        this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);
 
-        logger.info(MessageProvider.get("reloadCommandDescription"));
+        logger.info(MessageProvider.translate("reloadCommandDescription"));
 
         logger.info("Enabled in " + (System.currentTimeMillis() - startTime) + "ms");
     }

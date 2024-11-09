@@ -1,7 +1,7 @@
 package dev.triassic.template.command.commands;
 
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.command.Commander;
+import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.localization.MessageProvider;
 import net.kyori.adventure.text.Component;
@@ -15,18 +15,18 @@ public class ReloadCommand extends TemplateCommand {
 
     public ReloadCommand(
             final TemplateImpl instance,
-            final CommandManager<Commander> commandManager
+            final CommandManager<CommandSource> commandManager
     ) {
-        super(instance, commandManager, "reload", Component.text(MessageProvider.getMessage("reloadCommandDescription", Locale.ENGLISH)));
+        super(instance, commandManager, "reload", Component.text(MessageProvider.get("reloadCommandDescription", Locale.ENGLISH)));
     }
 
     @Override
-    protected void execute(CommandContext<Commander> ctx) {
+    protected void execute(CommandContext<CommandSource> ctx) {
         instance.getConfig().reload().handleAsync((v, ex) -> {
             if (ex == null) {
-                ctx.sender().sendMessage(Component.text(MessageProvider.getMessage("reloadCommandSuccess", Locale.ENGLISH), NamedTextColor.GREEN));
+                ctx.sender().sendMessage(Component.text(MessageProvider.get("reloadCommandSuccess", Locale.ENGLISH), NamedTextColor.GREEN));
             } else {
-                ctx.sender().sendMessage(Component.text(MessageProvider.getMessage("reloadCommandFailure", Locale.ENGLISH), NamedTextColor.RED));
+                ctx.sender().sendMessage(Component.text(MessageProvider.get("reloadCommandFailure", Locale.ENGLISH), NamedTextColor.RED));
                 instance.getLogger().error(ex.getMessage(), ex.getCause());
             }
             return null;

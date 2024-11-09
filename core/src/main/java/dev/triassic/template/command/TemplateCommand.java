@@ -13,14 +13,14 @@ public abstract class TemplateCommand {
 
     public TemplateCommand(
             final TemplateImpl instance,
-            final CommandManager<Commander> commandManager,
+            final CommandManager<CommandSource> commandManager,
             final String name,
             final Component description
     ) {
         this.instance = instance;
         var command = commandManager.commandBuilder("template")
                 .literal(name)
-                .senderType(Commander.class)
+                .senderType(CommandSource.class)
                 .permission("template.command." + name)
                 .commandDescription(richDescription(description))
                 .handler(this::execute)
@@ -29,5 +29,5 @@ public abstract class TemplateCommand {
         commandManager.command(command);
     }
 
-    protected abstract void execute(CommandContext<Commander> ctx);
+    protected abstract void execute(CommandContext<CommandSource> ctx);
 }

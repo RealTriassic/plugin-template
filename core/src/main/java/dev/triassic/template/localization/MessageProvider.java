@@ -1,43 +1,45 @@
 package dev.triassic.template.localization;
 
+import lombok.Setter;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
 
 public class MessageProvider {
 
-    private static LocalizationCache cache;
+    @Setter
+    private static LocalizationCache localizationCache;
 
     /**
-     * Sets the shared LocalizationCache instance.
+     * Retrieves and formats a localized message for the specified key using the default locale,
+     * or a specified locale if provided.
      *
-     * @param cache the LocalizationCache instance to be shared across all calls
+     * @param key    the message key
+     * @param locale the locale to retrieve the message for, or null to use the default locale
+     * @param args   arguments to format the message with
+     * @return the formatted message or an empty string if the key is not found
      */
-    public static void setCache(final @NonNull LocalizationCache cache) {
-        MessageProvider.cache = cache;
+    public static String get(@NonNull final String key, final Locale locale, final Object... args) {
+        Objects.requireNonNull(localizationCache, "LocalizationCache is not initialized. Call setLocalizationCache() first.");
+
+        final Optional<String> messageOpt = (locale == null)
+                ? localizationCache.getString(key)
+                : localizationCache.getString(key, locale);
+
+        return messageOpt.map(message -> MessageFormat.format(message, args)).orElse("");
     }
 
     /**
-     * Retrieves a formatted message by key for the specified locale and formats it with any additional arguments.
+     * Retrieves and formats a localized message for the specified key using the default locale.
      *
-     * @param key    the key of the message
-     * @param locale the locale for which the message is requested
-     * @param args   the arguments to format the message with
-     * @return the formatted localized message
+     * @param key  the message key
+     * @param args arguments to format the message with
+     * @return the formatted message or an empty string if the key is not found
      */
-    public static String getMessage(
-            final @NonNull String key,
-            final @NonNull Locale locale,
-            final Object... args
-    ) {
-        if (cache == null)
-            throw new IllegalStateException("LocalizationCache is not initialized. Call setCache() first");
-
-        String message = cache.getMessage(key, locale);
-        return formatMessage(message, args);
-    }
-
-    private static String formatMessage(final @NonNull String message, final Object... args) {
-        return String.format(message, args);
+    public static String get(@NonNull final String key, final Object... args) {
+        return get(key, null, args);
     }
 }

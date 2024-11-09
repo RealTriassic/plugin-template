@@ -1,51 +1,68 @@
 package dev.triassic.template.localization;
 
+import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.ResourceBundleUtil;
-import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.nio.file.Path;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 
-@RequiredArgsConstructor
 public class LocalizationCache {
 
-    private final Path dataDirectory;
-    private final Map<String, ResourceBundle> cache = new ConcurrentHashMap<>();
+    private final Locale defaultLocale;
+    private final Path messagesDir;
+    private final Map<Locale, ResourceBundle> cache = new HashMap<>();
+    private final TemplateLogger logger;
 
     /**
-     * Retrieves a localized message for the given key and locale from the cache, loading it if necessary.
-     * First checks if the file exists in the data directory; falls back to resources if not found.
+     * Initializes the LocalizationCache with default locale, messages directory, and logger.
      *
-     * @param key    the message key
-     * @param locale the locale to retrieve the message for
-     * @return the localized message associated with the key for the specified locale,
-     * or a default message if the key is not found
+     * @param instance      the main application instance
+     * @param defaultLocale the default locale for retrieving messages
      */
-    public String getMessage(
-            final @NonNull String key,
-            final @NonNull Locale locale
-    ) {
-        final String localeKey = locale.toString();
-        final ResourceBundle bundle = cache.computeIfAbsent(localeKey, k -> loadBundle(locale));
-
-        return bundle.getString(key);
+    public LocalizationCache(TemplateImpl instance, Locale defaultLocale) {
+        this.messagesDir = instance.getDataFolder().resolve("messages");
+        this.logger = instance.getLogger();
+        this.defaultLocale = defaultLocale;
     }
 
-    private ResourceBundle loadBundle(final @NonNull Locale locale) {
-        final Path path = dataDirectory.resolve("messages")
-                .resolve("messages_" + locale + ".properties");
+    /**
+     * Retrieves a localized string for the given key using the default locale.
+     *
+     * @param key the key of the message
+     * @return an Optional containing the localized message if found, or empty if not
+     */
+    public Optional<String> getString(String key) {
+        return getString(key, defaultLocale);
+    }
 
-        return ResourceBundleUtil.loadResourceBundle(path, "messages", locale);
+    /**
+     * Retrieves a localized string for the given key and specified locale.
+     *
+     * @param key    the key of the message
+     * @param locale the locale to retrieve the message for
+     * @return an Optional containing the localized message if found, or empty if not
+     */
+    public Optional<String> getString(String key, Locale locale) {
+        ResourceBundle bundle = cache.computeIfAbsent(locale, this::loadBundle);
+        return bundle != null && bundle.containsKey(key) ? Optional.of(bundle.getString(key)) : Optional.empty();
     }
 
     /**
      * Clears all cached resource bundles, forcing reloading on subsequent requests.
      */
-    public void clear() {
+    public void resetCache() {
         cache.clear();
     }
+
+    /**
+     * Loads a ResourceBundle for a given locale.
+     *
+     * @param locale the locale to load the ResourceBundle for
+     * @return the loaded ResourceBundle or null if loading fails
+     */
+    private ResourceBundle loadBundle(Locale locale) {
+        return ResourceBundleUtil.loadBundle("messages", messagesDir, locale);
+    }
 }
+

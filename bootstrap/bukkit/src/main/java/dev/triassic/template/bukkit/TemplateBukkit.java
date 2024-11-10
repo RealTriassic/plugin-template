@@ -28,23 +28,40 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
+import java.nio.file.Path;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.nio.file.Path;
-
+/**
+ * Main class for the Template plugin on Bukkit.
+ */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
     private final TemplateBukkitLogger logger = new TemplateBukkitLogger(getLogger());
 
+    /**
+     * Called when the plugin is enabled.
+     *
+     * <p>Initializes the {@link TemplateImpl} instance for the Bukkit platform.</p>
+     */
     @Override
     public void onEnable() {
         new TemplateImpl(PlatformType.BUKKIT, this);
     }
 
+    /**
+     * Gets the data directory of the plugin.
+     *
+     * @return the data directory path
+     */
     public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
+    /**
+     * Gets the logger for the template plugin.
+     *
+     * @return the template logger
+     */
     public TemplateLogger templateLogger() {
         return this.logger;
     }

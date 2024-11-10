@@ -25,11 +25,16 @@
 package dev.triassic.template.bukkit;
 
 import dev.triassic.template.TemplateLogger;
-import lombok.RequiredArgsConstructor;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.RequiredArgsConstructor;
 
+/**
+ * Implementation of {@link TemplateLogger} for the Bukkit platform.
+ *
+ * <p>This class provides logging methods that wrap around {@link Logger} and output
+ * messages at different levels (severe, error, warning, info).</p>
+ */
 @RequiredArgsConstructor
 public class TemplateBukkitLogger implements TemplateLogger {
 

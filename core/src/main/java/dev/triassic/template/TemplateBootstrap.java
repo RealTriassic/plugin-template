@@ -26,6 +26,9 @@ package dev.triassic.template;
 
 import java.nio.file.Path;
 
+/**
+ * Interface for platform-specific bootstrap logic.
+ */
 public interface TemplateBootstrap {
 
     /**

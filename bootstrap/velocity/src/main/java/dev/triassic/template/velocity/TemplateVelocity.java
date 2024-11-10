@@ -33,10 +33,12 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
+import java.nio.file.Path;
 import org.slf4j.Logger;
 
-import java.nio.file.Path;
-
+/**
+ * Main class for the Template plugin on Velocity.
+ */
 @Plugin(
         id = "templateplugin",
         name = "TemplatePlugin",
@@ -51,15 +53,30 @@ public class TemplateVelocity implements TemplateBootstrap {
 
     private final TemplateVelocityLogger logger = new TemplateVelocityLogger(slf4jLogger);
 
+    /**
+     * Called when the plugin is enabled.
+     *
+     * <p>Initializes the {@link TemplateImpl} instance for the Velocity platform.</p>
+     */
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
         new TemplateImpl(PlatformType.VELOCITY, this);
     }
 
+    /**
+     * Gets the data directory of the plugin.
+     *
+     * @return the data directory path
+     */
     public Path dataDirectory() {
         return this.dataFolder;
     }
 
+    /**
+     * Gets the logger for the template plugin.
+     *
+     * @return the template logger
+     */
     public TemplateLogger templateLogger() {
         return this.logger;
     }

@@ -26,6 +26,9 @@ package dev.triassic.template.command;
 
 import net.kyori.adventure.audience.Audience;
 
+/**
+ * Represents the source of a command executor.
+ */
 public interface CommandSource extends Audience {
 
     /**

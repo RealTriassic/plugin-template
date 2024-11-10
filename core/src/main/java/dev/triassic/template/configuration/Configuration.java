@@ -28,6 +28,9 @@ import lombok.Getter;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
+/**
+ * Represents the application's main configuration file.
+ */
 @Getter
 @ConfigSerializable
 @SuppressWarnings("FieldMayBeFinal")

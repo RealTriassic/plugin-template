@@ -26,7 +26,6 @@ package dev.triassic.template.localization;
 
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.util.ResourceBundleUtil;
-
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Map;
@@ -34,12 +33,21 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Caches localized messages for different locales, loading them from the specified directory.
+ * It retrieves resource bundles for the default locale and other locales as needed.
+ */
 public class LocalizationCache {
 
     private final Locale defaultLocale = Locale.getDefault();
     private final Path messagesDir;
     private final Map<Locale, ResourceBundle> cache = new ConcurrentHashMap<>();
 
+    /**
+     * Initializes a new {@link LocalizationCache} instance.
+     *
+     * @param instance the {@link TemplateImpl} instance
+     */
     public LocalizationCache(TemplateImpl instance) {
         this.messagesDir = instance.getDataFolder().resolve("messages");
     }
@@ -63,7 +71,9 @@ public class LocalizationCache {
      */
     public Optional<String> getString(String key, Locale locale) {
         ResourceBundle bundle = cache.computeIfAbsent(locale, this::loadBundle);
-        return bundle != null && bundle.containsKey(key) ? Optional.of(bundle.getString(key)) : Optional.empty();
+        return bundle != null && bundle.containsKey(key)
+            ? Optional.of(bundle.getString(key))
+            : Optional.empty();
     }
 
     /**

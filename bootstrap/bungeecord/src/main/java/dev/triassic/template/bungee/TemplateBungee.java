@@ -28,23 +28,40 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.util.PlatformType;
+import java.nio.file.Path;
 import net.md_5.bungee.api.plugin.Plugin;
 
-import java.nio.file.Path;
-
+/**
+ * Main class for the Template plugin on Bungeecord.
+ */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private final TemplateBungeeLogger logger = new TemplateBungeeLogger(getLogger());
 
+    /**
+     * Called when the plugin is enabled.
+     *
+     * <p>Initializes the {@link TemplateImpl} instance for the Bungeecord platform.</p>
+     */
     @Override
     public void onEnable() {
         new TemplateImpl(PlatformType.BUNGEECORD, this);
     }
 
+    /**
+     * Gets the data directory of the plugin.
+     *
+     * @return the data directory path
+     */
     public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
+    /**
+     * Gets the logger for the template plugin.
+     *
+     * @return the template logger
+     */
     public TemplateLogger templateLogger() {
         return this.logger;
     }

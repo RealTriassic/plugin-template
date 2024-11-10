@@ -24,25 +24,38 @@
 
 package dev.triassic.template.command;
 
+import static org.incendo.cloud.minecraft.extras.RichDescription.richDescription;
+
 import dev.triassic.template.TemplateImpl;
 import net.kyori.adventure.text.Component;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.context.CommandContext;
 
-import static org.incendo.cloud.minecraft.extras.RichDescription.richDescription;
-
-public abstract class TemplateCommand
-{
+/**
+ * Abstract base class for commands.
+ *
+ * <p>This class sets up a command with a specific name, description, and permission.
+ * Subclasses should implement the {@link #execute(CommandContext)}
+ * method to define the command's behavior.</p>
+ */
+public abstract class TemplateCommand {
 
     protected TemplateImpl instance;
 
+    /**
+     * Constructs a new {@link TemplateCommand} with the given parameters.
+     *
+     * @param instance the instance of the template plugin
+     * @param commandManager the {@link CommandManager} to register the command with
+     * @param name the name of the command
+     * @param description the description of the command
+     */
     public TemplateCommand(
         final TemplateImpl instance,
         final CommandManager<CommandSource> commandManager,
         final String name,
         final Component description
-    )
-    {
+    ) {
         this.instance = instance;
         var command = commandManager.commandBuilder("template")
             .literal(name)
@@ -55,5 +68,12 @@ public abstract class TemplateCommand
         commandManager.command(command);
     }
 
+    /**
+     * Executes the command.
+     *
+     * <p>Subclasses must implement this method to define the command's behavior.</p>
+     *
+     * @param ctx the command context
+     */
     protected abstract void execute(CommandContext<CommandSource> ctx);
 }

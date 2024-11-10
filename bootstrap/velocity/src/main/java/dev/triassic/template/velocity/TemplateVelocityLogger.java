@@ -28,6 +28,12 @@ import dev.triassic.template.TemplateLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 
+/**
+ * Implementation of {@link TemplateLogger} for the Bungeecord platform.
+ *
+ * <p>This class provides logging methods that wrap around {@link Logger} and output
+ * messages at different levels (severe, error, warning, info).</p>
+ */
 @RequiredArgsConstructor
 public class TemplateVelocityLogger implements TemplateLogger {
 

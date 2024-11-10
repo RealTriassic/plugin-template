@@ -24,6 +24,10 @@
 
 package dev.triassic.template;
 
+/**
+ * Interface for wrapping platform-specific logger implementations.
+ * Provides a unified API for logging across different platforms.
+ */
 public interface TemplateLogger {
 
     /**

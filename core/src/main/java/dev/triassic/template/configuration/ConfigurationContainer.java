@@ -24,18 +24,24 @@
 
 package dev.triassic.template.configuration;
 
-import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurateException;
-import org.spongepowered.configurate.yaml.NodeStyle;
-import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.yaml.NodeStyle;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
+/**
+ * A container for managing the application's configuration loaded from a YAML file.
+ *
+ * <p>This class provides methods to load, reload, and access the configuration data.</p>
+ *
+ * @param <C> the type of the configuration object
+ */
 public class ConfigurationContainer<C> {
 
     private static final String HEADER = """
@@ -49,6 +55,14 @@ public class ConfigurationContainer<C> {
     private final AtomicReference<C> config;
     private final YamlConfigurationLoader loader;
 
+    /**
+     * Creates a {@link ConfigurationContainer} with the
+     * given configuration, class type, and loader.
+     *
+     * @param config the initial configuration
+     * @param clazz the class type of the configuration
+     * @param loader the {@link YamlConfigurationLoader}
+     */
     private ConfigurationContainer(
             final C config,
             final Class<C> clazz,
@@ -59,6 +73,17 @@ public class ConfigurationContainer<C> {
         this.config = new AtomicReference<>(config);
     }
 
+    /**
+     * Loads the configuration from the path and
+     * creates a new {@link ConfigurationContainer} instance.
+     * If the configuration file does not exist, it will create a new one with default values.
+     *
+     * @param path the path to the configuration file
+     * @param clazz the class type of the configuration object
+     * @param <C> the type of the configuration object
+     * @return a {@link ConfigurationContainer} instance containing the loaded configuration
+     * @throws IOException if an error occurs while loading the configuration
+     */
     public static <C> ConfigurationContainer<C> load(
             Path path,
             final Class<C> clazz
@@ -85,6 +110,12 @@ public class ConfigurationContainer<C> {
         return new ConfigurationContainer<>(config, clazz, loader);
     }
 
+    /**
+     * Reloads the configuration from disk, asynchronously.
+     * The current configuration object is updated with the newly loaded data.
+     *
+     * @return a {@link CompletableFuture} that completes when the reload is complete.
+     */
     public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             try {
@@ -96,6 +127,11 @@ public class ConfigurationContainer<C> {
         });
     }
 
+    /**
+     * Gets the current configuration object.
+     *
+     * @return the current configuration
+     */
     public C get() {
         return config.get();
     }

@@ -24,16 +24,25 @@
 
 package dev.triassic.template.util;
 
-import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.util.Set;
+import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * Utility class for loading resource bundles, prioritizing properties from a local file.
+ * If the local file is not available, it falls back to loading from the classpath resources.
+ */
 public class ResourceBundleUtil {
 
     /**
@@ -54,7 +63,8 @@ public class ResourceBundleUtil {
     }
 
     /**
-     * Custom {@link ResourceBundle.Control} implementation to load resources from both the classpath and local files.
+     * Custom {@link ResourceBundle.Control} implementation to load
+     * resources from both the classpath and local files.
      */
     @RequiredArgsConstructor
     private static class FileControl extends ResourceBundle.Control {
@@ -64,23 +74,27 @@ public class ResourceBundleUtil {
         public @Nullable ResourceBundle newBundle(String baseName, Locale locale, String format,
                                                   ClassLoader loader, boolean reload)
                 throws IllegalAccessException, InstantiationException, IOException {
-            if (!"java.properties".equals(format))
+            if (!"java.properties".equals(format)) {
                 return super.newBundle(baseName, locale, format, loader, reload);
+            }
 
             final String bundleName = toBundleName(baseName, locale);
             final String resourceName = toResourceName(bundleName, "properties");
 
             PropertyResourceBundle resourceBundle = null;
             try (final InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
-                if (resourceStream != null)
+                if (resourceStream != null) {
                     resourceBundle = new PropertyResourceBundle(resourceStream);
+                }
 
                 path = path.resolve(resourceName);
                 if (Files.exists(path)) {
                     try (final InputStream localStream = Files.newInputStream(path)) {
-                        final PropertyResourceBundle localBundle = new PropertyResourceBundle(localStream);
-                        if (resourceBundle != null)
+                        final PropertyResourceBundle localBundle =
+                            new PropertyResourceBundle(localStream);
+                        if (resourceBundle != null) {
                             return new MergedResourceBundle(localBundle, resourceBundle);
+                        }
 
                         return localBundle;
                     }
@@ -92,7 +106,8 @@ public class ResourceBundleUtil {
     }
 
     /**
-     * A merged resource bundle that combines properties from both the local file and the classpath resource bundle.
+     * A merged resource bundle that combines properties
+     * from both the local file and the classpath resource bundle.
      */
     @RequiredArgsConstructor
     private static class MergedResourceBundle extends ResourceBundle {
@@ -101,8 +116,9 @@ public class ResourceBundleUtil {
 
         @Override
         protected Object handleGetObject(@NonNull String key) {
-            if (localBundle.containsKey(key))
+            if (localBundle.containsKey(key)) {
                 return localBundle.getString(key);
+            }
 
             return resourceBundle.getObject(key);
         }

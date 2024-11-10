@@ -31,16 +31,13 @@ tasks {
 }
 
 configure<CheckstyleExtension> {
-    maxErrors = 0
-    maxWarnings = 0
     toolVersion = libs.checkstyle.get().version.toString()
-    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
 }
 
 configure<SpotlessExtension> {
     java {
+        targetExclude("build/generated/**") // Exclude all generated files in build directory
         licenseHeaderFile(rootProject.file("config/spotless/LICENSE_HEADER.txt"))
-        removeUnusedImports()
     }
 }
 

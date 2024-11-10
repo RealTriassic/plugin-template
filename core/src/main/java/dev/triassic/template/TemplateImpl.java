@@ -29,11 +29,14 @@ import dev.triassic.template.configuration.ConfigurationContainer;
 import dev.triassic.template.localization.LocalizationCache;
 import dev.triassic.template.localization.MessageProvider;
 import dev.triassic.template.util.PlatformType;
-import lombok.Getter;
-
 import java.io.IOException;
 import java.nio.file.Path;
+import lombok.Getter;
 
+/**
+ * The main class responsible for managing platform-specific data, configuration,
+ * localization, and logging.
+ */
 @Getter
 public class TemplateImpl {
 
@@ -45,6 +48,12 @@ public class TemplateImpl {
     private ConfigurationContainer<Configuration> config;
     private LocalizationCache localizationCache;
 
+    /**
+     * Initializes a new {@link TemplateImpl} instance.
+     *
+     * @param platformType the type of platform
+     * @param bootstrap    platform-specific bootstrap instance
+     */
     public TemplateImpl(
             final PlatformType platformType,
             final TemplateBootstrap bootstrap
@@ -65,8 +74,6 @@ public class TemplateImpl {
 
         this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);
-
-        logger.info(MessageProvider.translate("reloadCommandDescription"));
 
         logger.info("Enabled in " + (System.currentTimeMillis() - startTime) + "ms");
     }

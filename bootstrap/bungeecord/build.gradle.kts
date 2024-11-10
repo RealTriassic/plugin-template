@@ -1,8 +1,9 @@
 plugins {
-    id("template.platform-conventions")
+    id("conventions.shadow")
 }
 
 dependencies {
-    compileOnly(libs.bungeecord.api)
     implementation(project(":core"))
+
+    compileOnly(libs.bungeecord.api)
 }

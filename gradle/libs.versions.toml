@@ -1,25 +1,31 @@
 [versions]
 adventure = "4.17.0"
-blossom = "2.1.0"
-bungeecord = "1.19-R0.1-SNAPSHOT"
-cloud = "2.0.0-beta.8"
-cloud-core = "2.0.0-rc.2"
-configurate = "4.2.0-GeyserMC-SNAPSHOT"
-indra = "3.1.3"
-paper = "1.19.4-R0.1-SNAPSHOT"
-velocity = "3.4.0-SNAPSHOT"
-
-[libraries]
-adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
-adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
-bungeecord-api = { group = "net.md-5", name = "bungeecord-api", version.ref = "bungeecord" }
-cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud-core" }
-cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version.ref = "cloud" }
-configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
-paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
-velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
 
 [plugins]
-blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
-indra-git = { id = "net.kyori.indra.git", version.ref = "indra" }
-shadow = { id = "com.gradleup.shadow", version = "8.3.4" }
+blossom = { id = "net.kyori.blossom", version = "2.1.0" }
+indra-git = { id = "net.kyori.indra.git", version = "3.1.3" }
+
+[libraries]
+# Adventure Libraries
+adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
+adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+
+# Cloud Libraries
+cloud-core = { group = "org.incendo", name = "cloud-core", version = "2.0.0" }
+cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version = "2.0.0-beta.10" }
+
+# Config and YAML Libraries
+configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version = "4.2.0-GeyserMC-SNAPSHOT" }
+
+# Server APIs
+bungeecord-api = { group = "net.md-5", name = "bungeecord-api", version = "1.19-R0.1-SNAPSHOT" }
+paper-api = { group = "io.papermc.paper", name = "paper-api", version = "1.19.4-R0.1-SNAPSHOT" }
+velocity-api = { group = "com.velocitypowered", name = "velocity-api", version = "3.4.0-SNAPSHOT" }
+
+# Checkstyle
+checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "10.20.1" }
+
+# Gradle Plugins
+lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "8.10.2" }
+shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "8.3.5" }
+spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "7.0.0.BETA4" }

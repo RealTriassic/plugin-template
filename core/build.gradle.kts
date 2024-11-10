@@ -1,5 +1,5 @@
 plugins {
-    id("template.platform-conventions")
+    id("conventions.shadow")
     alias(libs.plugins.blossom)
     alias(libs.plugins.indra.git)
 }

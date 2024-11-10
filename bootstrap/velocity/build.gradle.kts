@@ -1,9 +1,10 @@
 plugins {
-    id("template.platform-conventions")
+    id("conventions.shadow")
 }
 
 dependencies {
+    implementation(project(":core"))
+
     compileOnly(libs.velocity.api)
     annotationProcessor(libs.velocity.api)
-    implementation(project(":core"))
 }

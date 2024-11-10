@@ -1,4 +1,4 @@
 plugins {
     eclipse
-    id("template.java-conventions")
+    id("conventions.base")
 }

@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package dev.triassic.template.localization;
+package dev.triassic.template.util;
 
+import dev.triassic.template.localization.LocalizationCache;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Optional;

@@ -27,7 +27,7 @@ package dev.triassic.template;
 import dev.triassic.template.configuration.Configuration;
 import dev.triassic.template.configuration.ConfigurationContainer;
 import dev.triassic.template.localization.LocalizationCache;
-import dev.triassic.template.localization.MessageProvider;
+import dev.triassic.template.util.MessageProvider;
 import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Path;

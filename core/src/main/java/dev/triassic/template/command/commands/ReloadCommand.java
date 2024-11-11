@@ -27,7 +27,7 @@ package dev.triassic.template.command.commands;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.command.TemplateCommand;
-import dev.triassic.template.localization.MessageProvider;
+import dev.triassic.template.util.MessageProvider;
 import java.util.Locale;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

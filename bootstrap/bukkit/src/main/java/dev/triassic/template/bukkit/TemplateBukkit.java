@@ -58,9 +58,9 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
     }
 
     /**
-     * Gets the logger for the template plugin.
+     * Gets the logger of the plugin.
      *
-     * @return the template logger
+     * @return the logger
      */
     public TemplateLogger templateLogger() {
         return this.logger;

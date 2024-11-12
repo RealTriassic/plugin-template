@@ -42,7 +42,7 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
  *
  * @param <C> the type of the configuration object
  */
-public class ConfigurationContainer<C> {
+public class ConfigurationManager<C> {
 
     private static final String HEADER = """
             TemplatePlugin Configuration File
@@ -56,14 +56,14 @@ public class ConfigurationContainer<C> {
     private final YamlConfigurationLoader loader;
 
     /**
-     * Creates a {@link ConfigurationContainer} with the
+     * Creates a {@link ConfigurationManager} with the
      * given configuration, class type, and loader.
      *
      * @param config the initial configuration
      * @param clazz the class type of the configuration
      * @param loader the {@link YamlConfigurationLoader}
      */
-    private ConfigurationContainer(
+    private ConfigurationManager(
             final C config,
             final Class<C> clazz,
             final YamlConfigurationLoader loader
@@ -75,16 +75,16 @@ public class ConfigurationContainer<C> {
 
     /**
      * Loads the configuration from the path and
-     * creates a new {@link ConfigurationContainer} instance.
+     * creates a new {@link ConfigurationManager} instance.
      * If the configuration file does not exist, it will create a new one with default values.
      *
      * @param path the path to the configuration file
      * @param clazz the class type of the configuration object
      * @param <C> the type of the configuration object
-     * @return a {@link ConfigurationContainer} instance containing the loaded configuration
+     * @return a {@link ConfigurationManager} instance containing the loaded configuration
      * @throws IOException if an error occurs while loading the configuration
      */
-    public static <C> ConfigurationContainer<C> load(
+    public static <C> ConfigurationManager<C> load(
             Path path,
             final Class<C> clazz
     ) throws IOException {
@@ -107,7 +107,7 @@ public class ConfigurationContainer<C> {
             loader.save(node);
         }
 
-        return new ConfigurationContainer<>(config, clazz, loader);
+        return new ConfigurationManager<>(config, clazz, loader);
     }
 
     /**

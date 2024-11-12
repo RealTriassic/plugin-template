@@ -29,12 +29,12 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 /**
- * Represents the application's main configuration file.
+ * Represents the application's base configuration file.
  */
 @Getter
 @ConfigSerializable
 @SuppressWarnings("FieldMayBeFinal")
-public class Configuration {
+public class BaseConfiguration {
 
     @Comment("The default locale used in messages.")
     private String defaultLocale = "en-US";

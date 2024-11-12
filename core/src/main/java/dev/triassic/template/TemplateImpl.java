@@ -24,7 +24,7 @@
 
 package dev.triassic.template;
 
-import dev.triassic.template.configuration.BaseConfiguration;
+import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.localization.LocalizationCache;
 import dev.triassic.template.util.MessageProvider;
@@ -45,7 +45,7 @@ public class TemplateImpl {
     private final Path dataFolder;
     private final TemplateLogger logger;
 
-    private ConfigurationManager<BaseConfiguration> config;
+    private ConfigurationManager<TemplateConfiguration> config;
     private LocalizationCache localizationCache;
 
     /**
@@ -66,7 +66,7 @@ public class TemplateImpl {
         this.logger = bootstrap.templateLogger();
 
         try {
-            this.config = ConfigurationManager.load(dataFolder, BaseConfiguration.class);
+            this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
         } catch (IOException e) {
             logger.error("Failed to load configuration", e);
             return;

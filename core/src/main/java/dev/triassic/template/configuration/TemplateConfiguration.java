@@ -34,7 +34,8 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @Getter
 @ConfigSerializable
 @SuppressWarnings("FieldMayBeFinal")
-public class BaseConfiguration {
+public class TemplateConfiguration
+{
 
     @Comment("The default locale used in messages.")
     private String defaultLocale = "en-US";

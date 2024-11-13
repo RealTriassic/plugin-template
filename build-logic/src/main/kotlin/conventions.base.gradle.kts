@@ -31,6 +31,7 @@ tasks {
 }
 
 configure<CheckstyleExtension> {
+    maxWarnings = 0
     toolVersion = libs.checkstyle.get().version.toString()
 }
 

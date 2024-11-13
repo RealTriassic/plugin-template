@@ -24,8 +24,8 @@
 
 package dev.triassic.template;
 
-import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.configuration.ConfigurationManager;
+import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
 import dev.triassic.template.util.MessageProvider;
 import dev.triassic.template.util.PlatformType;

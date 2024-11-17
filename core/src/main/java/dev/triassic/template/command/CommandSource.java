@@ -30,7 +30,7 @@ package dev.triassic.template.command;
 import net.kyori.adventure.audience.Audience;
 
 /**
- * Represents the source of a command executor.
+ * Represents the source of a {@link TemplateCommand} executor.
  */
 public interface CommandSource extends Audience {
 

@@ -30,16 +30,26 @@ package dev.triassic.template.bungee;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.bungee.command.BungeeCommandSource;
+import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.SenderMapper;
+import org.incendo.cloud.bungee.BungeeCommandManager;
+import org.incendo.cloud.execution.ExecutionCoordinator;
 
 /**
- * Main class for the Template plugin on Bungeecord.
+ * The main entry point for the plugin on the Bungeecord platform.
+ *
+ * <p>It implements {@link TemplateBootstrap}
+ * to provide necessary platform-specific functionality.</p>
  */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private final TemplateBungeeLogger logger = new TemplateBungeeLogger(getLogger());
+    private BungeeCommandManager<CommandSource> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -48,24 +58,30 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
+        this.commandManager = new BungeeCommandManager<>(
+            this,
+            ExecutionCoordinator.simpleCoordinator(),
+            SenderMapper.create(
+                serverCommandSource -> (CommandSource) serverCommandSource,
+                commandSource -> ((BungeeCommandSource) commandSource).commandSender()
+            )
+        );
+
         new TemplateImpl(PlatformType.BUNGEECORD, this);
     }
 
-    /**
-     * Gets the data directory of the plugin.
-     *
-     * @return the data directory path
-     */
+    @Override
     public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
-    /**
-     * Gets the logger of the plugin.
-     *
-     * @return the logger
-     */
+    @Override
     public TemplateLogger templateLogger() {
         return this.logger;
+    }
+
+    @Override
+    public CommandManager<CommandSource> commandManager() {
+        return this.commandManager;
     }
 }

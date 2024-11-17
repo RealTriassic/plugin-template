@@ -27,6 +27,7 @@
 
 package dev.triassic.template;
 
+import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -35,6 +36,7 @@ import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Path;
 import lombok.Getter;
+import org.incendo.cloud.CommandManager;
 
 /**
  * The main class responsible for managing platform-specific data, configuration,
@@ -50,6 +52,7 @@ public class TemplateImpl {
 
     private ConfigurationManager<TemplateConfiguration> config;
     private LocalizationCache localizationCache;
+    private CommandManager<CommandSource> commandManager;
 
     /**
      * Initializes a new {@link TemplateImpl} instance.
@@ -77,6 +80,8 @@ public class TemplateImpl {
 
         this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);
+
+        this.commandManager = bootstrap.commandManager();
 
         logger.info("Enabled in " + (System.currentTimeMillis() - startTime) + "ms");
     }

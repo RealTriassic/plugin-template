@@ -25,35 +25,7 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template;
+package dev.triassic.template.velocity.command;
 
-import dev.triassic.template.command.CommandSource;
-import java.nio.file.Path;
-import org.incendo.cloud.CommandManager;
-
-/**
- * Interface for platform-specific bootstrap logic.
- */
-public interface TemplateBootstrap {
-
-    /**
-     * Gets the path to the platform's data directory.
-     *
-     * @return the path to the data directory
-     */
-    Path dataDirectory();
-
-    /**
-     * Gets the {@link TemplateLogger} instance used for logging for this platform.
-     *
-     * @return the {@link TemplateLogger} instance
-     */
-    TemplateLogger templateLogger();
-
-    /**
-     * Gets the {@link CommandManager} instance used to manage commands for this platform.
-     *
-     * @return the {@link CommandManager} instance
-     */
-    CommandManager<CommandSource> commandManager();
+public interface VelocityCommandSource {
 }

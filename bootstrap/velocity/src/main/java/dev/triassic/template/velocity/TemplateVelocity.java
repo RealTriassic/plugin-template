@@ -35,12 +35,21 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.util.PlatformType;
+import dev.triassic.template.velocity.command.VelocityCommandSource;
 import java.nio.file.Path;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.SenderMapper;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.velocity.VelocityCommandManager;
 import org.slf4j.Logger;
 
 /**
- * Main class for the Template plugin on Velocity.
+ * The main entry point for the plugin on the Velocity platform.
+ *
+ * <p>It implements {@link TemplateBootstrap}
+ * to provide necessary platform-specific functionality.</p>
  */
 @Plugin(
         id = "templateplugin",
@@ -55,6 +64,7 @@ public class TemplateVelocity implements TemplateBootstrap {
     private Path dataFolder;
 
     private final TemplateVelocityLogger logger = new TemplateVelocityLogger(slf4jLogger);
+    private VelocityCommandManager<CommandSource> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -63,24 +73,31 @@ public class TemplateVelocity implements TemplateBootstrap {
      */
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
+        this.commandManager = new VelocityCommandManager<>(
+            this,
+            this,
+            ExecutionCoordinator.simpleCoordinator(),
+            SenderMapper.create(
+                serverCommandSource -> (CommandSource) serverCommandSource,
+                commandSource -> ((VelocityCommandSource) commandSource).commandSender()
+            )
+        );
+
         new TemplateImpl(PlatformType.VELOCITY, this);
     }
 
-    /**
-     * Gets the data directory of the plugin.
-     *
-     * @return the data directory path
-     */
+    @Override
     public Path dataDirectory() {
         return this.dataFolder;
     }
 
-    /**
-     * Gets the logger of the plugin.
-     *
-     * @return the logger
-     */
+    @Override
     public TemplateLogger templateLogger() {
         return this.logger;
+    }
+
+    @Override
+    public CommandManager<CommandSource> commandManager() {
+        return this.commandManager;
     }
 }

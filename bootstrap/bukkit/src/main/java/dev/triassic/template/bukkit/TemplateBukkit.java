@@ -30,16 +30,27 @@ package dev.triassic.template.bukkit;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
+import dev.triassic.template.bukkit.command.BukkitCommandSource;
+import dev.triassic.template.command.CommandSource;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.SenderMapper;
+import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
 
 /**
- * Main class for the Template plugin on Bukkit.
+ * The main entry point for the plugin on the Bukkit platform.
+ *
+ * <p>It implements {@link TemplateBootstrap}
+ * to provide necessary platform-specific functionality.</p>
  */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
-    private final TemplateBukkitLogger logger = new TemplateBukkitLogger(getLogger());
+    private TemplateBukkitLogger logger;
+    private LegacyPaperCommandManager<CommandSource> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -48,24 +59,38 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
+        this.logger = new TemplateBukkitLogger(this.getLogger());
+
+        this.commandManager = new LegacyPaperCommandManager<>(
+            this,
+            ExecutionCoordinator.simpleCoordinator(),
+            SenderMapper.create(
+                serverCommandSource -> (CommandSource) serverCommandSource,
+                commandSource -> ((BukkitCommandSource) commandSource).commandSender()
+            )
+        );
+
+        if (this.commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
+            this.commandManager.registerBrigadier();
+        } else if (this.commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+            this.commandManager.registerAsynchronousCompletions();
+        }
+
         new TemplateImpl(PlatformType.BUKKIT, this);
     }
 
-    /**
-     * Gets the data directory of the plugin.
-     *
-     * @return the data directory path
-     */
+    @Override
     public Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
-    /**
-     * Gets the logger of the plugin.
-     *
-     * @return the logger
-     */
+    @Override
     public TemplateLogger templateLogger() {
         return this.logger;
+    }
+
+    @Override
+    public CommandManager<CommandSource> commandManager() {
+        return this.commandManager;
     }
 }

@@ -27,6 +27,7 @@
 
 package dev.triassic.template.bukkit.command;
 
+import dev.triassic.template.TemplatePermission;
 import dev.triassic.template.command.CommandSource;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
@@ -42,9 +43,9 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 public interface BukkitCommandSource extends CommandSource, ForwardingAudience.Single {
 
     /**
-     * Wraps a {@link CommandSender} as a {@link BukkitCommandSource}.
+     * Wraps a {@link org.bukkit.command.CommandSender} as a {@link BukkitCommandSource}.
      *
-     * @param sender the {@link CommandSender} to wrap.
+     * @param sender the {@link org.bukkit.command.CommandSender} to wrap.
      * @return a {@link BukkitCommandSource} instance.
      */
     static BukkitCommandSource wrap(CommandSender sender) {
@@ -52,15 +53,15 @@ public interface BukkitCommandSource extends CommandSource, ForwardingAudience.S
     }
 
     /**
-     * Gets the underlying {@link CommandSender} associated with this source.
+     * Gets the underlying {@link org.bukkit.command.CommandSender} associated with this source.
      *
-     * @return the wrapped {@link CommandSender}.
+     * @return the wrapped {@link org.bukkit.command.CommandSender}.
      */
-    CommandSender sender();
+    CommandSender commandSender();
 
     /**
      * Implementation of {@link BukkitCommandSource} that delegates all operations
-     * to the provided {@link CommandSender}.
+     * to the provided {@link org.bukkit.command.CommandSender}.
      */
     record BukkitCommandSourceImpl(CommandSender sender) implements BukkitCommandSource {
 
@@ -70,8 +71,8 @@ public interface BukkitCommandSource extends CommandSource, ForwardingAudience.S
         }
 
         @Override
-        public boolean hasPermission(String permission) {
-            return sender.hasPermission(permission);
+        public boolean hasPermission(final TemplatePermission permission) {
+            return sender.hasPermission(permission.getPermission());
         }
     }
 }

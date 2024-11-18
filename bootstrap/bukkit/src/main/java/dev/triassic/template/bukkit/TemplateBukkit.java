@@ -66,7 +66,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
                 serverCommandSource -> (CommandSource) serverCommandSource,
-                commandSource -> ((BukkitCommandSource) commandSource).commandSender()
+                commandSource -> (BukkitCommandSource) commandSource
             )
         );
 
@@ -76,7 +76,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             this.commandManager.registerAsynchronousCompletions();
         }
 
-        new TemplateImpl(PlatformType.BUKKIT, this);
+        new TemplateImpl(this, PlatformType.BUKKIT);
     }
 
     @Override

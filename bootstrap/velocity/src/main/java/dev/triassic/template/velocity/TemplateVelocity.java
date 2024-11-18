@@ -83,7 +83,7 @@ public class TemplateVelocity implements TemplateBootstrap {
             )
         );
 
-        new TemplateImpl(PlatformType.VELOCITY, this);
+        new TemplateImpl(this, PlatformType.VELOCITY);
     }
 
     @Override

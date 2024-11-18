@@ -28,43 +28,40 @@
 package dev.triassic.template.bungee.command;
 
 import dev.triassic.template.command.CommandSource;
-import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
-import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
-import net.md_5.bungee.api.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
- * Represents a command source in the Bungeecord platform that wraps a {@link CommandSender}.
+ * Represents a command source in the Bungeecord platform that wraps a {@link net.md_5.bungee.api.CommandSender}.
  * It provides methods to interact with commands, permissions, and audiences.
  */
 @DefaultQualifier(NonNull.class)
 public interface BungeeCommandSource extends CommandSource, ForwardingAudience.Single {
 
     /**
-     * Creates a new {@link BungeeCommandSource} instance from a given {@link CommandSender}.
+     * Creates a new {@link BungeeCommandSource} instance from a given {@link net.md_5.bungee.api.CommandSender}.
      *
-     * @param sender the {@link CommandSender} to wrap in a {@link BungeeCommandSource}.
+     * @param sender the {@link net.md_5.bungee.api.CommandSender} to wrap in a {@link BungeeCommandSource}.
      * @return a new {@link BungeeCommandSource} instance.
      */
-    static BungeeCommandSource from(final CommandSender sender) {
+    static BungeeCommandSource from(final net.md_5.bungee.api.CommandSender sender) {
         return new BungeeCommandSourceImpl(sender);
     }
 
     /**
-     * Returns the underlying {@link CommandSender} for this {@link BungeeCommandSource}.
+     * Returns the underlying {@link net.md_5.bungee.api.CommandSender} for this {@link BungeeCommandSource}.
      *
-     * @return the {@link CommandSender} that this source delegates to.
+     * @return the {@link net.md_5.bungee.api.CommandSender} that this source delegates to.
      */
-    CommandSender commandSender();
+    net.md_5.bungee.api.CommandSender commandSender();
 
     /**
-     * Implementation of {@link BungeeCommandSource} that wraps a {@link CommandSender}.
-     * This record delegates command-related methods to the underlying {@link CommandSender}.
+     * Implementation of {@link BungeeCommandSource} that wraps a {@link net.md_5.bungee.api.CommandSender}.
+     * This record delegates command-related methods to the underlying {@link net.md_5.bungee.api.CommandSender}.
      */
-    record BungeeCommandSourceImpl(CommandSender commandSender) implements BungeeCommandSource {
+    record BungeeCommandSourceImpl(net.md_5.bungee.api.CommandSender commandSender) implements BungeeCommandSource {
 
         @Override
         public Audience audience() {

@@ -25,21 +25,22 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.command;
+package dev.triassic.template;
 
-import dev.triassic.template.TemplatePermission;
-import net.kyori.adventure.audience.Audience;
+import lombok.Getter;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Represents the source of a {@link TemplateCommand} executor.
+ * Represents the available plugin permissions.
  */
-public interface CommandSource extends Audience {
+@Getter
+public enum TemplatePermission {
 
-    /**
-     * Checks if this command source has the given permission.
-     *
-     * @param permission The {@link TemplatePermission} to check for
-     * @return {@code true} if this command source has the given permission
-     */
-    boolean hasPermission(TemplatePermission permission);
+    RELOAD_COMMAND("template.command.reload");
+
+    private final String permission;
+
+    TemplatePermission(final @NonNull String permission) {
+        this.permission = permission;
+    }
 }

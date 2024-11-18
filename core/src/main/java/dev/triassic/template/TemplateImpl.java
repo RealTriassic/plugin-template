@@ -39,50 +39,49 @@ import lombok.Getter;
 import org.incendo.cloud.CommandManager;
 
 /**
- * The main class responsible for managing platform-specific data, configuration,
- * localization, and logging.
+ * Handles platform-specific data, configuration, localization, and logging.
+ * Serves as the main class for initializing and managing the platform.
  */
 @Getter
 public class TemplateImpl {
 
-    private final PlatformType platformType;
-
     private final Path dataFolder;
     private final TemplateLogger logger;
+    private final PlatformType platformType;
+    private final LocalizationCache localizationCache;
+    private final CommandManager<CommandSource> commandManager;
 
     private ConfigurationManager<TemplateConfiguration> config;
-    private LocalizationCache localizationCache;
-    private CommandManager<CommandSource> commandManager;
 
     /**
      * Initializes a new {@link TemplateImpl} instance.
      *
-     * @param platformType the type of platform
-     * @param bootstrap    platform-specific bootstrap instance
+     * @param bootstrap    platform-specific {@link TemplateBootstrap} instance
+     * @param platformType the type of {@link PlatformType}
      */
     public TemplateImpl(
-            final PlatformType platformType,
-            final TemplateBootstrap bootstrap
+            final TemplateBootstrap bootstrap,
+            final PlatformType platformType
     ) {
         final long startTime = System.currentTimeMillis();
 
-        this.platformType = platformType;
-
         this.dataFolder = bootstrap.dataDirectory();
         this.logger = bootstrap.templateLogger();
-
-        try {
-            this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
-        } catch (IOException e) {
-            logger.error("Failed to load configuration", e);
-            return;
-        }
+        this.platformType = platformType;
 
         this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);
 
         this.commandManager = bootstrap.commandManager();
 
-        logger.info("Enabled in " + (System.currentTimeMillis() - startTime) + "ms");
+        try {
+            this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
+        } catch (IOException e) {
+            logger.error(MessageProvider.translate("template.config.load.fail"), e);
+            return;
+        }
+
+        logger.info(MessageProvider.translate(
+            "template.enabled", System.currentTimeMillis() - startTime));
     }
 }

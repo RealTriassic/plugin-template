@@ -67,7 +67,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
             )
         );
 
-        new TemplateImpl(PlatformType.BUNGEECORD, this);
+        new TemplateImpl(this, PlatformType.BUNGEECORD);
     }
 
     @Override

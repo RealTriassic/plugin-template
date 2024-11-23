@@ -30,8 +30,8 @@ package dev.triassic.template.bungee;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
-import dev.triassic.template.bungee.command.BungeeCommandSource;
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.bungee.command.BungeeCommander;
+import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -49,7 +49,7 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private final TemplateBungeeLogger logger = new TemplateBungeeLogger(getLogger());
-    private BungeeCommandManager<CommandSource> commandManager;
+    private BungeeCommandManager<Commander> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -62,8 +62,8 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                serverCommandSource -> (CommandSource) serverCommandSource,
-                commandSource -> ((BungeeCommandSource) commandSource).commandSender()
+                serverCommandSource -> (Commander) serverCommandSource,
+                commandSource -> ((BungeeCommander) commandSource).commandSender()
             )
         );
 
@@ -81,7 +81,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
     }
 
     @Override
-    public CommandManager<CommandSource> commandManager() {
+    public CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

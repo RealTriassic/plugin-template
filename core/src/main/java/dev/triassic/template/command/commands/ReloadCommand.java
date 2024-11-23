@@ -27,45 +27,66 @@
 
 package dev.triassic.template.command.commands;
 
+import static org.incendo.cloud.minecraft.extras.RichDescription.richDescription;
+
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.util.MessageProvider;
 import java.util.Locale;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.cloud.Command;
 import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.bean.CommandBean;
+import org.incendo.cloud.bean.CommandProperties;
 import org.incendo.cloud.context.CommandContext;
 
 /**
- * The reload command, reloads the application and it's configuration.
+ * A command that reloads the application's configuration.
  */
-public class ReloadCommand extends TemplateCommand {
+public class ReloadCommand extends CommandBean<Commander> implements TemplateCommand {
 
-    /**
-     * Initializes a new {@link ReloadCommand} instance.
-     *
-     * @param instance the {@link TemplateImpl} instance
-     * @param commandManager the {@link CommandManager} to register the command with
-     */
-    public ReloadCommand(
-            final TemplateImpl instance,
-            final CommandManager<CommandSource> commandManager
+    private TemplateImpl instance;
+
+    @Override
+    public void register(
+        @NonNull TemplateImpl instance,
+        @NonNull CommandManager<Commander> commandManager
     ) {
-        super(instance, commandManager, "reload",
-            Component.text(MessageProvider.translate("reloadCommandDescription", Locale.ENGLISH)));
+        this.instance = instance;
+        commandManager.command(this);
     }
 
     @Override
-    protected void execute(CommandContext<CommandSource> ctx) {
+    protected @NonNull CommandProperties properties() {
+        return CommandProperties.of("reload");
+    }
+
+    @Override
+    protected Command.@NonNull Builder<? extends Commander> configure(
+        Command.@NonNull Builder<Commander> builder
+    ) {
+        return builder
+            .senderType(Commander.class)
+            .permission("template.command.reload")
+            .commandDescription(richDescription(
+                Component.text(MessageProvider.translate("reloadCommandDescription"))
+            ));
+    }
+
+    @Override
+    public void execute(final @NonNull CommandContext<Commander> commandContext) {
+        final Commander sender = commandContext.sender();
         instance.getConfig().reload().handleAsync((v, ex) -> {
             if (ex == null) {
-                ctx.sender().sendMessage(Component.text(
+                sender.sendMessage(Component.text(
                     MessageProvider.translate(
                         "reloadCommandSuccess", Locale.ENGLISH), NamedTextColor.GREEN)
                 );
             } else {
-                ctx.sender().sendMessage(Component.text(
+                sender.sendMessage(Component.text(
                     MessageProvider.translate(
                         "reloadCommandFailure", Locale.ENGLISH), NamedTextColor.RED)
                 );

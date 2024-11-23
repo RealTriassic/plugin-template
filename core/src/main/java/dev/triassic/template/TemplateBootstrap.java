@@ -27,7 +27,7 @@
 
 package dev.triassic.template;
 
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.command.Commander;
 import java.nio.file.Path;
 import org.incendo.cloud.CommandManager;
 
@@ -55,5 +55,5 @@ public interface TemplateBootstrap {
      *
      * @return the {@link CommandManager} instance
      */
-    CommandManager<CommandSource> commandManager();
+    CommandManager<Commander> commandManager();
 }

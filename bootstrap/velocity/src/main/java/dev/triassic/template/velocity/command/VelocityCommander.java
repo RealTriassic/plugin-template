@@ -25,21 +25,8 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.command;
+package dev.triassic.template.velocity.command;
 
-import dev.triassic.template.TemplatePermission;
-import net.kyori.adventure.audience.Audience;
-
-/**
- * Represents the source of a {@link TemplateCommand} executor.
- */
-public interface CommandSource extends Audience {
-
-    /**
-     * Checks if this command source has the given permission.
-     *
-     * @param permission The {@link TemplatePermission} to check for
-     * @return {@code true} if this command source has the given permission
-     */
-    boolean hasPermission(TemplatePermission permission);
+public interface VelocityCommander
+{
 }

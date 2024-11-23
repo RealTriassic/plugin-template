@@ -35,9 +35,9 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
-import dev.triassic.template.velocity.command.VelocityCommandSource;
+import dev.triassic.template.velocity.command.VelocityCommander;
 import java.nio.file.Path;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
@@ -64,7 +64,7 @@ public class TemplateVelocity implements TemplateBootstrap {
     private Path dataFolder;
 
     private final TemplateVelocityLogger logger = new TemplateVelocityLogger(slf4jLogger);
-    private VelocityCommandManager<CommandSource> commandManager;
+    private VelocityCommandManager<Commander> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -78,8 +78,8 @@ public class TemplateVelocity implements TemplateBootstrap {
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                serverCommandSource -> (CommandSource) serverCommandSource,
-                commandSource -> ((VelocityCommandSource) commandSource).commandSender()
+                serverCommandSource -> (Commander) serverCommandSource,
+                commandSource -> ((VelocityCommander) commandSource).commandSender()
             )
         );
 
@@ -97,7 +97,7 @@ public class TemplateVelocity implements TemplateBootstrap {
     }
 
     @Override
-    public CommandManager<CommandSource> commandManager() {
+    public CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

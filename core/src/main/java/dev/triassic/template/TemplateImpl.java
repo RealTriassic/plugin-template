@@ -27,7 +27,9 @@
 
 package dev.triassic.template;
 
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.command.Commander;
+import dev.triassic.template.command.TemplateCommand;
+import dev.triassic.template.command.commands.ReloadCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -35,6 +37,8 @@ import dev.triassic.template.util.MessageProvider;
 import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import lombok.Getter;
 import org.incendo.cloud.CommandManager;
 
@@ -45,11 +49,15 @@ import org.incendo.cloud.CommandManager;
 @Getter
 public class TemplateImpl {
 
+    private static final List<TemplateCommand> commands = Arrays.asList(
+        new ReloadCommand()
+    );
+
     private final Path dataFolder;
     private final TemplateLogger logger;
     private final PlatformType platformType;
     private final LocalizationCache localizationCache;
-    private final CommandManager<CommandSource> commandManager;
+    private final CommandManager<Commander> commandManager;
 
     private ConfigurationManager<TemplateConfiguration> config;
 
@@ -73,6 +81,8 @@ public class TemplateImpl {
         MessageProvider.setLocalizationCache(localizationCache);
 
         this.commandManager = bootstrap.commandManager();
+
+        commands.forEach(command -> command.register(this, commandManager));
 
         try {
             this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);

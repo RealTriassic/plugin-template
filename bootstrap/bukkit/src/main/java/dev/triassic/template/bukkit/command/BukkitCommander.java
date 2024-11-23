@@ -28,7 +28,7 @@
 package dev.triassic.template.bukkit.command;
 
 import dev.triassic.template.TemplatePermission;
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
 import org.bukkit.command.CommandSender;
@@ -40,15 +40,15 @@ import org.checkerframework.framework.qual.DefaultQualifier;
  * It provides methods to interact with commands, permissions, and audiences.
  */
 @DefaultQualifier(NonNull.class)
-public interface BukkitCommandSource extends CommandSource, ForwardingAudience.Single {
+public interface BukkitCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Wraps a {@link org.bukkit.command.CommandSender} as a {@link BukkitCommandSource}.
+     * Wraps a {@link org.bukkit.command.CommandSender} as a {@link BukkitCommander}.
      *
      * @param sender the {@link org.bukkit.command.CommandSender} to wrap.
-     * @return a {@link BukkitCommandSource} instance.
+     * @return a {@link BukkitCommander} instance.
      */
-    static BukkitCommandSource wrap(CommandSender sender) {
+    static BukkitCommander wrap(CommandSender sender) {
         return new BukkitCommandSourceImpl(sender);
     }
 
@@ -60,10 +60,11 @@ public interface BukkitCommandSource extends CommandSource, ForwardingAudience.S
     CommandSender commandSender();
 
     /**
-     * Implementation of {@link BukkitCommandSource} that delegates all operations
+     * Implementation of {@link BukkitCommander} that delegates all operations
      * to the provided {@link org.bukkit.command.CommandSender}.
      */
-    record BukkitCommandSourceImpl(CommandSender sender) implements BukkitCommandSource {
+    record BukkitCommandSourceImpl(CommandSender sender) implements BukkitCommander
+    {
 
         @Override
         public Audience audience() {

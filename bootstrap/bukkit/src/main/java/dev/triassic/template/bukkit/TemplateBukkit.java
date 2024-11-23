@@ -30,8 +30,8 @@ package dev.triassic.template.bukkit;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
-import dev.triassic.template.bukkit.command.BukkitCommandSource;
-import dev.triassic.template.command.CommandSource;
+import dev.triassic.template.bukkit.command.BukkitCommander;
+import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,7 +50,7 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager;
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
     private TemplateBukkitLogger logger;
-    private LegacyPaperCommandManager<CommandSource> commandManager;
+    private LegacyPaperCommandManager<Commander> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -65,8 +65,8 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                serverCommandSource -> (CommandSource) serverCommandSource,
-                commandSource -> (BukkitCommandSource) commandSource
+                serverCommandSource -> (Commander) serverCommandSource,
+                commandSource -> (BukkitCommander) commandSource
             )
         );
 
@@ -90,7 +90,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
     }
 
     @Override
-    public CommandManager<CommandSource> commandManager() {
+    public CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

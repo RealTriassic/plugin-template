@@ -25,43 +25,20 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bukkit.command;
+package dev.triassic.template.velocity.command;
 
-import dev.triassic.template.command.Commander;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.audience.ForwardingAudience;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.command.CommandSender;
+import com.velocitypowered.api.command.CommandSource;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
- * Represents a Bukkit-specific {@link Commander}.
+ * A record implementation of {@link VelocityCommander}.
  */
 @DefaultQualifier(NonNull.class)
-public interface BukkitCommander extends Commander, ForwardingAudience.Single {
-
-    /**
-     * Gets the {@link BukkitAudiences} instance for handling audiences.
-     *
-     * @return The Bukkit audience handler.
-     */
-    BukkitAudiences getAdventure();
-
-    /**
-     * Gets the underlying Bukkit {@link CommandSender}.
-     *
-     * @return The Bukkit CommandSender.
-     */
-    CommandSender getCommandSender();
+public record VelocityCommanderImpl(CommandSource sender) implements VelocityCommander {
 
     @Override
-    default Audience audience() {
-        return getAdventure().sender(getCommandSender());
-    }
-
-    @Override
-    default boolean hasPermission(final String permission) {
-        return getCommandSender().hasPermission(permission);
+    public CommandSource getCommandSource() {
+        return sender;
     }
 }

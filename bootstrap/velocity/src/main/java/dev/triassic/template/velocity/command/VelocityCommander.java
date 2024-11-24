@@ -27,6 +27,33 @@
 
 package dev.triassic.template.velocity.command;
 
-public interface VelocityCommander
-{
+import com.velocitypowered.api.command.CommandSource;
+import dev.triassic.template.command.Commander;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.framework.qual.DefaultQualifier;
+
+/**
+ * Represents a Velocity-specific {@link Commander}.
+ */
+@DefaultQualifier(NonNull.class)
+public interface VelocityCommander extends Commander, ForwardingAudience.Single {
+
+    /**
+     * Gets the underlying Velocity {@link CommandSource}.
+     *
+     * @return The Velocity CommandSource.
+     */
+    CommandSource getCommandSource();
+
+    @Override
+    default Audience audience() {
+        return getCommandSource();
+    }
+
+    @Override
+    default boolean hasPermission(final String permission) {
+        return getCommandSource().hasPermission(permission);
+    }
 }

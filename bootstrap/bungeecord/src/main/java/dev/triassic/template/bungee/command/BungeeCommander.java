@@ -30,49 +30,38 @@ package dev.triassic.template.bungee.command;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
+import net.md_5.bungee.api.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
- * Represents a command source in the Bungeecord platform that wraps a {@link net.md_5.bungee.api.CommandSender}.
- * It provides methods to interact with commands, permissions, and audiences.
+ * Represents a Bungeecord-specific {@link Commander}.
  */
 @DefaultQualifier(NonNull.class)
 public interface BungeeCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Creates a new {@link BungeeCommander} instance from a given {@link net.md_5.bungee.api.CommandSender}.
+     * Gets the {@link BungeeAudiences} instance for handling audiences.
      *
-     * @param sender the {@link net.md_5.bungee.api.CommandSender} to wrap in a {@link BungeeCommander}.
-     * @return a new {@link BungeeCommander} instance.
+     * @return The Bungeecord audience handler.
      */
-    static BungeeCommander from(final net.md_5.bungee.api.CommandSender sender) {
-        return new BungeeCommandSourceImpl(sender);
+    BungeeAudiences getAdventure();
+
+    /**
+     * Gets the underlying Bungeecord {@link CommandSender}.
+     *
+     * @return The Bungeecord CommandSender.
+     */
+    CommandSender getCommandSender();
+
+    @Override
+    default Audience audience() {
+        return getAdventure().sender(getCommandSender());
     }
 
-    /**
-     * Returns the underlying {@link net.md_5.bungee.api.CommandSender} for this {@link BungeeCommander}.
-     *
-     * @return the {@link net.md_5.bungee.api.CommandSender} that this source delegates to.
-     */
-    net.md_5.bungee.api.CommandSender commandSender();
-
-    /**
-     * Implementation of {@link BungeeCommander} that wraps a {@link net.md_5.bungee.api.CommandSender}.
-     * This record delegates command-related methods to the underlying {@link net.md_5.bungee.api.CommandSender}.
-     */
-    record BungeeCommandSourceImpl(net.md_5.bungee.api.CommandSender commandSender) implements
-        BungeeCommander
-    {
-
-        @Override
-        public Audience audience() {
-            return this.commandSender;
-        }
-
-        @Override
-        public boolean hasPermission(final String permission) {
-            return this.commandSender.hasPermission(permission);
-        }
+    @Override
+    default boolean hasPermission(final String permission) {
+        return getCommandSender().hasPermission(permission);
     }
 }

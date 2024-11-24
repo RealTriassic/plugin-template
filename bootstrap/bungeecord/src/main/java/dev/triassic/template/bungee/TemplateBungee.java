@@ -31,9 +31,12 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.bungee.command.BungeeCommander;
+import dev.triassic.template.bungee.command.BungeeCommanderImpl;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
+import lombok.Getter;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
@@ -48,7 +51,9 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
  */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
-    private final TemplateBungeeLogger logger = new TemplateBungeeLogger(getLogger());
+    @Getter
+    private BungeeAudiences audiences;
+    private TemplateBungeeLogger logger;
     private BungeeCommandManager<Commander> commandManager;
 
     /**
@@ -58,12 +63,15 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
+        this.audiences = BungeeAudiences.create(this);
+        this.logger = new TemplateBungeeLogger(getLogger());
+
         this.commandManager = new BungeeCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                serverCommandSource -> (Commander) serverCommandSource,
-                commandSource -> ((BungeeCommander) commandSource).commandSender()
+                sender -> new BungeeCommanderImpl(audiences, sender),
+                commander -> ((BungeeCommander) commander).getCommandSender()
             )
         );
 

@@ -28,20 +28,26 @@
 package dev.triassic.template.velocity;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.ProxyServer;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import dev.triassic.template.velocity.command.VelocityCommander;
+import dev.triassic.template.velocity.command.VelocityCommanderImpl;
 import java.nio.file.Path;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.velocity.CloudInjectionModule;
 import org.incendo.cloud.velocity.VelocityCommandManager;
 import org.slf4j.Logger;
 
@@ -59,12 +65,28 @@ import org.slf4j.Logger;
 public class TemplateVelocity implements TemplateBootstrap {
 
     @Inject
-    private Logger slf4jLogger;
-    @DataDirectory
-    private Path dataFolder;
+    private Injector injector;
 
-    private final TemplateVelocityLogger logger = new TemplateVelocityLogger(slf4jLogger);
+    private final Logger slf4jLogger;
+    private final Path dataDirectory;
+
+    private TemplateVelocityLogger logger;
     private VelocityCommandManager<Commander> commandManager;
+
+    /**
+     * hi.
+     *
+     * @param slf4jLogger yurrrr
+     * @param dataDirectory yea
+     */
+    @Inject
+    public TemplateVelocity(
+        Logger slf4jLogger,
+        @DataDirectory Path dataDirectory
+    ) {
+        this.slf4jLogger = slf4jLogger;
+        this.dataDirectory = dataDirectory;
+    }
 
     /**
      * Called when the plugin is enabled.
@@ -73,14 +95,21 @@ public class TemplateVelocity implements TemplateBootstrap {
      */
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
-        this.commandManager = new VelocityCommandManager<>(
-            this,
-            this,
-            ExecutionCoordinator.simpleCoordinator(),
-            SenderMapper.create(
-                serverCommandSource -> (Commander) serverCommandSource,
-                commandSource -> ((VelocityCommander) commandSource).commandSender()
+        this.logger = new TemplateVelocityLogger(slf4jLogger);
+
+        final Injector childInjector = injector.createChildInjector(
+            new CloudInjectionModule<>(
+                Commander.class,
+                ExecutionCoordinator.simpleCoordinator(),
+                SenderMapper.create(
+                    VelocityCommanderImpl::new,
+                    commander -> ((VelocityCommander) commander).getCommandSource()
+                )
             )
+        );
+
+        this.commandManager = childInjector.getInstance(
+            Key.get(new TypeLiteral<VelocityCommandManager<Commander>>() {})
         );
 
         new TemplateImpl(this, PlatformType.VELOCITY);
@@ -88,7 +117,7 @@ public class TemplateVelocity implements TemplateBootstrap {
 
     @Override
     public Path dataDirectory() {
-        return this.dataFolder;
+        return this.dataDirectory;
     }
 
     @Override

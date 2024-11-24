@@ -25,43 +25,27 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bukkit.command;
+package dev.triassic.template.bungee.command;
 
-import dev.triassic.template.command.Commander;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.audience.ForwardingAudience;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.command.CommandSender;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
+import net.md_5.bungee.api.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
- * Represents a Bukkit-specific {@link Commander}.
+ * A record implementation of {@link BungeeCommander}.
  */
 @DefaultQualifier(NonNull.class)
-public interface BukkitCommander extends Commander, ForwardingAudience.Single {
-
-    /**
-     * Gets the {@link BukkitAudiences} instance for handling audiences.
-     *
-     * @return The Bukkit audience handler.
-     */
-    BukkitAudiences getAdventure();
-
-    /**
-     * Gets the underlying Bukkit {@link CommandSender}.
-     *
-     * @return The Bukkit CommandSender.
-     */
-    CommandSender getCommandSender();
+public record BungeeCommanderImpl(BungeeAudiences adventure, CommandSender sender)
+    implements BungeeCommander {
 
     @Override
-    default Audience audience() {
-        return getAdventure().sender(getCommandSender());
+    public BungeeAudiences getAdventure() {
+        return adventure;
     }
 
     @Override
-    default boolean hasPermission(final String permission) {
-        return getCommandSender().hasPermission(permission);
+    public CommandSender getCommandSender() {
+        return sender;
     }
 }

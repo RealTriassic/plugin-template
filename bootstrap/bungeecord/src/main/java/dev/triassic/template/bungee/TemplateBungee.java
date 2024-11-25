@@ -31,7 +31,6 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.bungee.command.BungeeCommander;
-import dev.triassic.template.bungee.command.BungeeCommanderImpl;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
@@ -70,8 +69,8 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> new BungeeCommanderImpl(audiences, sender),
-                commander -> ((BungeeCommander) commander).getCommandSender()
+                sender -> BungeeCommander.from(audiences, sender),
+                commander -> ((BungeeCommander) commander).sender()
             )
         );
 

@@ -31,15 +31,12 @@ import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.bukkit.command.BukkitCommander;
-import dev.triassic.template.bukkit.command.BukkitCommanderImpl;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
@@ -73,8 +70,8 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> new BukkitCommanderImpl(audiences, sender),
-                commander -> ((BukkitCommander) commander).getCommandSender()
+                sender -> BukkitCommander.from(audiences, sender),
+                commander -> ((BukkitCommander) commander).sender()
             )
         );
 

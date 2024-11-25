@@ -37,31 +37,44 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
  * Represents a Bungeecord-specific {@link Commander}.
+ *
+ * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface BungeeCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Gets the {@link BungeeAudiences} instance for handling audiences.
+     * Create a new {@link BungeeCommander} from a {@link CommandSender}.
      *
-     * @return The Bungeecord audience handler.
+     * @param adventure the {@link BungeeAudiences} instance for handling Audiences
+     * @param sender    the {@link CommandSender}
+     * @return a new {@link BungeeCommander}
      */
-    BungeeAudiences getAdventure();
-
-    /**
-     * Gets the underlying Bungeecord {@link CommandSender}.
-     *
-     * @return The Bungeecord CommandSender.
-     */
-    CommandSender getCommandSender();
-
-    @Override
-    default Audience audience() {
-        return getAdventure().sender(getCommandSender());
+    static BungeeCommander from(final BungeeAudiences adventure, final CommandSender sender) {
+        return new BungeeCommanderImpl(adventure, sender);
     }
 
-    @Override
-    default boolean hasPermission(final String permission) {
-        return getCommandSender().hasPermission(permission);
+    /**
+     * Gets the underlying {@link CommandSender}.
+     *
+     * @return the {@link CommandSender}
+     */
+    CommandSender sender();
+
+    /**
+     * A record implementation of {@link BungeeCommander}.
+     */
+    record BungeeCommanderImpl(BungeeAudiences adventure, CommandSender sender)
+        implements BungeeCommander {
+
+        @Override
+        public Audience audience() {
+            return adventure.sender(sender);
+        }
+
+        @Override
+        public boolean hasPermission(final String permission) {
+            return sender.hasPermission(permission);
+        }
     }
 }

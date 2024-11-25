@@ -36,24 +36,42 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
  * Represents a Velocity-specific {@link Commander}.
+ *
+ * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface VelocityCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Gets the underlying Velocity {@link CommandSource}.
+     * Create a new {@link VelocityCommander} from a {@link CommandSource}.
      *
-     * @return The Velocity CommandSource.
+     * @param sender the {@link CommandSource}
+     * @return a new {@link VelocityCommander}
      */
-    CommandSource getCommandSource();
-
-    @Override
-    default Audience audience() {
-        return getCommandSource();
+    static VelocityCommander from(final CommandSource sender) {
+        return new VelocityCommanderImpl(sender);
     }
 
-    @Override
-    default boolean hasPermission(final String permission) {
-        return getCommandSource().hasPermission(permission);
+    /**
+     * Gets the underlying {@link CommandSource}.
+     *
+     * @return the {@link CommandSource}
+     */
+    CommandSource sender();
+
+    /**
+     * A record implementation of {@link VelocityCommander}.
+     */
+    record VelocityCommanderImpl(CommandSource sender) implements VelocityCommander {
+
+        @Override
+        public Audience audience() {
+            return sender;
+        }
+
+        @Override
+        public boolean hasPermission(final String permission) {
+            return sender.hasPermission(permission);
+        }
     }
 }

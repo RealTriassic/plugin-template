@@ -37,31 +37,44 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
  * Represents a Bukkit-specific {@link Commander}.
+ *
+ * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface BukkitCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Gets the {@link BukkitAudiences} instance for handling audiences.
+     * Create a new {@link BukkitCommander} from a {@link CommandSender}.
      *
-     * @return The Bukkit audience handler.
+     * @param adventure the {@link BukkitAudiences} instance for handling Audiences
+     * @param sender    the {@link CommandSender}
+     * @return a new {@link BukkitCommander}
      */
-    BukkitAudiences getAdventure();
-
-    /**
-     * Gets the underlying Bukkit {@link CommandSender}.
-     *
-     * @return The Bukkit CommandSender.
-     */
-    CommandSender getCommandSender();
-
-    @Override
-    default Audience audience() {
-        return getAdventure().sender(getCommandSender());
+    static BukkitCommander from(final BukkitAudiences adventure, final CommandSender sender) {
+        return new BukkitCommanderImpl(adventure, sender);
     }
 
-    @Override
-    default boolean hasPermission(final String permission) {
-        return getCommandSender().hasPermission(permission);
+    /**
+     * Gets the underlying {@link CommandSender}.
+     *
+     * @return the {@link CommandSender}
+     */
+    CommandSender sender();
+
+    /**
+     * A record implementation of {@link BukkitCommander}.
+     */
+    record BukkitCommanderImpl(BukkitAudiences adventure, CommandSender sender)
+        implements BukkitCommander {
+
+        @Override
+        public Audience audience() {
+            return adventure.sender(sender);
+        }
+
+        @Override
+        public boolean hasPermission(final String permission) {
+            return sender.hasPermission(permission);
+        }
     }
 }

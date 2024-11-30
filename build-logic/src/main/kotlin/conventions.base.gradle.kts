@@ -37,6 +37,7 @@ configure<CheckstyleExtension> {
 
 configure<SpotlessExtension> {
     java {
+        removeUnusedImports()
         targetExclude("build/generated/**") // Exclude all generated files in build directory
         licenseHeaderFile(rootProject.file("config/spotless/LICENSE_HEADER.txt"))
     }

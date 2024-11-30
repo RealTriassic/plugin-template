@@ -34,7 +34,6 @@ import dev.triassic.template.bukkit.command.BukkitCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
-import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.incendo.cloud.CommandManager;
@@ -51,8 +50,7 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager;
  */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
-    @Getter
-    private BukkitAudiences audiences;
+    private BukkitAudiences adventure;
     private TemplateBukkitLogger logger;
     private LegacyPaperCommandManager<Commander> commandManager;
 
@@ -63,14 +61,14 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        this.audiences = BukkitAudiences.create(this);
+        this.adventure = BukkitAudiences.create(this);
         this.logger = new TemplateBukkitLogger(getLogger());
 
         this.commandManager = new LegacyPaperCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> BukkitCommander.from(audiences, sender),
+                sender -> BukkitCommander.from(adventure, sender),
                 commander -> ((BukkitCommander) commander).sender()
             )
         );
@@ -83,6 +81,19 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
         }
 
         new TemplateImpl(this, PlatformType.BUKKIT);
+    }
+
+    /**
+     * Called when the plugin is disabled.
+     *
+     * <p>Cleans up resources to increase the likelihood of a successful {@code /reload}.</p>
+     */
+    @Override
+    public void onDisable() {
+        if (this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
     @Override

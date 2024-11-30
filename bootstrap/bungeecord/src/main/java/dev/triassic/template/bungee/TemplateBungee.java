@@ -34,7 +34,6 @@ import dev.triassic.template.bungee.command.BungeeCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
-import lombok.Getter;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.incendo.cloud.CommandManager;
@@ -50,8 +49,7 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
  */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
-    @Getter
-    private BungeeAudiences audiences;
+    private BungeeAudiences adventure;
     private TemplateBungeeLogger logger;
     private BungeeCommandManager<Commander> commandManager;
 
@@ -62,19 +60,32 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        this.audiences = BungeeAudiences.create(this);
+        this.adventure = BungeeAudiences.create(this);
         this.logger = new TemplateBungeeLogger(getLogger());
 
         this.commandManager = new BungeeCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> BungeeCommander.from(audiences, sender),
+                sender -> BungeeCommander.from(adventure, sender),
                 commander -> ((BungeeCommander) commander).sender()
             )
         );
 
         new TemplateImpl(this, PlatformType.BUNGEECORD);
+    }
+
+    /**
+     * Called when the plugin is disabled.
+     *
+     * <p>Cleans up resources to increase the likelihood of a successful {@code /reload}.</p>
+     */
+    @Override
+    public void onDisable() {
+        if (this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
     @Override

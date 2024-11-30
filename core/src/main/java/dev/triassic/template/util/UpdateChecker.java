@@ -39,7 +39,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
  * Utility class for checking updates from a GitHub repository.
  */
 @DefaultQualifier(NonNull.class)
-public final class UpdateChecker {
+public class UpdateChecker {
 
     private static final String USER_AGENT = "Mozilla/5.0";
     private static final String API_URL_TEMPLATE = "https://api.github.com/repos/%s/releases/latest";

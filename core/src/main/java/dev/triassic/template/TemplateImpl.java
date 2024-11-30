@@ -30,6 +30,7 @@ package dev.triassic.template;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.command.commands.ReloadCommand;
+import dev.triassic.template.command.commands.VersionCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -51,7 +52,8 @@ import org.incendo.cloud.CommandManager;
 public class TemplateImpl {
 
     private static final List<TemplateCommand> commands = Arrays.asList(
-        new ReloadCommand()
+        new ReloadCommand(),
+        new VersionCommand()
     );
 
     private final Path dataFolder;

@@ -27,23 +27,61 @@
 
 package dev.triassic.template.command;
 
+import static org.incendo.cloud.description.CommandDescription.commandDescription;
+
 import dev.triassic.template.TemplateImpl;
+import lombok.Getter;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.cloud.Command;
 import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.bean.CommandBean;
+import org.incendo.cloud.bean.CommandProperties;
 
 /**
- * Represents a command in the application.
+ * Abstract class that represents a command in the plugin.
  */
-public interface TemplateCommand {
+@Getter
+public abstract class TemplateCommand extends CommandBean<Commander> {
+
+    private TemplateImpl instance;
 
     /**
-     * Registers the command with the specified {@link CommandManager}.
-     *
-     * @param instance       the {@link TemplateImpl} instance
-     * @param commandManager the {@link CommandManager} to register the command with
+     * Returns the name of the command.
      */
-    void register(
+    protected abstract @NonNull String name();
+
+    /**
+     * Returns the description of the command.
+     */
+    protected abstract @NonNull String description();
+
+    /**
+     * Registers the command with the provided {@link CommandManager} and {@link TemplateImpl}.
+     *
+     * @param instance the {@link TemplateImpl} instance
+     * @param commandManager  the {@link CommandManager} to register this command with
+     */
+    public void register(
         final @NonNull TemplateImpl instance,
         final @NonNull CommandManager<Commander> commandManager
-    );
+    ) {
+        this.instance = instance;
+        commandManager.command(this);
+    }
+
+    @Override
+    public @NonNull CommandProperties properties() {
+        return CommandProperties.of("template");
+    }
+
+    @Override
+    public Command. @NonNull Builder<? extends Commander> configure(
+        final Command. @NonNull Builder<Commander> builder
+    ) {
+        return builder
+            .literal(name())
+            .senderType(Commander.class)
+            .permission("template.command." + name())
+            .commandDescription(commandDescription(description()));
+    }
 }

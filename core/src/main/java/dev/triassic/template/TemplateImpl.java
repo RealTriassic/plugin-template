@@ -35,6 +35,7 @@ import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
 import dev.triassic.template.util.MessageProvider;
 import dev.triassic.template.util.PlatformType;
+import dev.triassic.template.util.UpdateChecker;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -90,6 +91,11 @@ public class TemplateImpl {
             logger.error(MessageProvider.translate("template.config.load.fail"), e);
             return;
         }
+
+        UpdateChecker
+            .checkForUpdates("RealTriassic/plugin-template", "1.0.0")
+            .thenAccept(
+                result -> logger.info(MessageProvider.translate(result.getMessage())));
 
         logger.info(MessageProvider.translate(
             "template.enabled", System.currentTimeMillis() - startTime));

@@ -42,12 +42,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LocalizationCache {
 
-    private final Locale defaultLocale = Locale.getDefault();
     private final Path messagesDir;
+    private final Locale defaultLocale = Locale.getDefault();
     private final Map<Locale, ResourceBundle> cache = new ConcurrentHashMap<>();
 
     /**
-     * Initializes a new {@link LocalizationCache} instance.
+     * Constructs a new {@link LocalizationCache} instance.
      *
      * @param instance the {@link TemplateImpl} instance
      */

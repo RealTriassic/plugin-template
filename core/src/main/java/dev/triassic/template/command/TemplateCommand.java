@@ -30,58 +30,78 @@ package dev.triassic.template.command;
 import static org.incendo.cloud.description.CommandDescription.commandDescription;
 
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.util.MessageProvider;
+import java.util.List;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.Command;
 import org.incendo.cloud.CommandManager;
-import org.incendo.cloud.bean.CommandBean;
-import org.incendo.cloud.bean.CommandProperties;
+import org.incendo.cloud.context.CommandContext;
 
 /**
  * Abstract class that represents a command in the plugin.
  */
 @Getter
-public abstract class TemplateCommand extends CommandBean<Commander> {
+@RequiredArgsConstructor
+public abstract class TemplateCommand {
+
+    private static final String ROOT_COMMAND = "template";
+
+    private final String name;
+    private final String description;
+    private final String permission;
 
     private TemplateImpl instance;
 
     /**
-     * Returns the name of the command.
-     */
-    protected abstract @NonNull String name();
-
-    /**
-     * Returns the description of the command.
-     */
-    protected abstract @NonNull String description();
-
-    /**
-     * Registers the command with the provided {@link CommandManager} and {@link TemplateImpl}.
+     * Provides a list of aliases for this command.
+     * Default is an empty list.
      *
-     * @param instance the {@link TemplateImpl} instance
-     * @param commandManager  the {@link CommandManager} to register this command with
+     * @return a list of aliases for this command
+     */
+    @NonNull
+    protected List<String> aliases() {
+        return List.of();
+    }
+
+    /**
+     * Configures the command's builder with properties
+     * such as its name, aliases, sender type, and description.
+     *
+     * @param commandManager the {@link CommandManager} instance
+     * @return the configured {@link Command.Builder}
+     */
+    protected final Command.Builder<Commander> configure(
+        final @NonNull CommandManager<Commander> commandManager
+    ) {
+        return commandManager.commandBuilder(ROOT_COMMAND)
+            .literal(name, aliases().toArray(new String[0]))
+            .senderType(Commander.class)
+            .permission(permission)
+            .commandDescription(commandDescription(MessageProvider.translate(description)));
+    }
+
+    /**
+     * Registers the command with the provided {@link CommandManager}.
+     *
+     * @param instance       the plugin instance
+     * @param commandManager the {@link CommandManager} to register the command with
      */
     public void register(
         final @NonNull TemplateImpl instance,
         final @NonNull CommandManager<Commander> commandManager
     ) {
         this.instance = instance;
-        commandManager.command(this);
+        commandManager.command(configure(commandManager).handler(this::execute));
     }
 
-    @Override
-    public @NonNull CommandProperties properties() {
-        return CommandProperties.of("template");
-    }
-
-    @Override
-    public Command. @NonNull Builder<? extends Commander> configure(
-        final Command. @NonNull Builder<Commander> builder
-    ) {
-        return builder
-            .literal(name())
-            .senderType(Commander.class)
-            .permission("template.command." + name())
-            .commandDescription(commandDescription(description()));
-    }
+    /**
+     * Executes the command when triggered by a sender.
+     *
+     * @param commandContext the {@link CommandContext} for the command execution
+     */
+    protected abstract void execute(final @NonNull CommandContext<Commander> commandContext);
 }
+
+

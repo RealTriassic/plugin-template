@@ -41,31 +41,28 @@ import org.incendo.cloud.context.CommandContext;
  */
 public class ReloadCommand extends TemplateCommand {
 
-    @Override
-    protected @NonNull String name() {
-        return "reload";
-    }
-
-    @Override
-    protected @NonNull String description() {
-        return MessageProvider.translate("reloadCommandDescription");
+    /**
+     * Constructs a new {@link ReloadCommand} instance.
+     */
+    public ReloadCommand() {
+        super("reload", "command.reload.description", "template.command.reload");
     }
 
     @Override
     public void execute(final @NonNull CommandContext<Commander> commandContext) {
         final Commander sender = commandContext.sender();
-        getInstance().getConfig().reload().handleAsync((v, ex) -> {
+        this.getInstance().getConfig().reload().handleAsync((v, ex) -> {
             if (ex == null) {
                 sender.sendMessage(Component.text(
                     MessageProvider.translate(
-                        "reloadCommandSuccess", Locale.ENGLISH), NamedTextColor.GREEN)
+                        "command.reload.success", Locale.ENGLISH), NamedTextColor.GREEN)
                 );
             } else {
                 sender.sendMessage(Component.text(
                     MessageProvider.translate(
-                        "reloadCommandFailure", Locale.ENGLISH), NamedTextColor.RED)
+                        "command.reload.fail", Locale.ENGLISH), NamedTextColor.RED)
                 );
-                getInstance().getLogger().error(ex.getMessage(), ex.getCause());
+                this.getInstance().getLogger().error(ex.getMessage(), ex.getCause());
             }
             return null;
         });

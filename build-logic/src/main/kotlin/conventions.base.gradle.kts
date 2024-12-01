@@ -16,6 +16,9 @@ tasks {
 configure<CheckstyleExtension> {
     maxWarnings = 0
     toolVersion = libs.checkstyle.get().version.toString()
+    configProperties = mapOf(
+        "org.checkstyle.google.suppressionfilter.config" to configDirectory.file("suppressions.xml").get().toString()
+    )
 }
 
 configure<SpotlessExtension> {

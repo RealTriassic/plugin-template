@@ -35,6 +35,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import dev.triassic.template.BuildParameters;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplateLogger;
@@ -56,9 +57,11 @@ import org.slf4j.Logger;
  * to provide necessary platform-specific functionality.</p>
  */
 @Plugin(
-        id = "templateplugin",
-        name = "TemplatePlugin",
-        version = "1.0.0"
+    id = BuildParameters.NAME,
+    version = BuildParameters.VERSION,
+    description = BuildParameters.DESCRIPTION,
+    url = BuildParameters.URL,
+    authors = BuildParameters.AUTHOR
 )
 public class TemplateVelocity implements TemplateBootstrap {
 

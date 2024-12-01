@@ -16,7 +16,11 @@ sourceSets {
     main {
         blossom {
             javaSources {
+                property("name", rootProject.name)
+                property("description", project.description)
                 property("version", project.version.toString())
+                property("url", project.property("url").toString())
+                property("author", project.property("author").toString())
                 property("gitBranch", indraGit.branchName())
                 property("gitCommit", indraGit.commit()?.name)
             }

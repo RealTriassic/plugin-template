@@ -1,7 +1,14 @@
 package dev.triassic.template;
 
-class BuildParameters {
+/**
+ * Build constants for the plugin, set at compile-time.
+ */
+public class BuildParameters {
+    public static final String NAME = "{{ name }}";
+    public static final String DESCRIPTION = "{{ description }}";
     public static final String VERSION = "{{ version }}";
+    public static final String URL = "{{ url }}";
+    public static final String AUTHOR = "{{ author }}";
     public static final String GIT_BRANCH = "{{ gitBranch | default("unknown") }}";
     public static final String GIT_COMMIT = "{{ gitCommit | default("unknown") }}";
 }

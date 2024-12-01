@@ -11,6 +11,14 @@ dependencies {
     implementation(libs.cloud.paper)
 }
 
+tasks {
+    shadowJar {
+        manifest {
+            attributes["paperweight-mappings-namespace"] = "mojang"
+        }
+    }
+}
+
 bukkit {
     name = rootProject.name
     main = "dev.triassic.template.bukkit.TemplateBukkit"

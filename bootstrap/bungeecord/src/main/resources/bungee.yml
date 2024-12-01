@@ -1,5 +1,0 @@
-name: ${name}
-version: ${version}
-main: dev.triassic.template.bungee.TemplateBungee
-description: ${description}
-author: ${author}

@@ -1,11 +1,17 @@
 plugins {
     id("conventions.shadow")
+    alias(libs.plugins.pluginyml.bungeecord)
 }
 
 dependencies {
+    implementation(project(":core"))
+
     compileOnly(libs.bungeecord.api)
     implementation(libs.adventure.bungeecord)
     implementation(libs.cloud.bungeecord)
+}
 
-    implementation(project(":core"))
+bungee {
+    name = rootProject.name
+    main = "dev.triassic.template.bungee.TemplateBungee"
 }

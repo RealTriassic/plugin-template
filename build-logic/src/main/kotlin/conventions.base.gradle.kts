@@ -11,23 +11,6 @@ tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
     }
-
-    processResources {
-        filesMatching(
-            listOf(
-                "plugin.yml", "bungee.yml", "extension.yml"
-            )
-        ) {
-            expand(
-                "id" to rootProject.name,
-                "name" to "TemplatePlugin",
-                "version" to project.version,
-                "description" to project.description,
-                "url" to "https://triassic.dev",
-                "author" to "Triassic"
-            )
-        }
-    }
 }
 
 configure<CheckstyleExtension> {

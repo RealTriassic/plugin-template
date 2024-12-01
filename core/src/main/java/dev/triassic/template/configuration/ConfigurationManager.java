@@ -39,7 +39,7 @@ import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 /**
- * A container for managing the application's configuration loaded from a YAML file.
+ * A container for managing the plugin's configuration loaded from a YAML file.
  *
  * <p>This class provides methods to load, reload, and access the configuration data.</p>
  *

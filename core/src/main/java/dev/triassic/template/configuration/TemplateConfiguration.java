@@ -32,7 +32,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 /**
- * Represents the application's base configuration file.
+ * Represents the plugin's base configuration file.
  */
 @Getter
 @ConfigSerializable

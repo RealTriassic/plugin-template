@@ -51,16 +51,15 @@ import org.incendo.cloud.CommandManager;
 @Getter
 public class TemplateImpl {
 
-    private static final List<TemplateCommand> commands = Arrays.asList(
-        new ReloadCommand(),
-        new VersionCommand()
-    );
-
     private final Path dataFolder;
     private final TemplateLogger logger;
     private final PlatformType platformType;
     private final LocalizationCache localizationCache;
     private final CommandManager<Commander> commandManager;
+    private final List<TemplateCommand> commands = Arrays.asList(
+        new ReloadCommand(this),
+        new VersionCommand()
+    );
 
     private ConfigurationManager<TemplateConfiguration> config;
 
@@ -85,7 +84,7 @@ public class TemplateImpl {
 
         this.commandManager = bootstrap.commandManager();
 
-        commands.forEach(command -> command.register(this, commandManager));
+        commands.forEach(command -> command.register(commandManager));
 
         try {
             this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);

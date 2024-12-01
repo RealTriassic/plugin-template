@@ -29,7 +29,6 @@ package dev.triassic.template.command;
 
 import static org.incendo.cloud.description.CommandDescription.commandDescription;
 
-import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.util.MessageProvider;
 import java.util.List;
 import lombok.Getter;
@@ -52,8 +51,6 @@ public abstract class TemplateCommand {
     private final String description;
     private final String permission;
 
-    private TemplateImpl instance;
-
     /**
      * Provides a list of aliases for this command.
      * Default is an empty list.
@@ -69,13 +66,12 @@ public abstract class TemplateCommand {
      * Configures the command's builder with properties
      * such as its name, aliases, sender type, and description.
      *
-     * @param commandManager the {@link CommandManager} instance
+     * @param manager the {@link CommandManager} instance
      * @return the configured {@link Command.Builder}
      */
     protected final Command.Builder<Commander> configure(
-        final @NonNull CommandManager<Commander> commandManager
-    ) {
-        return commandManager.commandBuilder(ROOT_COMMAND)
+        final @NonNull CommandManager<Commander> manager) {
+        return manager.commandBuilder(ROOT_COMMAND)
             .literal(name, aliases().toArray(new String[0]))
             .senderType(Commander.class)
             .permission(permission)
@@ -85,23 +81,18 @@ public abstract class TemplateCommand {
     /**
      * Registers the command with the provided {@link CommandManager}.
      *
-     * @param instance       the plugin instance
-     * @param commandManager the {@link CommandManager} to register the command with
+     * @param manager the {@link CommandManager} to register the command with
      */
-    public void register(
-        final @NonNull TemplateImpl instance,
-        final @NonNull CommandManager<Commander> commandManager
-    ) {
-        this.instance = instance;
-        commandManager.command(configure(commandManager).handler(this::execute));
+    public void register(final @NonNull CommandManager<Commander> manager) {
+        manager.command(configure(manager).handler(this::execute));
     }
 
     /**
      * Executes the command when triggered by a sender.
      *
-     * @param commandContext the {@link CommandContext} for the command execution
+     * @param context the {@link CommandContext} for the command execution
      */
-    protected abstract void execute(final @NonNull CommandContext<Commander> commandContext);
+    protected abstract void execute(final @NonNull CommandContext<Commander> context);
 }
 
 

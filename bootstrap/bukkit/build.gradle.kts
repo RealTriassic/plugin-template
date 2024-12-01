@@ -11,11 +11,9 @@ dependencies {
     implementation(libs.cloud.paper)
 }
 
-tasks {
-    shadowJar {
-        manifest {
-            attributes["paperweight-mappings-namespace"] = "mojang"
-        }
+tasks.shadowJar {
+    manifest {
+        attributes["paperweight-mappings-namespace"] = "mojang"
     }
 }
 

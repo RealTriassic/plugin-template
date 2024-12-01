@@ -56,10 +56,6 @@ public class TemplateImpl {
     private final PlatformType platformType;
     private final LocalizationCache localizationCache;
     private final CommandManager<Commander> commandManager;
-    private final List<TemplateCommand> commands = Arrays.asList(
-        new ReloadCommand(this),
-        new VersionCommand()
-    );
 
     private ConfigurationManager<TemplateConfiguration> config;
 
@@ -84,14 +80,19 @@ public class TemplateImpl {
 
         this.commandManager = bootstrap.commandManager();
 
-        commands.forEach(command -> command.register(commandManager));
-
         try {
             this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
         } catch (IOException e) {
             logger.error(MessageProvider.translate("template.config.load.fail"), e);
             return;
         }
+
+        final List<TemplateCommand> commands = Arrays.asList(
+            new ReloadCommand(this),
+            new VersionCommand()
+        );
+
+        commands.forEach(command -> command.register(commandManager));
 
         UpdateChecker
             .checkForUpdates("RealTriassic/plugin-template", "1.0.0")

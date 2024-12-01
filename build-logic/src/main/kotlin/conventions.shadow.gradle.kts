@@ -11,6 +11,7 @@ tasks {
         val groupName = project.properties["group"] as String
 
         listOf(
+            "net.kyori",
             "org.spongepowered"
         ).forEach { packageToRelocate ->
             relocate(packageToRelocate, "$groupName.lib.$packageToRelocate")

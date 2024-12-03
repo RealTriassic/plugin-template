@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(projects.core)
 
     compileOnly(libs.velocity.api)
     annotationProcessor(libs.velocity.api)

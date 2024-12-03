@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(projects.core)
 
     compileOnly(libs.bungeecord.api)
     implementation(libs.adventure.bungeecord)

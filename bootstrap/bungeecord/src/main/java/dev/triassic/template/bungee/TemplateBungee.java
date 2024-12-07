@@ -29,7 +29,6 @@ package dev.triassic.template.bungee;
 
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.bungee.command.BungeeCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
@@ -50,7 +49,6 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private BungeeAudiences adventure;
-    private TemplateBungeeLogger logger;
     private BungeeCommandManager<Commander> commandManager;
 
     /**
@@ -61,7 +59,6 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
     @Override
     public void onEnable() {
         this.adventure = BungeeAudiences.create(this);
-        this.logger = new TemplateBungeeLogger(getLogger());
 
         this.commandManager = new BungeeCommandManager<>(
             this,
@@ -91,11 +88,6 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
     @Override
     public Path dataDirectory() {
         return this.getDataFolder().toPath();
-    }
-
-    @Override
-    public TemplateLogger templateLogger() {
-        return this.logger;
     }
 
     @Override

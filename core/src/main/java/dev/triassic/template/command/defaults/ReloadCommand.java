@@ -28,7 +28,6 @@
 package dev.triassic.template.command.defaults;
 
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
@@ -39,13 +38,15 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.context.CommandContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A command that reloads the plugin's configuration.
  */
 public class ReloadCommand extends TemplateCommand {
 
-    private final TemplateLogger logger;
+    private static final Logger logger = LoggerFactory.getLogger(ReloadCommand.class);
     private final ConfigurationManager<TemplateConfiguration> config;
 
     /**
@@ -53,7 +54,6 @@ public class ReloadCommand extends TemplateCommand {
      */
     public ReloadCommand(final @NonNull TemplateImpl instance) {
         super("reload", "command.reload.description", "template.command.reload");
-        this.logger = instance.getLogger();
         this.config = instance.getConfig();
     }
 

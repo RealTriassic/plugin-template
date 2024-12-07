@@ -37,6 +37,8 @@ import dev.triassic.template.util.UpdateChecker;
 import java.io.IOException;
 import java.nio.file.Path;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles platform-specific data, configuration, localization, and logging.
@@ -46,12 +48,13 @@ import lombok.Getter;
 public class TemplateImpl {
 
     private final Path dataFolder;
-    private final TemplateLogger logger;
     private final PlatformType platformType;
     private final LocalizationCache localizationCache;
     private final CommandRegistry commandRegistry;
 
     private ConfigurationManager<TemplateConfiguration> config;
+
+    private static final Logger logger = LoggerFactory.getLogger(TemplateImpl.class);
 
     /**
      * Initializes a new {@link TemplateImpl} instance.
@@ -66,7 +69,6 @@ public class TemplateImpl {
         final long startTime = System.currentTimeMillis();
 
         this.dataFolder = bootstrap.dataDirectory();
-        this.logger = bootstrap.templateLogger();
         this.platformType = platformType;
 
         this.localizationCache = new LocalizationCache(this);

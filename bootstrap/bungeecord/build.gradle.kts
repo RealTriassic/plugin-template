@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(projects.core)
 
+    runtimeOnly(libs.slf4j.jdk14)
     compileOnly(libs.bungeecord.api)
     implementation(libs.adventure.bungeecord)
     implementation(libs.cloud.bungeecord)

@@ -38,7 +38,6 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.BuildParameters;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.TemplateLogger;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import dev.triassic.template.velocity.command.VelocityCommander;
@@ -48,7 +47,6 @@ import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.velocity.CloudInjectionModule;
 import org.incendo.cloud.velocity.VelocityCommandManager;
-import org.slf4j.Logger;
 
 /**
  * The main entry point for the plugin on the Velocity platform.
@@ -65,27 +63,21 @@ import org.slf4j.Logger;
 )
 public class TemplateVelocity implements TemplateBootstrap {
 
-    @Inject
-    private Injector injector;
-
-    private final Logger slf4jLogger;
     private final Path dataDirectory;
 
-    private TemplateVelocityLogger logger;
+    @Inject
+    private Injector injector;
     private VelocityCommandManager<Commander> commandManager;
 
     /**
      * hi.
      *
-     * @param slf4jLogger yurrrr
      * @param dataDirectory yea
      */
     @Inject
     public TemplateVelocity(
-        Logger slf4jLogger,
         @DataDirectory Path dataDirectory
     ) {
-        this.slf4jLogger = slf4jLogger;
         this.dataDirectory = dataDirectory;
     }
 
@@ -96,8 +88,6 @@ public class TemplateVelocity implements TemplateBootstrap {
      */
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
-        this.logger = new TemplateVelocityLogger(slf4jLogger);
-
         final Injector childInjector = injector.createChildInjector(
             new CloudInjectionModule<>(
                 Commander.class,
@@ -119,11 +109,6 @@ public class TemplateVelocity implements TemplateBootstrap {
     @Override
     public Path dataDirectory() {
         return this.dataDirectory;
-    }
-
-    @Override
-    public TemplateLogger templateLogger() {
-        return this.logger;
     }
 
     @Override

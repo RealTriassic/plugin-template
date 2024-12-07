@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(projects.core)
 
+    runtimeOnly(libs.slf4j.jdk14)
     compileOnly(libs.paper.api)
     implementation(libs.adventure.bukkit)
     implementation(libs.cloud.paper)

@@ -44,13 +44,6 @@ public interface TemplateBootstrap {
     Path dataDirectory();
 
     /**
-     * Gets the {@link TemplateLogger} instance used for logging for this platform.
-     *
-     * @return the {@link TemplateLogger} instance
-     */
-    TemplateLogger templateLogger();
-
-    /**
      * Gets the {@link CommandManager} instance used to manage commands for this platform.
      *
      * @return the {@link CommandManager} instance

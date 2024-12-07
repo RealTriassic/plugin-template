@@ -42,15 +42,16 @@ public class CommandRegistry {
 
     private final TemplateImpl instance;
     private final CommandManager<Commander> commandManager;
-    private final List<TemplateCommand> commands = List.of(
-        new ReloadCommand(instance),
-        new VersionCommand()
-    );
 
     /**
      * Registers all commands with the command manager.
      */
     public void registerAll() {
+        final List<TemplateCommand> commands = List.of(
+            new ReloadCommand(instance),
+            new VersionCommand()
+        );
+
         commands.forEach(command -> command.register(commandManager));
     }
 }

@@ -3,6 +3,7 @@ adventure = "4.17.0"
 adventure-platform = "4.3.4"
 cloud-minecraft = "2.0.0-beta.10"
 plugin-yml = "0.6.0"
+slf4j = "2.0.16"
 
 [plugins]
 blossom = { id = "net.kyori.blossom", version = "2.1.0" }
@@ -27,15 +28,17 @@ cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref =
 # Config and YAML Libraries
 configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version = "4.2.0-GeyserMC-SNAPSHOT" }
 
+# Logging Libraries
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+slf4j-jdk14 = { group = "org.slf4j", name = "slf4j-jdk14", version.ref = "slf4j" }
+
 # Server APIs
 bungeecord-api = { group = "net.md-5", name = "bungeecord-api", version = "1.19-R0.1-SNAPSHOT" }
 paper-api = { group = "io.papermc.paper", name = "paper-api", version = "1.19.4-R0.1-SNAPSHOT" }
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version = "3.4.0-SNAPSHOT" }
 
-# Checkstyle
-checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "10.20.1" }
-
 # Gradle Plugins
+checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "10.20.1" }
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "8.10.2" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "8.3.5" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "7.0.0.BETA4" }

@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.cloud.core)
     implementation(libs.cloud.minecraft.extras)
     implementation(libs.configurate.yaml)
+    implementation(libs.slf4j)
 }
 
 sourceSets {

@@ -27,10 +27,11 @@
 
 package dev.triassic.template;
 
+import dev.triassic.template.command.CommandRegistry;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
-import dev.triassic.template.command.commands.ReloadCommand;
-import dev.triassic.template.command.commands.VersionCommand;
+import dev.triassic.template.command.defaults.ReloadCommand;
+import dev.triassic.template.command.defaults.VersionCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -55,7 +56,7 @@ public class TemplateImpl {
     private final TemplateLogger logger;
     private final PlatformType platformType;
     private final LocalizationCache localizationCache;
-    private final CommandManager<Commander> commandManager;
+    private final CommandRegistry commandRegistry;
 
     private ConfigurationManager<TemplateConfiguration> config;
 
@@ -78,7 +79,8 @@ public class TemplateImpl {
         this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);
 
-        this.commandManager = bootstrap.commandManager();
+        this.commandRegistry = new CommandRegistry(this, bootstrap.commandManager());
+        commandRegistry.registerAll();
 
         try {
             this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
@@ -86,13 +88,6 @@ public class TemplateImpl {
             logger.error(MessageProvider.translate("template.config.load.fail"), e);
             return;
         }
-
-        final List<TemplateCommand> commands = Arrays.asList(
-            new ReloadCommand(this),
-            new VersionCommand()
-        );
-
-        commands.forEach(command -> command.register(commandManager));
 
         UpdateChecker
             .checkForUpdates("RealTriassic/plugin-template", "1.0.0")

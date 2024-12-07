@@ -25,55 +25,31 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bukkit.command;
+package dev.triassic.template.bukkit;
 
-import dev.triassic.template.bukkit.BukkitAudience;
-import dev.triassic.template.command.Commander;
+import lombok.Setter;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 /**
- * Represents a Bukkit-specific {@link Commander}.
- *
- * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
+ * Provides an {@link Audience} from a Bukkit {@link CommandSender}.
  */
 @DefaultQualifier(NonNull.class)
-public interface BukkitCommander extends Commander, ForwardingAudience.Single {
+public class BukkitAudience {
+
+    @Setter
+    private static BukkitAudiences adventure;
 
     /**
-     * Create a new {@link BukkitCommander} from a {@link CommandSender}.
+     * Gets an Audience for a Bukkit {@link CommandSender}.
      *
-     * @param sender    the {@link CommandSender}
-     * @return a new {@link BukkitCommander}
+     * @param sender the {@link CommandSender}
+     * @return the corresponding {@link Audience}
      */
-    static BukkitCommander from(final CommandSender sender) {
-        return new BukkitCommanderImpl(sender);
-    }
-
-    /**
-     * Gets the underlying {@link CommandSender}.
-     *
-     * @return the {@link CommandSender}
-     */
-    CommandSender sender();
-
-    /**
-     * A record implementation of {@link BukkitCommander}.
-     */
-    record BukkitCommanderImpl(CommandSender sender)
-        implements BukkitCommander {
-
-        @Override
-        public Audience audience() {
-            return BukkitAudience.from(sender);
-        }
-
-        @Override
-        public boolean hasPermission(final String permission) {
-            return sender.hasPermission(permission);
-        }
+    public static Audience from(final CommandSender sender) {
+        return adventure.sender(sender);
     }
 }

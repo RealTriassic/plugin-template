@@ -27,10 +27,10 @@
 
 package dev.triassic.template.bungee.command;
 
+import dev.triassic.template.bungee.BungeeAudience;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
-import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
@@ -46,12 +46,11 @@ public interface BungeeCommander extends Commander, ForwardingAudience.Single {
     /**
      * Create a new {@link BungeeCommander} from a {@link CommandSender}.
      *
-     * @param adventure the {@link BungeeAudiences} instance for handling Audiences
      * @param sender    the {@link CommandSender}
      * @return a new {@link BungeeCommander}
      */
-    static BungeeCommander from(final BungeeAudiences adventure, final CommandSender sender) {
-        return new BungeeCommanderImpl(adventure, sender);
+    static BungeeCommander from(final CommandSender sender) {
+        return new BungeeCommanderImpl(sender);
     }
 
     /**
@@ -64,12 +63,12 @@ public interface BungeeCommander extends Commander, ForwardingAudience.Single {
     /**
      * A record implementation of {@link BungeeCommander}.
      */
-    record BungeeCommanderImpl(BungeeAudiences adventure, CommandSender sender)
+    record BungeeCommanderImpl(CommandSender sender)
         implements BungeeCommander {
 
         @Override
         public Audience audience() {
-            return adventure.sender(sender);
+            return BungeeAudience.from(sender);
         }
 
         @Override

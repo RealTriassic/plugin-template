@@ -49,7 +49,6 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager;
  */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
-    private BukkitAudiences adventure;
     private LegacyPaperCommandManager<Commander> commandManager;
 
     /**
@@ -59,13 +58,13 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        this.adventure = BukkitAudiences.create(this);
+        BukkitAudience.setAdventure(BukkitAudiences.create(this));
 
         this.commandManager = new LegacyPaperCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> BukkitCommander.from(adventure, sender),
+                BukkitCommander::from,
                 commander -> ((BukkitCommander) commander).sender()
             )
         );
@@ -87,10 +86,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
-        if (this.adventure != null) {
-            this.adventure.close();
-            this.adventure = null;
-        }
+        // TODO: Clean-up after Adventure.
     }
 
     @Override

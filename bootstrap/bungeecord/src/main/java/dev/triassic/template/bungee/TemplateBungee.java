@@ -48,7 +48,6 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
  */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
-    private BungeeAudiences adventure;
     private BungeeCommandManager<Commander> commandManager;
 
     /**
@@ -58,13 +57,13 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        this.adventure = BungeeAudiences.create(this);
+        BungeeAudience.setAdventure(BungeeAudiences.create(this));
 
         this.commandManager = new BungeeCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
             SenderMapper.create(
-                sender -> BungeeCommander.from(adventure, sender),
+                BungeeCommander::from,
                 commander -> ((BungeeCommander) commander).sender()
             )
         );
@@ -79,10 +78,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
-        if (this.adventure != null) {
-            this.adventure.close();
-            this.adventure = null;
-        }
+        // TODO: Clean-up after Adventure.
     }
 
     @Override

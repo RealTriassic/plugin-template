@@ -28,10 +28,6 @@
 package dev.triassic.template;
 
 import dev.triassic.template.command.CommandRegistry;
-import dev.triassic.template.command.Commander;
-import dev.triassic.template.command.TemplateCommand;
-import dev.triassic.template.command.defaults.ReloadCommand;
-import dev.triassic.template.command.defaults.VersionCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -40,10 +36,7 @@ import dev.triassic.template.util.PlatformType;
 import dev.triassic.template.util.UpdateChecker;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 import lombok.Getter;
-import org.incendo.cloud.CommandManager;
 
 /**
  * Handles platform-specific data, configuration, localization, and logging.

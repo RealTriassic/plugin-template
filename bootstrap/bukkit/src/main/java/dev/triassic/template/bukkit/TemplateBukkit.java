@@ -35,6 +35,7 @@ import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
@@ -49,7 +50,22 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager;
  */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
+    private static BukkitAudiences adventure;
     private LegacyPaperCommandManager<Commander> commandManager;
+
+    /**
+     * Retrieves the shared {@link BukkitAudiences} instance.
+     *
+     * @return the {@link BukkitAudiences} instance
+     */
+    @NonNull
+    public static BukkitAudiences adventure() {
+        if (adventure == null) {
+            throw new IllegalStateException(
+                "Tried to access Adventure when the plugin was disabled!");
+        }
+        return adventure;
+    }
 
     /**
      * Called when the plugin is enabled.
@@ -58,7 +74,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        BukkitAudience.setAdventure(BukkitAudiences.create(this));
+        adventure = BukkitAudiences.create(this);
 
         this.commandManager = new LegacyPaperCommandManager<>(
             this,
@@ -86,7 +102,10 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
-        // TODO: Clean-up after Adventure.
+        if (adventure != null) {
+            adventure.close();
+            adventure = null;
+        }
     }
 
     @Override

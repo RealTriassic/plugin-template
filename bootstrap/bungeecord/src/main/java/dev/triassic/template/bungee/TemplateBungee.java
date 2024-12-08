@@ -35,6 +35,7 @@ import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.bungee.BungeeCommandManager;
@@ -48,7 +49,22 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
  */
 public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
+    private static BungeeAudiences adventure;
     private BungeeCommandManager<Commander> commandManager;
+
+    /**
+     * Retrieves the shared {@link BungeeAudiences} instance.
+     *
+     * @return the {@link BungeeAudiences} instance
+     */
+    @NonNull
+    public static BungeeAudiences adventure() {
+        if (adventure == null) {
+            throw new IllegalStateException(
+                "Tried to access Adventure when the plugin was disabled!");
+        }
+        return adventure;
+    }
 
     /**
      * Called when the plugin is enabled.
@@ -57,7 +73,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onEnable() {
-        BungeeAudience.setAdventure(BungeeAudiences.create(this));
+        adventure = BungeeAudiences.create(this);
 
         this.commandManager = new BungeeCommandManager<>(
             this,
@@ -78,7 +94,10 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
-        // TODO: Clean-up after Adventure.
+        if (adventure != null) {
+            adventure.close();
+            adventure = null;
+        }
     }
 
     @Override

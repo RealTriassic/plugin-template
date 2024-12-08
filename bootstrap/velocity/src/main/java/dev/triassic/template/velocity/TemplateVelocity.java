@@ -70,9 +70,9 @@ public class TemplateVelocity implements TemplateBootstrap {
     private VelocityCommandManager<Commander> commandManager;
 
     /**
-     * hi.
+     * Initializes a new {@link TemplateVelocity} instance.
      *
-     * @param dataDirectory yea
+     * @param dataDirectory the path to the data directory
      */
     @Inject
     public TemplateVelocity(

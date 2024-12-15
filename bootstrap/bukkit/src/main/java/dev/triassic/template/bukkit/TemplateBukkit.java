@@ -33,6 +33,7 @@ import dev.triassic.template.bukkit.command.BukkitCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
+import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -41,6 +42,8 @@ import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.paper.LegacyPaperCommandManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main entry point for the plugin on the Bukkit platform.
@@ -50,21 +53,11 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager;
  */
 public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
+    @Getter
     private static BukkitAudiences adventure;
-    private LegacyPaperCommandManager<Commander> commandManager;
 
-    /**
-     * Retrieves the shared {@link BukkitAudiences} instance.
-     *
-     * @return the {@link BukkitAudiences} instance
-     */
-    public static @NonNull BukkitAudiences adventure() {
-        if (adventure == null) {
-            throw new IllegalStateException(
-                "Tried to access Adventure when the plugin was disabled!");
-        }
-        return adventure;
-    }
+    private Logger logger;
+    private LegacyPaperCommandManager<Commander> commandManager;
 
     /**
      * Called when the plugin is enabled.
@@ -75,6 +68,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
     public void onEnable() {
         adventure = BukkitAudiences.create(this);
 
+        this.logger = LoggerFactory.getLogger(getName());
         this.commandManager = new LegacyPaperCommandManager<>(
             this,
             ExecutionCoordinator.simpleCoordinator(),
@@ -97,7 +91,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
     /**
      * Called when the plugin is disabled.
      *
-     * <p>Cleans up resources to increase the likelihood of a successful {@code /reload}.</p>
+     * <p>Cleans up resources to increase the likelihood of a successful reload.</p>
      */
     @Override
     public void onDisable() {
@@ -105,6 +99,11 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             adventure.close();
             adventure = null;
         }
+    }
+
+    @Override
+    public @NonNull Logger logger() {
+        return this.logger;
     }
 
     @Override

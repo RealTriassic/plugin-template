@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import lombok.Getter;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Handles platform-specific data, configuration, localization, and logging.
@@ -54,7 +53,7 @@ public class TemplateImpl {
 
     private ConfigurationManager<TemplateConfiguration> config;
 
-    private static final Logger logger = LoggerFactory.getLogger(TemplateImpl.class);
+    private final Logger logger;
 
     /**
      * Initializes a new {@link TemplateImpl} instance.
@@ -64,6 +63,7 @@ public class TemplateImpl {
     public TemplateImpl(final TemplateBootstrap bootstrap) {
         final long startTime = System.currentTimeMillis();
 
+        this.logger = bootstrap.logger();
         this.dataFolder = bootstrap.dataDirectory();
         this.platformType = bootstrap.platformType();
 

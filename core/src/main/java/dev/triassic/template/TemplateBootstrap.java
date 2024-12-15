@@ -33,12 +33,20 @@ import java.nio.file.Path;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 import org.incendo.cloud.CommandManager;
+import org.slf4j.Logger;
 
 /**
  * Interface for platform-specific bootstrap logic.
  */
 @DefaultQualifier(NonNull.class)
 public interface TemplateBootstrap {
+
+    /**
+     * Gets the SLF4J logger for this platform.
+     *
+     * @return the platform's logger
+     */
+    Logger logger();
 
     /**
      * Gets the path to the platform's data directory.

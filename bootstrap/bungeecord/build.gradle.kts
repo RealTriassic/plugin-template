@@ -10,6 +10,7 @@ dependencies {
     compileOnly(libs.bungeecord.api)
     implementation(libs.adventure.bungeecord)
     implementation(libs.cloud.bungeecord)
+    implementation(libs.slf4j)
 }
 
 bungee {

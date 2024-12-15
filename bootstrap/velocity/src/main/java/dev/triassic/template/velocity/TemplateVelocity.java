@@ -48,6 +48,7 @@ import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.velocity.CloudInjectionModule;
 import org.incendo.cloud.velocity.VelocityCommandManager;
+import org.slf4j.Logger;
 
 /**
  * The main entry point for the plugin on the Velocity platform.
@@ -64,6 +65,7 @@ import org.incendo.cloud.velocity.VelocityCommandManager;
 )
 public class TemplateVelocity implements TemplateBootstrap {
 
+    private final Logger logger;
     private final Path dataDirectory;
 
     @Inject
@@ -77,8 +79,10 @@ public class TemplateVelocity implements TemplateBootstrap {
      */
     @Inject
     public TemplateVelocity(
-        @DataDirectory Path dataDirectory
+        final Logger logger,
+        final @DataDirectory Path dataDirectory
     ) {
+        this.logger = logger;
         this.dataDirectory = dataDirectory;
     }
 
@@ -88,8 +92,8 @@ public class TemplateVelocity implements TemplateBootstrap {
      * <p>Initializes the {@link TemplateImpl} instance for the Velocity platform.</p>
      */
     @Subscribe
-    public void onEnable(ProxyInitializeEvent event) {
-        final Injector childInjector = injector.createChildInjector(
+    public void onEnable(final ProxyInitializeEvent event) {
+        this.commandManager = injector.createChildInjector(
             new CloudInjectionModule<>(
                 Commander.class,
                 ExecutionCoordinator.simpleCoordinator(),
@@ -98,13 +102,14 @@ public class TemplateVelocity implements TemplateBootstrap {
                     commander -> ((VelocityCommander) commander).sender()
                 )
             )
-        );
-
-        this.commandManager = childInjector.getInstance(
-            Key.get(new TypeLiteral<>() {})
-        );
+        ).getInstance(Key.get(new TypeLiteral<>() {}));
 
         new TemplateImpl(this);
+    }
+
+    @Override
+    public @NonNull Logger logger() {
+        return this.logger;
     }
 
     @Override

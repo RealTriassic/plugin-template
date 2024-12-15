@@ -27,8 +27,7 @@
 
 package dev.triassic.template.bukkit.command;
 
-import static dev.triassic.template.bukkit.TemplateBukkit.adventure;
-
+import dev.triassic.template.bukkit.TemplateBukkit;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
@@ -69,7 +68,7 @@ public interface BukkitCommander extends Commander, ForwardingAudience.Single {
 
         @Override
         public Audience audience() {
-            return adventure().sender(sender);
+            return TemplateBukkit.getAdventure().sender(sender);
         }
 
         @Override

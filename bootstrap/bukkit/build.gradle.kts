@@ -10,6 +10,7 @@ dependencies {
     compileOnly(libs.paper.api)
     implementation(libs.adventure.bukkit)
     implementation(libs.cloud.paper)
+    implementation(libs.slf4j)
 }
 
 tasks.shadowJar {

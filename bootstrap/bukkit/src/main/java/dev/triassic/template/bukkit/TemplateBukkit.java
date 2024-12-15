@@ -58,8 +58,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      *
      * @return the {@link BukkitAudiences} instance
      */
-    @NonNull
-    public static BukkitAudiences adventure() {
+    public static @NonNull BukkitAudiences adventure() {
         if (adventure == null) {
             throw new IllegalStateException(
                 "Tried to access Adventure when the plugin was disabled!");
@@ -92,7 +91,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             this.commandManager.registerAsynchronousCompletions();
         }
 
-        new TemplateImpl(this, PlatformType.BUKKIT);
+        new TemplateImpl(this);
     }
 
     /**
@@ -109,12 +108,17 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
     }
 
     @Override
-    public Path dataDirectory() {
+    public @NonNull Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
     @Override
-    public CommandManager<Commander> commandManager() {
+    public @NonNull PlatformType platformType() {
+        return PlatformType.BUKKIT;
+    }
+
+    @Override
+    public @NonNull CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

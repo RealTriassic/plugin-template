@@ -57,8 +57,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      *
      * @return the {@link BungeeAudiences} instance
      */
-    @NonNull
-    public static BungeeAudiences adventure() {
+    public static @NonNull BungeeAudiences adventure() {
         if (adventure == null) {
             throw new IllegalStateException(
                 "Tried to access Adventure when the plugin was disabled!");
@@ -84,7 +83,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
             )
         );
 
-        new TemplateImpl(this, PlatformType.BUNGEECORD);
+        new TemplateImpl(this);
     }
 
     /**
@@ -101,12 +100,17 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
     }
 
     @Override
-    public Path dataDirectory() {
+    public @NonNull Path dataDirectory() {
         return this.getDataFolder().toPath();
     }
 
     @Override
-    public CommandManager<Commander> commandManager() {
+    public @NonNull PlatformType platformType() {
+        return PlatformType.BUNGEECORD;
+    }
+
+    @Override
+    public @NonNull CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

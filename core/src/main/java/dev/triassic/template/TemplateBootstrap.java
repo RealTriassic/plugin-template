@@ -28,12 +28,16 @@
 package dev.triassic.template;
 
 import dev.triassic.template.command.Commander;
+import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.framework.qual.DefaultQualifier;
 import org.incendo.cloud.CommandManager;
 
 /**
  * Interface for platform-specific bootstrap logic.
  */
+@DefaultQualifier(NonNull.class)
 public interface TemplateBootstrap {
 
     /**
@@ -42,6 +46,13 @@ public interface TemplateBootstrap {
      * @return the path to the data directory
      */
     Path dataDirectory();
+
+    /**
+     * Gets the platform type for this platform.
+     *
+     * @return the platform type
+     */
+    PlatformType platformType();
 
     /**
      * Gets the {@link CommandManager} instance used to manage commands for this platform.

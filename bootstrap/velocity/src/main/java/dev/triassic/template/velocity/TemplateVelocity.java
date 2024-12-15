@@ -42,6 +42,7 @@ import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import dev.triassic.template.velocity.command.VelocityCommander;
 import java.nio.file.Path;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.execution.ExecutionCoordinator;
@@ -103,16 +104,21 @@ public class TemplateVelocity implements TemplateBootstrap {
             Key.get(new TypeLiteral<>() {})
         );
 
-        new TemplateImpl(this, PlatformType.VELOCITY);
+        new TemplateImpl(this);
     }
 
     @Override
-    public Path dataDirectory() {
+    public @NonNull Path dataDirectory() {
         return this.dataDirectory;
     }
 
     @Override
-    public CommandManager<Commander> commandManager() {
+    public @NonNull PlatformType platformType() {
+        return PlatformType.VELOCITY;
+    }
+
+    @Override
+    public @NonNull CommandManager<Commander> commandManager() {
         return this.commandManager;
     }
 }

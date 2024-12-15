@@ -60,16 +60,12 @@ public class TemplateImpl {
      * Initializes a new {@link TemplateImpl} instance.
      *
      * @param bootstrap    platform-specific {@link TemplateBootstrap} instance
-     * @param platformType the type of {@link PlatformType}
      */
-    public TemplateImpl(
-            final TemplateBootstrap bootstrap,
-            final PlatformType platformType
-    ) {
+    public TemplateImpl(final TemplateBootstrap bootstrap) {
         final long startTime = System.currentTimeMillis();
 
         this.dataFolder = bootstrap.dataDirectory();
-        this.platformType = platformType;
+        this.platformType = bootstrap.platformType();
 
         this.localizationCache = new LocalizationCache(this);
         MessageProvider.setLocalizationCache(localizationCache);

@@ -28,6 +28,7 @@
 package dev.triassic.template;
 
 import dev.triassic.template.command.CommandRegistry;
+import dev.triassic.template.command.Commander;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
 import dev.triassic.template.localization.LocalizationCache;
@@ -37,6 +38,7 @@ import dev.triassic.template.util.UpdateChecker;
 import java.io.IOException;
 import java.nio.file.Path;
 import lombok.Getter;
+import org.incendo.cloud.CommandManager;
 import org.slf4j.Logger;
 
 /**
@@ -46,14 +48,14 @@ import org.slf4j.Logger;
 @Getter
 public class TemplateImpl {
 
-    private final Path dataFolder;
-    private final PlatformType platformType;
-    private final LocalizationCache localizationCache;
-    private final CommandRegistry commandRegistry;
-
-    private ConfigurationManager<TemplateConfiguration> config;
-
     private final Logger logger;
+    private final Path dataDirectory;
+    private final PlatformType platformType;
+    private final CommandManager<Commander> commandManager;
+
+    private LocalizationCache localizationCache;
+    private CommandRegistry commandRegistry;
+    private ConfigurationManager<TemplateConfiguration> config;
 
     /**
      * Initializes a new {@link TemplateImpl} instance.
@@ -61,20 +63,26 @@ public class TemplateImpl {
      * @param bootstrap    platform-specific {@link TemplateBootstrap} instance
      */
     public TemplateImpl(final TemplateBootstrap bootstrap) {
+        this.logger = bootstrap.logger();
+        this.dataDirectory = bootstrap.dataDirectory();
+        this.platformType = bootstrap.platformType();
+        this.commandManager = bootstrap.commandManager();
+    }
+
+    /**
+     * Called when the bootstrapped plugin is done initializing.
+     */
+    public void initialize() {
         final long startTime = System.currentTimeMillis();
 
-        this.logger = bootstrap.logger();
-        this.dataFolder = bootstrap.dataDirectory();
-        this.platformType = bootstrap.platformType();
-
         this.localizationCache = new LocalizationCache(this);
-        MessageProvider.setLocalizationCache(localizationCache);
+        this.commandRegistry = new CommandRegistry(this, commandManager);
 
-        this.commandRegistry = new CommandRegistry(this, bootstrap.commandManager());
+        MessageProvider.setLocalizationCache(localizationCache);
         commandRegistry.registerAll();
 
         try {
-            this.config = ConfigurationManager.load(dataFolder, TemplateConfiguration.class);
+            this.config = ConfigurationManager.load(dataDirectory, TemplateConfiguration.class);
         } catch (IOException e) {
             logger.error(MessageProvider.translate("template.config.load.fail"), e);
             return;
@@ -87,5 +95,12 @@ public class TemplateImpl {
 
         logger.info(MessageProvider.translate(
             "template.enabled", System.currentTimeMillis() - startTime));
+    }
+
+    /**
+     * Called when the bootstrapped plugin is shutting down.
+     */
+    public void shutdown() {
+        logger.info("Goodbye!");
     }
 }

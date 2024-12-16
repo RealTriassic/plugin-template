@@ -58,6 +58,7 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
     private Logger logger;
     private LegacyPaperCommandManager<Commander> commandManager;
+    private TemplateImpl impl;
 
     /**
      * Called when the plugin is enabled.
@@ -85,7 +86,8 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
             this.commandManager.registerAsynchronousCompletions();
         }
 
-        new TemplateImpl(this);
+        this.impl = new TemplateImpl(this);
+        impl.initialize();
     }
 
     /**
@@ -95,6 +97,8 @@ public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
+        impl.shutdown();
+
         if (adventure != null) {
             adventure.close();
             adventure = null;

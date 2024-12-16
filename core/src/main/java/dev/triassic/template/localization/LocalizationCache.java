@@ -52,7 +52,7 @@ public class LocalizationCache {
      * @param instance the {@link TemplateImpl} instance
      */
     public LocalizationCache(TemplateImpl instance) {
-        this.messagesDir = instance.getDataFolder().resolve("messages");
+        this.messagesDir = instance.getDataDirectory().resolve("messages");
     }
 
     /**

@@ -33,6 +33,7 @@ import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.BuildParameters;
@@ -71,6 +72,7 @@ public class TemplateVelocity implements TemplateBootstrap {
     @Inject
     private Injector injector;
     private VelocityCommandManager<Commander> commandManager;
+    private TemplateImpl impl;
 
     /**
      * Initializes a new {@link TemplateVelocity} instance.
@@ -104,7 +106,16 @@ public class TemplateVelocity implements TemplateBootstrap {
             )
         ).getInstance(Key.get(new TypeLiteral<>() {}));
 
-        new TemplateImpl(this);
+        this.impl = new TemplateImpl(this);
+        impl.initialize();
+    }
+
+    /**
+     * Called when the plugin is disabled.
+     */
+    @Subscribe
+    public void onDisable(final ProxyShutdownEvent event) {
+        impl.shutdown();
     }
 
     @Override

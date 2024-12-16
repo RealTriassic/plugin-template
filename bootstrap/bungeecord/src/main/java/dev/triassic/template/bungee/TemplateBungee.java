@@ -57,6 +57,7 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     private Logger logger;
     private BungeeCommandManager<Commander> commandManager;
+    private TemplateImpl impl;
 
     /**
      * Called when the plugin is enabled.
@@ -77,7 +78,8 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
             )
         );
 
-        new TemplateImpl(this);
+        this.impl = new TemplateImpl(this);
+        impl.initialize();
     }
 
     /**
@@ -87,6 +89,8 @@ public class TemplateBungee extends Plugin implements TemplateBootstrap {
      */
     @Override
     public void onDisable() {
+        impl.shutdown();
+
         if (adventure != null) {
             adventure.close();
             adventure = null;

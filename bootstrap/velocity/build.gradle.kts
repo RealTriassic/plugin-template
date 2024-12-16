@@ -9,3 +9,5 @@ dependencies {
     annotationProcessor(libs.velocity.api)
     implementation(libs.cloud.velocity)
 }
+
+relocate("org.spongepowered")

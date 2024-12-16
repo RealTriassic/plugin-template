@@ -13,6 +13,9 @@ dependencies {
     implementation(libs.slf4j)
 }
 
+relocate("net.kyori")
+relocate("org.spongepowered")
+
 bungee {
     name = rootProject.name
     main = "dev.triassic.template.bungee.TemplateBungee"

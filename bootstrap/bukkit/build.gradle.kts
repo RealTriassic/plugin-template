@@ -13,6 +13,9 @@ dependencies {
     implementation(libs.slf4j)
 }
 
+relocate("net.kyori")
+relocate("org.spongepowered")
+
 tasks.shadowJar {
     manifest {
         attributes["paperweight-mappings-namespace"] = "mojang"

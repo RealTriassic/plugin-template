@@ -61,8 +61,8 @@ public class MessageProvider {
         }
 
         final Optional<String> messageOpt = (locale == null)
-                ? localizationCache.getString(key)
-                : localizationCache.getString(key, locale);
+            ? localizationCache.getString(key)
+            : localizationCache.getString(key, locale);
 
         return messageOpt.map(message -> MessageFormat.format(message, args)).orElse("");
     }

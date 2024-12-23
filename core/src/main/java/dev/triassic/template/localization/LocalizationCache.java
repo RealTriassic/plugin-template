@@ -28,7 +28,7 @@
 package dev.triassic.template.localization;
 
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.util.ResourceBundleUtil;
+import dev.triassic.template.util.MergedResourceControl;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Map;
@@ -86,6 +86,6 @@ public class LocalizationCache {
      * @return the loaded ResourceBundle or null if loading fails
      */
     private ResourceBundle loadBundle(Locale locale) {
-        return ResourceBundleUtil.loadBundle("messages", messagesDir, locale);
+        return ResourceBundle.getBundle("messages", locale, new MergedResourceControl(messagesDir));
     }
 }

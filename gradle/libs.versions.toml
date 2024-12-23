@@ -1,5 +1,5 @@
 [versions]
-adventure = "4.17.0"
+adventure = "4.18.0"
 adventure-platform = "4.3.4"
 cloud-minecraft = "2.0.0-beta.10"
 plugin-yml = "0.6.0"

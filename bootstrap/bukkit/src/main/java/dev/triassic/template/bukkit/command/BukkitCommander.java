@@ -38,7 +38,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 /**
  * Represents a Bukkit-specific {@link Commander}.
  *
- * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
+ * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation.</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface BukkitCommander extends Commander, ForwardingAudience.Single {

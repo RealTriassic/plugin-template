@@ -39,7 +39,7 @@ import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 /**
- * A container for managing the plugin's configuration loaded from a YAML file.
+ * A manager for managing the plugin's configuration.
  *
  * <p>This class provides methods to load, reload, and access the configuration data.</p>
  *
@@ -63,7 +63,7 @@ public class ConfigurationManager<C> {
      * given configuration, class type, and loader.
      *
      * @param config the initial configuration
-     * @param clazz the class type of the configuration
+     * @param clazz the class type of the configuration object
      * @param loader the {@link YamlConfigurationLoader}
      */
     private ConfigurationManager(
@@ -114,10 +114,10 @@ public class ConfigurationManager<C> {
     }
 
     /**
-     * Reloads the configuration from disk, asynchronously.
+     * Asynchronously reloads the configuration from disk.
      * The current configuration object is updated with the newly loaded data.
      *
-     * @return a {@link CompletableFuture} that completes when the reload is complete.
+     * @return a {@link CompletableFuture} that completes when the reload is complete
      */
     public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {

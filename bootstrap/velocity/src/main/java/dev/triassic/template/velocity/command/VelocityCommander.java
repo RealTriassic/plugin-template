@@ -37,7 +37,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 /**
  * Represents a Velocity-specific {@link Commander}.
  *
- * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation</p>
+ * <p>Slightly borrowed from <a href="https://github.com/Hexaoxide/Carbon">Carbon's</a> implementation.</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface VelocityCommander extends Commander, ForwardingAudience.Single {

@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A command that reloads the plugin's configuration.
  */
-public class ReloadCommand extends TemplateCommand {
+public final class ReloadCommand extends TemplateCommand {
 
     private static final Logger logger = LoggerFactory.getLogger(ReloadCommand.class);
     private final ConfigurationManager<TemplateConfiguration> config;

@@ -27,7 +27,7 @@
 
 package dev.triassic.template.bungee.command;
 
-import dev.triassic.template.bungee.TemplateBungee;
+import dev.triassic.template.bungee.TemplateBungeePlugin;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
@@ -68,7 +68,7 @@ public interface BungeeCommander extends Commander, ForwardingAudience.Single {
 
         @Override
         public Audience audience() {
-            return TemplateBungee.getAdventure().sender(sender);
+            return TemplateBungeePlugin.getAdventure().sender(sender);
         }
 
         @Override

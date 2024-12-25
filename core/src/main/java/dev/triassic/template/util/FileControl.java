@@ -50,7 +50,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * local files using {@link MergedResourceBundle}, prioritizing local files.
  */
 @RequiredArgsConstructor
-public class MergedResourceControl extends ResourceBundle.Control {
+public class FileControl extends ResourceBundle.Control {
 
     private @NonNull Path localPath;
 

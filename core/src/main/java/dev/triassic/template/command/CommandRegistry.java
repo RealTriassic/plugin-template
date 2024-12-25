@@ -37,7 +37,7 @@ import org.incendo.cloud.CommandManager;
  * A centralized registry for managing and registering commands in the plugin.
  */
 @RequiredArgsConstructor
-public class CommandRegistry {
+public final class CommandRegistry {
 
     private final TemplateImpl instance;
     private final CommandManager<Commander> commandManager;

@@ -25,58 +25,86 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bungee;
+package dev.triassic.template.velocity;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
+import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import dev.triassic.template.BuildParameters;
 import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.bungee.command.BungeeCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
+import dev.triassic.template.velocity.command.VelocityCommander;
 import java.nio.file.Path;
-import lombok.Getter;
-import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
-import net.md_5.bungee.api.plugin.Plugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.SenderMapper;
-import org.incendo.cloud.bungee.BungeeCommandManager;
 import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.velocity.CloudInjectionModule;
+import org.incendo.cloud.velocity.VelocityCommandManager;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * The main entry point for the plugin on the Bungeecord platform.
+ * The main entry point for the plugin on the Velocity platform.
  *
  * <p>It implements {@link TemplateBootstrap}
  * to provide necessary platform-specific functionality.</p>
  */
-public final class TemplateBungee extends Plugin implements TemplateBootstrap {
+@Plugin(
+    id = BuildParameters.NAME,
+    version = BuildParameters.VERSION,
+    description = BuildParameters.DESCRIPTION,
+    url = BuildParameters.URL,
+    authors = BuildParameters.AUTHOR
+)
+public final class TemplateVelocityPlugin implements TemplateBootstrap {
 
-    @Getter
-    private static BungeeAudiences adventure;
+    private final Logger logger;
+    private final Path dataDirectory;
 
-    private Logger logger;
-    private BungeeCommandManager<Commander> commandManager;
+    @Inject
+    private Injector injector;
+    private VelocityCommandManager<Commander> commandManager;
     private TemplateImpl impl;
+
+    /**
+     * Initializes a new {@link TemplateVelocityPlugin} instance.
+     *
+     * @param dataDirectory the path to the data directory
+     */
+    @Inject
+    public TemplateVelocityPlugin(
+        final Logger logger,
+        final @DataDirectory Path dataDirectory
+    ) {
+        this.logger = logger;
+        this.dataDirectory = dataDirectory;
+    }
 
     /**
      * Called when the plugin is enabled.
      *
-     * <p>Initializes the {@link TemplateImpl} instance for the Bungeecord platform.</p>
+     * <p>Initializes the {@link TemplateImpl} instance for the Velocity platform.</p>
      */
-    @Override
-    public void onEnable() {
-        adventure = BungeeAudiences.create(this);
-
-        this.logger = LoggerFactory.getLogger(getDescription().getName());
-        this.commandManager = new BungeeCommandManager<>(
-            this,
-            ExecutionCoordinator.simpleCoordinator(),
-            SenderMapper.create(
-                BungeeCommander::from,
-                commander -> ((BungeeCommander) commander).sender()
+    @Subscribe
+    public void onEnable(final ProxyInitializeEvent event) {
+        this.commandManager = injector.createChildInjector(
+            new CloudInjectionModule<>(
+                Commander.class,
+                ExecutionCoordinator.simpleCoordinator(),
+                SenderMapper.create(
+                    VelocityCommander::from,
+                    commander -> ((VelocityCommander) commander).sender()
+                )
             )
-        );
+        ).getInstance(Key.get(new TypeLiteral<>() {}));
 
         this.impl = new TemplateImpl(this);
         impl.initialize();
@@ -84,32 +112,25 @@ public final class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     /**
      * Called when the plugin is disabled.
-     *
-     * <p>Cleans up resources to increase the likelihood of a successful reload.</p>
      */
-    @Override
-    public void onDisable() {
+    @Subscribe
+    public void onDisable(final ProxyShutdownEvent event) {
         impl.shutdown();
-
-        if (adventure != null) {
-            adventure.close();
-            adventure = null;
-        }
     }
 
     @Override
     public @NonNull Logger logger() {
-        return logger;
+        return this.logger;
     }
 
     @Override
     public @NonNull Path dataDirectory() {
-        return this.getDataFolder().toPath();
+        return this.dataDirectory;
     }
 
     @Override
     public @NonNull PlatformType platformType() {
-        return PlatformType.BUNGEECORD;
+        return PlatformType.VELOCITY;
     }
 
     @Override

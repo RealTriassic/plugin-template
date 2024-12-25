@@ -32,8 +32,6 @@ import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
-import dev.triassic.template.util.MessageProvider;
-import java.util.Locale;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -53,7 +51,7 @@ public class ReloadCommand extends TemplateCommand {
      * Constructs a new {@link ReloadCommand} instance.
      */
     public ReloadCommand(final @NonNull TemplateImpl instance) {
-        super("reload", "command.reload.description", "template.command.reload");
+        super("reload", "Reloads the plugin configuration.", "template.command.reload");
         this.config = instance.getConfig();
     }
 
@@ -63,13 +61,12 @@ public class ReloadCommand extends TemplateCommand {
         config.reload().handleAsync((v, ex) -> {
             if (ex == null) {
                 sender.sendMessage(Component.text(
-                    MessageProvider.translate(
-                        "command.reload.success", Locale.ENGLISH), NamedTextColor.GREEN)
+                    "TemplatePlugin configuration has been reloaded.", NamedTextColor.GREEN)
                 );
             } else {
                 sender.sendMessage(Component.text(
-                    MessageProvider.translate(
-                        "command.reload.fail", Locale.ENGLISH), NamedTextColor.RED)
+                    "Failed to reload TemplatePlugin configuration, check console for details.",
+                    NamedTextColor.RED)
                 );
                 logger.error(ex.getMessage(), ex.getCause());
             }

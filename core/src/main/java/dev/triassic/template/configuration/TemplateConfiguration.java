@@ -27,21 +27,22 @@
 
 package dev.triassic.template.configuration;
 
-import lombok.Getter;
+import org.spongepowered.configurate.interfaces.meta.defaults.DefaultNumeric;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 /**
  * Represents the plugin's base configuration file.
  */
-@Getter
 @ConfigSerializable
-@SuppressWarnings("FieldMayBeFinal")
-public class TemplateConfiguration {
+public interface TemplateConfiguration {
 
-    @Comment("The default locale used in messages.")
-    private String defaultLocale = "en-US";
-
+    /**
+     * The version of the configuration file.
+     *
+     * @return the configuration version
+     */
     @Comment("Used internally, do not change.")
-    private int configVersion = 1;
+    @DefaultNumeric(1)
+    int configVersion();
 }

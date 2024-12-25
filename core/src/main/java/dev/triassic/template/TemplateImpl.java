@@ -31,10 +31,7 @@ import dev.triassic.template.command.CommandRegistry;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
-import dev.triassic.template.localization.LocalizationCache;
-import dev.triassic.template.util.MessageProvider;
 import dev.triassic.template.util.PlatformType;
-import dev.triassic.template.util.UpdateChecker;
 import java.io.IOException;
 import java.nio.file.Path;
 import lombok.Getter;
@@ -46,14 +43,13 @@ import org.slf4j.Logger;
  * Serves as the main class for initializing and managing the platform.
  */
 @Getter
-public class TemplateImpl {
+public final class TemplateImpl {
 
     private final Logger logger;
     private final Path dataDirectory;
     private final PlatformType platformType;
     private final CommandManager<Commander> commandManager;
 
-    private LocalizationCache localizationCache;
     private CommandRegistry commandRegistry;
     private ConfigurationManager<TemplateConfiguration> config;
 
@@ -75,26 +71,17 @@ public class TemplateImpl {
     public void initialize() {
         final long startTime = System.currentTimeMillis();
 
-        this.localizationCache = new LocalizationCache(this);
-        this.commandRegistry = new CommandRegistry(this, commandManager);
-
-        MessageProvider.setLocalizationCache(localizationCache);
-        commandRegistry.registerAll();
-
         try {
             this.config = ConfigurationManager.load(dataDirectory, TemplateConfiguration.class);
-        } catch (IOException e) {
-            logger.error(MessageProvider.translate("template.config.load.fail"), e);
+        } catch (final IOException e) {
+            logger.error("Failed to load configuration", e);
             return;
         }
 
-        UpdateChecker
-            .checkForUpdates("RealTriassic/plugin-template", "1.0.0")
-            .thenAccept(
-                result -> logger.info(MessageProvider.translate(result.getMessage())));
+        this.commandRegistry = new CommandRegistry(this, commandManager);
+        commandRegistry.registerAll();
 
-        logger.info(MessageProvider.translate(
-            "template.enabled", System.currentTimeMillis() - startTime));
+        logger.info("Enabled in {}ms", System.currentTimeMillis() - startTime);
     }
 
     /**

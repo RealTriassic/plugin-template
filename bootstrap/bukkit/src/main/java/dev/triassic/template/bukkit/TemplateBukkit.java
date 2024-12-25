@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * <p>It implements {@link TemplateBootstrap}
  * to provide necessary platform-specific functionality.</p>
  */
-public class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
+public final class TemplateBukkit extends JavaPlugin implements TemplateBootstrap {
 
     @Getter
     private static BukkitAudiences adventure;

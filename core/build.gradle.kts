@@ -9,6 +9,8 @@ dependencies {
     compileOnly(libs.adventure.minimessage)
     implementation(libs.cloud.core)
     implementation(libs.cloud.minecraft.extras)
+    annotationProcessor(libs.configurate.`interface`.ap)
+    api(libs.configurate.`interface`)
     implementation(libs.configurate.yaml)
     implementation(libs.slf4j)
 }

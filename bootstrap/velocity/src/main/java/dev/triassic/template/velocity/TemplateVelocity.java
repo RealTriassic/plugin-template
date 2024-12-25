@@ -64,7 +64,7 @@ import org.slf4j.Logger;
     url = BuildParameters.URL,
     authors = BuildParameters.AUTHOR
 )
-public class TemplateVelocity implements TemplateBootstrap {
+public final class TemplateVelocity implements TemplateBootstrap {
 
     private final Logger logger;
     private final Path dataDirectory;

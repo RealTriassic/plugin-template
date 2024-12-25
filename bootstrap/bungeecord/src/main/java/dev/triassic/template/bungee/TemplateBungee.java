@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * <p>It implements {@link TemplateBootstrap}
  * to provide necessary platform-specific functionality.</p>
  */
-public class TemplateBungee extends Plugin implements TemplateBootstrap {
+public final class TemplateBungee extends Plugin implements TemplateBootstrap {
 
     @Getter
     private static BungeeAudiences adventure;

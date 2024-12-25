@@ -29,7 +29,6 @@ package dev.triassic.template.command;
 
 import static org.incendo.cloud.description.CommandDescription.commandDescription;
 
-import dev.triassic.template.util.MessageProvider;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +74,7 @@ public abstract class TemplateCommand {
             .literal(name, aliases().toArray(new String[0]))
             .senderType(Commander.class)
             .permission(permission)
-            .commandDescription(commandDescription(MessageProvider.translate(description)));
+            .commandDescription(commandDescription(description));
     }
 
     /**

@@ -33,8 +33,11 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.interfaces.InterfaceDefaultOptions;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
@@ -43,9 +46,9 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
  *
  * <p>This class provides methods to load, reload, and access the configuration data.</p>
  *
- * @param <C> the type of the configuration object
+ * @param <T> the type of the configuration object
  */
-public class ConfigurationManager<C> {
+public final class ConfigurationManager<T> {
 
     private static final String HEADER = """
             TemplatePlugin Configuration File
@@ -54,8 +57,8 @@ public class ConfigurationManager<C> {
             Report any issues on our GitHub repository:
             https://github.com/RealTriassic/plugin-template""";
 
-    private final Class<C> clazz;
-    private final AtomicReference<C> config;
+    private final Class<T> clazz;
+    private final AtomicReference<T> config;
     private final YamlConfigurationLoader loader;
 
     /**
@@ -67,9 +70,9 @@ public class ConfigurationManager<C> {
      * @param loader the {@link YamlConfigurationLoader}
      */
     private ConfigurationManager(
-            final C config,
-            final Class<C> clazz,
-            final YamlConfigurationLoader loader
+        final @Nullable T config,
+        final @NonNull Class<T> clazz,
+        final @NonNull YamlConfigurationLoader loader
     ) {
         this.clazz = clazz;
         this.loader = loader;
@@ -83,27 +86,28 @@ public class ConfigurationManager<C> {
      *
      * @param path the path to the configuration file
      * @param clazz the class type of the configuration object
-     * @param <C> the type of the configuration object
+     * @param <T> the type of the configuration object
      * @return a {@link ConfigurationManager} instance containing the loaded configuration
      * @throws IOException if an error occurs while loading the configuration
      */
-    public static <C> ConfigurationManager<C> load(
-            Path path,
-            final Class<C> clazz
+    @NonNull
+    public static <T> ConfigurationManager<T> load(
+        @NonNull Path path,
+        final @NonNull Class<T> clazz
     ) throws IOException {
         path = path.resolve("config.yml");
 
         final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
-                .indent(2)
-                .path(path)
-                .nodeStyle(NodeStyle.BLOCK)
-                .defaultOptions(options -> options
-                        .shouldCopyDefaults(true)
-                        .header(HEADER))
-                .build();
+            .indent(2)
+            .path(path)
+            .nodeStyle(NodeStyle.BLOCK)
+            .defaultOptions(options -> InterfaceDefaultOptions.addTo(options)
+                .shouldCopyDefaults(true)
+                .header(HEADER))
+            .build();
 
         final CommentedConfigurationNode node = loader.load();
-        final C config = node.get(clazz);
+        final T config = node.get(clazz);
 
         if (Files.notExists(path)) {
             node.set(clazz, config);
@@ -119,12 +123,13 @@ public class ConfigurationManager<C> {
      *
      * @return a {@link CompletableFuture} that completes when the reload is complete
      */
+    @NonNull
     public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             try {
                 final CommentedConfigurationNode node = loader.load();
                 config.set(node.get(clazz));
-            } catch (ConfigurateException e) {
+            } catch (final ConfigurateException e) {
                 throw new CompletionException("Failed to load configuration", e);
             }
         });
@@ -133,9 +138,9 @@ public class ConfigurationManager<C> {
     /**
      * Gets the current configuration object.
      *
-     * @return the current configuration
+     * @return the current configuration object
      */
-    public C get() {
+    public T get() {
         return config.get();
     }
 }

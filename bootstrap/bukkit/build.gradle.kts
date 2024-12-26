@@ -24,7 +24,7 @@ tasks.shadowJar {
 
 bukkit {
     name = rootProject.name
-    main = "dev.triassic.template.bukkit.TemplateBukkit"
+    main = "dev.triassic.template.bukkit.BukkitTemplatePlugin"
     apiVersion = "1.13"
     foliaSupported = true
 }

@@ -18,5 +18,5 @@ relocate("org.spongepowered")
 
 bungee {
     name = rootProject.name
-    main = "dev.triassic.template.bungee.TemplateBungee"
+    main = "dev.triassic.template.bungee.BungeeTemplatePlugin"
 }

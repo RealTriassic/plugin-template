@@ -39,7 +39,7 @@ import org.slf4j.Logger;
  * Interface for platform-specific bootstrap logic.
  */
 @DefaultQualifier(NonNull.class)
-public interface TemplateBootstrap {
+public interface TemplatePlugin {
 
     /**
      * Gets the SLF4J logger for this platform.

@@ -27,8 +27,8 @@
 
 package dev.triassic.template.bukkit;
 
-import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.TemplatePlugin;
 import dev.triassic.template.bukkit.command.BukkitCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
@@ -48,10 +48,10 @@ import org.slf4j.LoggerFactory;
 /**
  * The main entry point for the plugin on the Bukkit platform.
  *
- * <p>It implements {@link TemplateBootstrap}
+ * <p>It implements {@link TemplatePlugin}
  * to provide necessary platform-specific functionality.</p>
  */
-public final class TemplateBukkitPlugin extends JavaPlugin implements TemplateBootstrap {
+public final class BukkitTemplatePlugin extends JavaPlugin implements TemplatePlugin {
 
     @Getter
     private static BukkitAudiences adventure;

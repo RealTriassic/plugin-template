@@ -97,6 +97,7 @@ public final class ConfigurationManager<T> {
     ) throws IOException {
         path = path.resolve("config.yml");
 
+        // TODO: For some reason does not work with interfaces.
         final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
             .indent(2)
             .path(path)

@@ -27,8 +27,8 @@
 
 package dev.triassic.template.bungee;
 
-import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.TemplatePlugin;
 import dev.triassic.template.bungee.command.BungeeCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
@@ -47,10 +47,10 @@ import org.slf4j.LoggerFactory;
 /**
  * The main entry point for the plugin on the Bungeecord platform.
  *
- * <p>It implements {@link TemplateBootstrap}
+ * <p>It implements {@link TemplatePlugin}
  * to provide necessary platform-specific functionality.</p>
  */
-public final class TemplateBungeePlugin extends Plugin implements TemplateBootstrap {
+public final class BungeeTemplatePlugin extends Plugin implements TemplatePlugin {
 
     @Getter
     private static BungeeAudiences adventure;

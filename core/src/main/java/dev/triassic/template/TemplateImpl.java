@@ -56,9 +56,9 @@ public final class TemplateImpl {
     /**
      * Initializes a new {@link TemplateImpl} instance.
      *
-     * @param bootstrap    platform-specific {@link TemplateBootstrap} instance
+     * @param bootstrap    platform-specific {@link TemplatePlugin} instance
      */
-    public TemplateImpl(final TemplateBootstrap bootstrap) {
+    public TemplateImpl(final TemplatePlugin bootstrap) {
         this.logger = bootstrap.logger();
         this.dataDirectory = bootstrap.dataDirectory();
         this.platformType = bootstrap.platformType();

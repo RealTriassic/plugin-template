@@ -37,8 +37,8 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import dev.triassic.template.BuildParameters;
-import dev.triassic.template.TemplateBootstrap;
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.TemplatePlugin;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import dev.triassic.template.velocity.command.VelocityCommander;
@@ -54,7 +54,7 @@ import org.slf4j.Logger;
 /**
  * The main entry point for the plugin on the Velocity platform.
  *
- * <p>It implements {@link TemplateBootstrap}
+ * <p>It implements {@link TemplatePlugin}
  * to provide necessary platform-specific functionality.</p>
  */
 @Plugin(
@@ -64,7 +64,7 @@ import org.slf4j.Logger;
     url = BuildParameters.URL,
     authors = BuildParameters.AUTHOR
 )
-public final class TemplateVelocityPlugin implements TemplateBootstrap {
+public final class VelocityTemplatePlugin implements TemplatePlugin {
 
     private final Logger logger;
     private final Path dataDirectory;
@@ -75,12 +75,12 @@ public final class TemplateVelocityPlugin implements TemplateBootstrap {
     private TemplateImpl impl;
 
     /**
-     * Initializes a new {@link TemplateVelocityPlugin} instance.
+     * Initializes a new {@link VelocityTemplatePlugin} instance.
      *
      * @param dataDirectory the path to the data directory
      */
     @Inject
-    public TemplateVelocityPlugin(
+    public VelocityTemplatePlugin(
         final Logger logger,
         final @DataDirectory Path dataDirectory
     ) {

@@ -44,6 +44,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class ReloadCommand extends TemplateCommand {
 
+    // TODO: We cannot use this logger here.
+    // We need to inject the logger from the platform-specific plugin.
     private static final Logger logger = LoggerFactory.getLogger(ReloadCommand.class);
     private final ConfigurationManager<TemplateConfiguration> config;
 

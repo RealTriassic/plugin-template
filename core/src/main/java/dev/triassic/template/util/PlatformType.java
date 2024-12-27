@@ -27,12 +27,20 @@
 
 package dev.triassic.template.util;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Represents a platform type with a display name and whether it is a proxy.
  */
-public record PlatformType(String displayName, boolean isProxy) {
+@Getter
+@RequiredArgsConstructor
+public enum PlatformType {
 
-    public static final PlatformType BUKKIT = new PlatformType("Bukkit", false);
-    public static final PlatformType BUNGEECORD = new PlatformType("Bungeecord", true);
-    public static final PlatformType VELOCITY = new PlatformType("Velocity", true);
+    BUKKIT("Bukkit", false),
+    BUNGEECORD("Bungeecord", true),
+    VELOCITY("Velocity", true);
+
+    private final String displayName;
+    private final boolean isProxy;
 }

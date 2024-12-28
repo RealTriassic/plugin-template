@@ -27,22 +27,21 @@
 
 package dev.triassic.template.configuration;
 
-import org.spongepowered.configurate.interfaces.meta.defaults.DefaultNumeric;
+import lombok.Getter;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 /**
  * Represents the plugin's base configuration file.
  */
+@Getter
 @ConfigSerializable
-public interface TemplateConfiguration {
+@SuppressWarnings("FieldMayBeFinal")
+public class TemplateConfiguration {
 
     /**
      * The version of the configuration file.
-     *
-     * @return the configuration version
      */
     @Comment("Used internally, do not change.")
-    @DefaultNumeric(1)
-    int configVersion();
+    private int configVersion = 1;
 }

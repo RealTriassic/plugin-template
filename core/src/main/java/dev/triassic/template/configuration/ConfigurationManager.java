@@ -33,11 +33,10 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
-import org.spongepowered.configurate.interfaces.InterfaceDefaultOptions;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
@@ -48,6 +47,7 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
  *
  * @param <T> the type of the configuration object
  */
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConfigurationManager<T> {
 
     private static final String HEADER = """
@@ -58,64 +58,41 @@ public final class ConfigurationManager<T> {
             https://github.com/RealTriassic/plugin-template""";
 
     private final Class<T> clazz;
-    private final AtomicReference<T> config;
     private final YamlConfigurationLoader loader;
-
-    /**
-     * Creates a {@link ConfigurationManager} with the
-     * given configuration, class type, and loader.
-     *
-     * @param config the initial configuration
-     * @param clazz the class type of the configuration object
-     * @param loader the {@link YamlConfigurationLoader}
-     */
-    private ConfigurationManager(
-        final @Nullable T config,
-        final @NonNull Class<T> clazz,
-        final @NonNull YamlConfigurationLoader loader
-    ) {
-        this.clazz = clazz;
-        this.loader = loader;
-        this.config = new AtomicReference<>(config);
-    }
+    private final AtomicReference<T> config;
 
     /**
      * Loads the configuration from the path and
      * creates a new {@link ConfigurationManager} instance.
      * If the configuration file does not exist, it will create a new one with default values.
      *
-     * @param path the path to the configuration file
+     * @param path the path to the directory containing the configuration file
      * @param clazz the class type of the configuration object
      * @param <T> the type of the configuration object
      * @return a {@link ConfigurationManager} instance containing the loaded configuration
      * @throws IOException if an error occurs while loading the configuration
      */
-    @NonNull
     public static <T> ConfigurationManager<T> load(
-        @NonNull Path path,
-        final @NonNull Class<T> clazz
+        Path path,
+        final Class<T> clazz
     ) throws IOException {
         path = path.resolve("config.yml");
 
-        // TODO: For some reason does not work with interfaces.
         final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
             .indent(2)
-            .path(path)
             .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions(options -> InterfaceDefaultOptions.addTo(options)
-                .shouldCopyDefaults(true)
-                .header(HEADER))
+            .defaultOptions(opts -> opts.header(HEADER))
+            .path(path)
             .build();
 
-        final CommentedConfigurationNode node = loader.load();
-        final T config = node.get(clazz);
+        final CommentedConfigurationNode root = loader.load();
+        final T config = root.get(clazz);
 
         if (Files.notExists(path)) {
-            node.set(clazz, config);
-            loader.save(node);
+            loader.save(root);
         }
 
-        return new ConfigurationManager<>(config, clazz, loader);
+        return new ConfigurationManager<>(clazz, loader, new AtomicReference<>(config));
     }
 
     /**
@@ -124,13 +101,12 @@ public final class ConfigurationManager<T> {
      *
      * @return a {@link CompletableFuture} that completes when the reload is complete
      */
-    @NonNull
     public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             try {
-                final CommentedConfigurationNode node = loader.load();
-                config.set(node.get(clazz));
-            } catch (final ConfigurateException e) {
+                final CommentedConfigurationNode root = loader.load();
+                config.set(root.get(clazz));
+            } catch (ConfigurateException e) {
                 throw new CompletionException("Failed to load configuration", e);
             }
         });

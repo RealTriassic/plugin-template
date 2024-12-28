@@ -2,7 +2,6 @@
 adventure = "4.18.0"
 adventure-platform = "4.3.4"
 cloud-minecraft = "2.0.0-beta.10"
-configurate = "4.2.0-GeyserMC-SNAPSHOT"
 plugin-yml = "0.6.0"
 slf4j = "2.0.16"
 
@@ -27,9 +26,7 @@ cloud-paper = { group = "org.incendo", name = "cloud-paper", version.ref = "clou
 cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref = "cloud-minecraft" }
 
 # Config and YAML Libraries
-configurate-interface-ap = { group = "org.spongepowered", name = "configurate-extra-interface-ap", version.ref = "configurate" }
-configurate-interface = { group = "org.spongepowered", name = "configurate-extra-interface", version.ref = "configurate" }
-configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
+configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version = "4.2.0-GeyserMC-SNAPSHOT" }
 
 # Logging Libraries
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }

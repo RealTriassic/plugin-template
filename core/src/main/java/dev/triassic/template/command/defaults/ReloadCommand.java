@@ -37,16 +37,13 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.context.CommandContext;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A command that reloads the plugin's configuration.
  */
 public final class ReloadCommand extends TemplateCommand {
 
-    // TODO: We cannot use this logger here.
-    // We need to inject the logger from the platform-specific plugin.
-    private static final Logger logger = LoggerFactory.getLogger(ReloadCommand.class);
+    private final Logger logger;
     private final ConfigurationManager<TemplateConfiguration> config;
 
     /**
@@ -54,6 +51,7 @@ public final class ReloadCommand extends TemplateCommand {
      */
     public ReloadCommand(final @NonNull TemplateImpl instance) {
         super("reload", "Reloads the plugin configuration.", "template.command.reload");
+        this.logger = instance.getLogger();
         this.config = instance.getConfig();
     }
 

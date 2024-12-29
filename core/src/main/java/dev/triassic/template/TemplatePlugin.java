@@ -36,15 +36,17 @@ import org.incendo.cloud.CommandManager;
 import org.slf4j.Logger;
 
 /**
- * Interface for platform-specific bootstrap logic.
+ * Interface for platform-specific logic.
+ *
+ * <p>All platforms must implement this interface to provide platform-specific functionality.</p>
  */
 @DefaultQualifier(NonNull.class)
 public interface TemplatePlugin {
 
     /**
-     * Gets the SLF4J logger for this platform.
+     * Gets the {@link Logger} for this platform.
      *
-     * @return the platform's logger
+     * @return the slf4j logger
      */
     Logger logger();
 
@@ -56,16 +58,16 @@ public interface TemplatePlugin {
     Path dataDirectory();
 
     /**
-     * Gets the platform type for this platform.
+     * Gets the {@link PlatformType} for this platform.
      *
      * @return the platform type
      */
     PlatformType platformType();
 
     /**
-     * Gets the {@link CommandManager} instance used to manage commands for this platform.
+     * Gets the {@link CommandManager} used to manage commands for this platform.
      *
-     * @return the {@link CommandManager} instance
+     * @return the command manager
      */
     CommandManager<Commander> commandManager();
 }

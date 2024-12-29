@@ -39,8 +39,7 @@ import org.incendo.cloud.CommandManager;
 import org.slf4j.Logger;
 
 /**
- * Handles platform-specific data, configuration, localization, and logging.
- * Serves as the main class for initializing and managing the platform.
+ * The main entry point for initializing and managing the platform implementation.
  */
 @Getter
 public final class TemplateImpl {
@@ -56,13 +55,13 @@ public final class TemplateImpl {
     /**
      * Initializes a new {@link TemplateImpl} instance.
      *
-     * @param bootstrap    platform-specific {@link TemplatePlugin} instance
+     * @param plugin platform-specific {@link TemplatePlugin} instance
      */
-    public TemplateImpl(final TemplatePlugin bootstrap) {
-        this.logger = bootstrap.logger();
-        this.dataDirectory = bootstrap.dataDirectory();
-        this.platformType = bootstrap.platformType();
-        this.commandManager = bootstrap.commandManager();
+    public TemplateImpl(final TemplatePlugin plugin) {
+        this.logger = plugin.logger();
+        this.dataDirectory = plugin.dataDirectory();
+        this.platformType = plugin.platformType();
+        this.commandManager = plugin.commandManager();
     }
 
     /**
@@ -73,7 +72,7 @@ public final class TemplateImpl {
 
         try {
             this.config = ConfigurationManager.load(dataDirectory, TemplateConfiguration.class);
-        } catch (final IOException e) {
+        } catch (IOException e) {
             logger.error("Failed to load configuration", e);
             return;
         }

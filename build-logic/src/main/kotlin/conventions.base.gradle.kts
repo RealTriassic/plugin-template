@@ -11,6 +11,18 @@ tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
     }
+
+    processResources {
+        val name = rootProject.name
+        val version = project.version.toString()
+        val description = project.description
+        val author = project.findProperty("author") as String?
+        val url = project.findProperty("url") as String?
+
+        filesMatching(listOf("plugin.yml", "bungee.yml")) {
+            expand("name" to name, "version" to version, "description" to description, "author" to author, "url" to url)
+        }
+    }
 }
 
 configure<CheckstyleExtension> {

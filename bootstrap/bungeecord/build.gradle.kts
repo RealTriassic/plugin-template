@@ -1,6 +1,5 @@
 plugins {
     id("conventions.shadow")
-    alias(libs.plugins.pluginyml.bungeecord)
 }
 
 dependencies {
@@ -15,8 +14,3 @@ dependencies {
 
 relocate("net.kyori")
 relocate("org.spongepowered")
-
-bungee {
-    name = rootProject.name
-    main = "dev.triassic.template.bungee.BungeeTemplatePlugin"
-}

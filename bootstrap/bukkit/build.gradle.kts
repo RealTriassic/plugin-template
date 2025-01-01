@@ -1,6 +1,5 @@
 plugins {
     id("conventions.shadow")
-    alias(libs.plugins.pluginyml.bukkit)
 }
 
 dependencies {
@@ -20,11 +19,4 @@ tasks.shadowJar {
     manifest {
         attributes["paperweight-mappings-namespace"] = "mojang"
     }
-}
-
-bukkit {
-    name = rootProject.name
-    main = "dev.triassic.template.bukkit.BukkitTemplatePlugin"
-    apiVersion = "1.13"
-    foliaSupported = true
 }

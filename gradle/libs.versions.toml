@@ -2,14 +2,11 @@
 adventure = "4.18.0"
 adventure-platform = "4.3.4"
 cloud-minecraft = "2.0.0-beta.10"
-plugin-yml = "0.6.0"
 slf4j = "2.0.16"
 
 [plugins]
 blossom = { id = "net.kyori.blossom", version = "2.1.0" }
 indra-git = { id = "net.kyori.indra.git", version = "3.1.3" }
-pluginyml-bukkit = { id = "de.eldoria.plugin-yml.bukkit", version.ref = "plugin-yml" }
-pluginyml-bungeecord = { id = "de.eldoria.plugin-yml.bungee", version.ref = "plugin-yml" }
 
 [libraries]
 # Adventure Libraries

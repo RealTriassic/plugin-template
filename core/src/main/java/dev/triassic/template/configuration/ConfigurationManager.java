@@ -27,6 +27,7 @@
 
 package dev.triassic.template.configuration;
 
+import dev.triassic.template.BuildParameters;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,12 +51,12 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConfigurationManager<T> {
 
-    private static final String HEADER = """
-            TemplatePlugin Configuration File
-            A multi-platform template plugin for Minecraft servers.
+    private static final String HEADER = String.format("""
+            %s Configuration File
+            %s
             
             Report any issues on our GitHub repository:
-            https://github.com/RealTriassic/plugin-template""";
+            %s""", BuildParameters.NAME, BuildParameters.DESCRIPTION, BuildParameters.URL);
 
     private final Class<T> clazz;
     private final YamlConfigurationLoader loader;

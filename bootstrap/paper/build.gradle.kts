@@ -10,9 +10,3 @@ dependencies {
 }
 
 relocate("org.spongepowered")
-
-tasks.shadowJar {
-    manifest {
-        attributes["paperweight-mappings-namespace"] = "mojang"
-    }
-}

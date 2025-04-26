@@ -46,7 +46,7 @@ public interface BukkitCommander extends Commander, ForwardingAudience.Single {
     /**
      * Create a new {@link BukkitCommander} from a {@link CommandSender}.
      *
-     * @param sender    the {@link CommandSender}
+     * @param sender the {@link CommandSender}
      * @return a new {@link BukkitCommander}
      */
     static BukkitCommander from(final CommandSender sender) {

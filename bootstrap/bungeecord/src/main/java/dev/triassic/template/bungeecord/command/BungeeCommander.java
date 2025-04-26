@@ -25,9 +25,9 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bungee.command;
+package dev.triassic.template.bungeecord.command;
 
-import dev.triassic.template.bungee.BungeeTemplatePlugin;
+import dev.triassic.template.bungeecord.BungeeTemplatePlugin;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
@@ -46,7 +46,7 @@ public interface BungeeCommander extends Commander, ForwardingAudience.Single {
     /**
      * Create a new {@link BungeeCommander} from a {@link CommandSender}.
      *
-     * @param sender    the {@link CommandSender}
+     * @param sender the {@link CommandSender}
      * @return a new {@link BungeeCommander}
      */
     static BungeeCommander from(final CommandSender sender) {

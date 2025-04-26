@@ -25,11 +25,11 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bungee;
+package dev.triassic.template.bungeecord;
 
 import dev.triassic.template.TemplateImpl;
 import dev.triassic.template.TemplatePlugin;
-import dev.triassic.template.bungee.command.BungeeCommander;
+import dev.triassic.template.bungeecord.command.BungeeCommander;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.util.PlatformType;
 import java.nio.file.Path;

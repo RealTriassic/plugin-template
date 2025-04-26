@@ -1,8 +1,6 @@
-@file:Suppress("UnstableApiUsage")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
         maven("https://repo.opencollab.dev/main/")
@@ -19,6 +17,9 @@ pluginManagement {
     includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
+        maven("https://maven.fabricmc.net/")
+        maven("https://maven.architectury.dev/")
+        maven("https://files.minecraftforge.net/maven/")
     }
 }
 
@@ -29,8 +30,15 @@ plugins {
 rootProject.name = "plugin-template"
 
 include(":core")
+
 file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")
+
+        if (file.name == "modded") {
+            listOf("fabric", "neoforge").forEach { submodule ->
+                include(":bootstrap:modded:$submodule")
+            }
+        }
     }
 }

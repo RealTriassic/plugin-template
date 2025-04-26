@@ -39,6 +39,7 @@ public enum PlatformType {
 
     BUKKIT("Bukkit", false),
     BUNGEECORD("Bungeecord", true),
+    PAPER("Paper", false),
     VELOCITY("Velocity", true);
 
     private final String displayName;

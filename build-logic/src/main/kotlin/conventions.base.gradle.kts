@@ -19,7 +19,7 @@ tasks {
         val author = project.findProperty("author") as String?
         val url = project.findProperty("url") as String?
 
-        filesMatching(listOf("plugin.yml", "bungee.yml")) {
+        filesMatching(listOf("plugin.yml", "paper-plugin.yml", "bungee.yml")) {
             expand("name" to name, "version" to version, "description" to description, "author" to author, "url" to url)
         }
     }
@@ -41,4 +41,4 @@ configure<SpotlessExtension> {
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))

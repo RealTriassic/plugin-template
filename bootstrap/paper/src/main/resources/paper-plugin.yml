@@ -1,0 +1,7 @@
+name: ${name}
+version: ${version}
+main: dev.triassic.template.paper.PaperTemplatePlugin
+description: ${description}
+author: ${author}
+website: ${url}
+api-version: "1.20.6"

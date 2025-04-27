@@ -40,3 +40,5 @@ checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "1
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "8.10.2" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "8.3.5" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "7.0.0.BETA4" }
+architectury-loom = { group = "dev.architectury.loom", name = "dev.architectury.loom.gradle.plugin", version = "1.10-SNAPSHOT" }
+architectury-plugin = { group = "architectury-plugin", name = "architectury-plugin.gradle.plugin", version = "3.4-SNAPSHOT" }

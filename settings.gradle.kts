@@ -35,9 +35,9 @@ file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")
 
-        if (file.name == "modded") {
+        if (file.name == "mod") {
             listOf("fabric", "neoforge").forEach { submodule ->
-                include(":bootstrap:modded:$submodule")
+                include(":bootstrap:mod:$submodule")
             }
         }
     }

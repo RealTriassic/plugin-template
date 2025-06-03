@@ -1,7 +1,7 @@
 plugins {
-    id("conventions.shadow")
     id("dev.architectury.loom")
     id("architectury-plugin")
+    id("com.gradleup.shadow")
 }
 
 architectury {
@@ -11,6 +11,7 @@ architectury {
 loom {
     silentMojangMappingsLicense()
 }
+
 
 dependencies {
     minecraft("net.minecraft:minecraft:1.20.6")

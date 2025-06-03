@@ -27,5 +27,15 @@
 
 package dev.triassic.template.mod.fabric;
 
-public final class FabricTemplateMod {
+import net.fabricmc.api.ModInitializer;
+
+/**
+ * hey!!!.
+ */
+public final class FabricTemplateMod implements ModInitializer {
+
+    @Override
+    public void onInitialize() {
+        System.out.println("Fabric!");
+    }
 }

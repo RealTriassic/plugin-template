@@ -27,5 +27,17 @@
 
 package dev.triassic.template.mod.neoforge;
 
+import net.neoforged.fml.common.Mod;
+
+/**
+ * Hey!!!.
+ */
+@Mod("plugin-template")
 public final class NeoForgeTemplateMod {
+    /**
+     * hi!.
+     */
+    public NeoForgeTemplateMod() {
+        System.out.println("NeoForge!");
+    }
 }

@@ -20,7 +20,15 @@ tasks {
         val url = project.findProperty("url") as String?
 
         filesMatching(listOf("plugin.yml", "paper-plugin.yml", "bungee.yml")) {
-            expand("name" to name, "version" to version, "description" to description, "author" to author, "url" to url)
+            expand(
+                mapOf(
+                    "name" to name,
+                    "version" to version,
+                    "description" to (description ?: ""),
+                    "author" to (author ?: ""),
+                    "url" to (url ?: "")
+                )
+            )
         }
     }
 }

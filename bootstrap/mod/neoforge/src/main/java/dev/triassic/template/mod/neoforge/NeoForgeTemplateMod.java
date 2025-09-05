@@ -32,12 +32,12 @@ import net.neoforged.fml.common.Mod;
 /**
  * Hey!!!.
  */
-@Mod("plugin-template")
+@Mod("example_mod")
 public final class NeoForgeTemplateMod {
     /**
      * hi!.
      */
     public NeoForgeTemplateMod() {
-        System.out.println("NeoForge!");
+        System.out.println("[TEMPLATE MOD] NeoForge!");
     }
 }

@@ -2,13 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    gradlePluginPortal()
-    maven("https://maven.fabricmc.net/")
-    maven("https://maven.neoforged.net/releases")
-    maven("https://maven.architectury.dev/")
-}
-
 dependencies {
     // Used by LibsAccessor.kt, well known workaround for accessing
     // library versions from the version catalog in build logic.

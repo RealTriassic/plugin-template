@@ -36,6 +36,6 @@ public final class FabricTemplateMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        System.out.println("Fabric!");
+        System.out.println("[TEMPLATE MOD] Fabric!");
     }
 }

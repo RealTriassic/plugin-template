@@ -12,6 +12,20 @@ loom {
     silentMojangMappingsLicense()
 }
 
+tasks {
+    shadowJar {
+        configurations = listOf(project.configurations.shadow.get())
+        archiveVersion.set(project.version.toString())
+        archiveClassifier.set("shaded")
+    }
+
+    remapJar {
+        dependsOn(shadowJar)
+        inputFile.set(shadowJar.get().archiveFile)
+        archiveClassifier.set("")
+        archiveVersion.set("")
+    }
+}
 
 dependencies {
     minecraft("net.minecraft:minecraft:1.20.6")

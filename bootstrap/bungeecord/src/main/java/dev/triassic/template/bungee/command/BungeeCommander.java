@@ -25,9 +25,9 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.bungeecord.command;
+package dev.triassic.template.bungee.command;
 
-import dev.triassic.template.bungeecord.BungeeTemplatePlugin;
+import dev.triassic.template.bungee.BungeeTemplatePlugin;
 import dev.triassic.template.command.Commander;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;

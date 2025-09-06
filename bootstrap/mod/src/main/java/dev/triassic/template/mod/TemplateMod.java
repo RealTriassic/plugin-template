@@ -25,25 +25,10 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.util;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+package dev.triassic.template.mod;
 
 /**
- * Represents a platform type with a display name and whether it is a proxy.
+ * Hey!!.
  */
-@Getter
-@RequiredArgsConstructor
-public enum PlatformType {
-
-    BUKKIT("Bukkit", false),
-    BUNGEECORD("Bungeecord", true),
-    FABRIC("Fabric", false),
-    NEOFORGE("NeoForge", false),
-    PAPER("Paper", false),
-    VELOCITY("Velocity", true);
-
-    private final String displayName;
-    private final boolean isProxy;
+public final class TemplateMod {
 }

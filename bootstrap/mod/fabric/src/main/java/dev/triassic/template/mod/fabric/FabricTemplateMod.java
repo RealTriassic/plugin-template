@@ -25,25 +25,17 @@
  * For more information, please refer to <https://unlicense.org/>
  */
 
-package dev.triassic.template.util;
+package dev.triassic.template.mod.fabric;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import net.fabricmc.api.ModInitializer;
 
 /**
- * Represents a platform type with a display name and whether it is a proxy.
+ * hey!!!.
  */
-@Getter
-@RequiredArgsConstructor
-public enum PlatformType {
+public final class FabricTemplateMod implements ModInitializer {
 
-    BUKKIT("Bukkit", false),
-    BUNGEECORD("Bungeecord", true),
-    FABRIC("Fabric", false),
-    NEOFORGE("NeoForge", false),
-    PAPER("Paper", false),
-    VELOCITY("Velocity", true);
-
-    private final String displayName;
-    private final boolean isProxy;
+    @Override
+    public void onInitialize() {
+        System.out.println("[TEMPLATE MOD] Fabric!");
+    }
 }

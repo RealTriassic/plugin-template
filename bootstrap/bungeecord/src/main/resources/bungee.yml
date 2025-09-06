@@ -1,5 +1,5 @@
 name: ${name}
-main: dev.triassic.template.bungeecord.BungeeTemplatePlugin
+main: dev.triassic.template.bungee.BungeeTemplatePlugin
 version: ${version}
 author: ${author}
 description: ${description}

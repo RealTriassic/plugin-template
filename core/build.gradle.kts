@@ -23,7 +23,7 @@ sourceSets {
                 property("url", project.property("url").toString())
                 property("author", project.property("author").toString())
                 property("gitBranch", indraGit.branchName())
-                property("gitCommit", indraGit.commit()?.name)
+                property("gitCommit", indraGit.commit().get().name)
             }
         }
     }

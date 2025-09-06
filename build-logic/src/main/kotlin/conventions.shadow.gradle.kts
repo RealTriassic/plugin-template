@@ -3,20 +3,23 @@ plugins {
     id("com.gradleup.shadow")
 }
 
+interface Injected {
+    @get:Inject val fs: FileSystemOperations
+}
+
 tasks {
-    shadowJar {
+    val shadowJar by existing(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class) {
         archiveBaseName.set("${rootProject.name}-${project.name}")
         archiveClassifier.set(null as String?)
+    }
 
-        doLast {
-            copy {
-                from(archiveFile)
-                into("${rootProject.projectDir}/build")
-            }
-        }
+    register<Copy>("copyShadowJar") {
+        dependsOn(shadowJar)
+        from(shadowJar.flatMap { it.archiveFile })
+        into(rootProject.layout.buildDirectory)
     }
 
     named("build") {
-        dependsOn(shadowJar)
+        dependsOn("copyShadowJar")
     }
 }

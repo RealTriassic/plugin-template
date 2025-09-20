@@ -1,6 +1,5 @@
-@file:Suppress("UnstableApiUsage")
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -9,7 +8,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://repo.opencollab.dev/main/")
         maven("https://repo.papermc.io/repository/maven-public/")
-        maven("https://oss.sonatype.org/content/repositories/snapshots") {
+        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
             mavenContent {
                 snapshotsOnly()
             }

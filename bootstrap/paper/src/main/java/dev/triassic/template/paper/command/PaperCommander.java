@@ -31,7 +31,6 @@ import dev.triassic.template.command.Commander;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
-import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
@@ -44,7 +43,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 public interface PaperCommander extends Commander, ForwardingAudience.Single {
 
     /**
-     * Create a new {@link PaperCommander} from a {@link CommandSender}.
+     * Create a new {@link PaperCommander} from a {@link CommandSourceStack}.
      *
      * @param source the {@link CommandSourceStack}
      * @return a new {@link PaperCommander}

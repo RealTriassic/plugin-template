@@ -28,3 +28,7 @@ sourceSets {
         }
     }
 }
+
+artifacts {
+    add("shadow", tasks.named("shadowJar"))
+}

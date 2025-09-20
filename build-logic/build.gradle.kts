@@ -8,6 +8,8 @@ dependencies {
     // See https://github.com/gradle/gradle/issues/15383#issuecomment-779893192
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
+    implementation(libs.architectury.loom)
+    implementation(libs.architectury.plugin)
     implementation(libs.lombok.plugin)
     implementation(libs.shadow.plugin)
     implementation(libs.spotless.plugin)

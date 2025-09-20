@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "example_mod",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": [
+    "${author}"
+  ],
+  "contact": {
+    "homepage": "${url}"
+  },
+  "license": "UNLICENSED",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.triassic.template.mod.fabric.FabricTemplateMod"
+    ],
+    "client": []
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "cloud": "*"
+  }
+}

@@ -20,7 +20,11 @@ pluginManagement {
     includeBuild("build-logic")
 
     repositories {
+        mavenLocal()
         gradlePluginPortal()
+        maven("https://maven.fabricmc.net/")
+        maven("https://maven.architectury.dev/")
+        maven("https://files.minecraftforge.net/maven/")
         maven("https://repo.papermc.io/repository/maven-snapshots/") {
             mavenContent {
                 snapshotsOnly()
@@ -30,6 +34,7 @@ pluginManagement {
 }
 
 plugins {
+    id("dev.architectury.loom") version "1.11-SNAPSHOT"
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
@@ -40,5 +45,11 @@ include(":core")
 file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")
+
+        if (file.name == "mod") {
+            listOf("fabric", "neoforge").forEach { submodule ->
+                include(":bootstrap:mod:$submodule")
+            }
+        }
     }
 }

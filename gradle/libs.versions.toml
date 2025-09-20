@@ -1,6 +1,7 @@
 [versions]
-adventure = "4.25.0"
+adventure = "4.24.0"
 adventure-platform = "4.4.1"
+adventure-mod-platform = "6.6.0"
 cloud-minecraft = "2.0.0-beta.13"
 slf4j = "2.0.17"
 
@@ -13,12 +14,16 @@ indra-git = { id = "net.kyori.indra.git", version = "4.0.0-SNAPSHOT" }
 adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
 adventure-bukkit = { group = "net.kyori", name = "adventure-platform-bukkit", version.ref = "adventure-platform" }
 adventure-bungeecord = { group = "net.kyori", name = "adventure-platform-bungeecord", version.ref = "adventure-platform" }
+adventure-fabric = { group = "net.kyori", name = "adventure-platform-fabric", version.ref = "adventure-mod-platform" }
 adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+adventure-neoforge = { group = "net.kyori", name = "adventure-platform-neoforge", version.ref = "adventure-mod-platform" }
 
 # Cloud Libraries
 cloud-bungeecord = { group = "org.incendo", name = "cloud-bungee", version.ref = "cloud-minecraft" }
 cloud-core = { group = "org.incendo", name = "cloud-core", version = "2.0.0" }
 cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version.ref = "cloud-minecraft" }
+cloud-fabric = { group = "org.incendo", name = "cloud-fabric", version.ref = "cloud-minecraft" }
+cloud-neoforge = { group = "org.incendo", name = "cloud-neoforge", version.ref = "cloud-minecraft" }
 cloud-paper = { group = "org.incendo", name = "cloud-paper", version.ref = "cloud-minecraft" }
 cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref = "cloud-minecraft" }
 
@@ -36,6 +41,8 @@ paper-api = { group = "io.papermc.paper", name = "paper-api", version = "1.20.6-
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version = "3.4.0-SNAPSHOT" }
 
 # Gradle Plugins
+architectury-loom = { group = "dev.architectury.loom", name = "dev.architectury.loom.gradle.plugin", version = "1.11-SNAPSHOT" }
+architectury-plugin = { group = "architectury-plugin", name = "architectury-plugin.gradle.plugin", version = "3.5-SNAPSHOT" }
 checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.0.1" }
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.0.0" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.2.2" }

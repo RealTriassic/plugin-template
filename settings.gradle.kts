@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
@@ -36,6 +37,7 @@ plugins {
 rootProject.name = "plugin-template"
 
 include(":core")
+
 file("bootstrap").listFiles()?.forEach { file ->
     if (file.isDirectory) {
         include(":bootstrap:${file.name}")

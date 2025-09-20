@@ -39,6 +39,8 @@ public enum PlatformType {
 
     BUKKIT("Bukkit", false),
     BUNGEECORD("Bungeecord", true),
+    FABRIC("Fabric", false),
+    NEOFORGE("NeoForge", false),
     PAPER("Paper", false),
     VELOCITY("Velocity", true);
 

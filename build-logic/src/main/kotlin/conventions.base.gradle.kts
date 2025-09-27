@@ -19,7 +19,13 @@ tasks {
         val author = project.findProperty("author") as String?
         val url = project.findProperty("url") as String?
 
-        filesMatching(listOf("plugin.yml", "paper-plugin.yml", "bungee.yml")) {
+        filesMatching(listOf(
+            "plugin.yml",
+            "bungee.yml",
+            "fabric.mod.json",
+            "neoforge.mods.toml",
+            "paper-plugin.yml")
+        ) {
             expand(
                 mapOf(
                     "name" to name,

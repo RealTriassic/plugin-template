@@ -58,12 +58,7 @@
         <property name="ignorePattern"
                   value="^package.*|^import.*|href\s*=\s*&quot;[^&quot;]*&quot;|http://|https://|ftp://"/>
     </module>
-    <!--  Suppression to prevent LineLength Check from flagging lines in Text-blocks -->
-    <module name="SuppressWithPlainTextCommentFilter">
-        <property name="checkFormat" value="LineLength"/>
-        <property name="offCommentFormat" value='^.*"""\s*$'/>
-        <property name="onCommentFormat" value='^\s*"""\s*(?:[,;]|.+)$'/>
-    </module>
+
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
         <module name="MatchXpath">
@@ -150,7 +145,7 @@
                       value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE, LITERAL_RETURN,
                     LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, LITERAL_FINALLY, DO_WHILE, ELLIPSIS,
                     LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_CATCH, LAMBDA,
-                    LITERAL_YIELD, LITERAL_CASE, LITERAL_WHEN, ANNOTATIONS"/>
+                    LITERAL_YIELD, LITERAL_CASE, LITERAL_WHEN"/>
         </module>
         <module name="WhitespaceAround">
             <property name="allowEmptyConstructors" value="true"/>
@@ -350,9 +345,7 @@
         </module>
         <module name="SuppressionXpathSingleFilter">
             <property name="checks" value="NoWhitespaceBefore"/>
-            <property name="query"
-                      value="//ELLIPSIS[preceding-sibling::TYPE/ANNOTATIONS[ANNOTATION[LPAREN]
-              or not(following-sibling::*)]]"/>
+            <property name="query" value="//ELLIPSIS[preceding-sibling::TYPE/ANNOTATIONS/ANNOTATION]"/>
         </module>
         <module name="ParenPad">
             <property name="tokens"

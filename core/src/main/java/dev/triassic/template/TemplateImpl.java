@@ -9,6 +9,7 @@
 
 package dev.triassic.template;
 
+import dev.triassic.template.annotation.PlatformSpecific;
 import dev.triassic.template.command.CommandRegistry;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.configuration.ConfigurationManager;
@@ -49,18 +50,20 @@ public final class TemplateImpl {
     /**
      * Called when the bootstrapped plugin is done initializing.
      */
+    @PlatformSpecific(PlatformType.BUKKIT)
     public void initialize() {
         final long startTime = System.currentTimeMillis();
 
         try {
-            this.config = ConfigurationManager.load(dataDirectory, TemplateConfiguration.class);
+            this.config = ConfigurationManager.load(
+                dataDirectory, TemplateConfiguration.class, platformType);
         } catch (IOException e) {
             logger.error("Failed to load configuration", e);
             return;
         }
 
         this.commandRegistry = new CommandRegistry(this, commandManager);
-        commandRegistry.registerAll();
+        commandRegistry.registerAll(platformType);
 
         logger.info("Enabled in {}ms", System.currentTimeMillis() - startTime);
     }

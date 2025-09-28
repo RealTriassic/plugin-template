@@ -9,6 +9,8 @@
 
 package dev.triassic.template.configuration;
 
+import dev.triassic.template.annotation.PlatformSpecific;
+import dev.triassic.template.util.PlatformType;
 import lombok.Getter;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
@@ -20,6 +22,10 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @ConfigSerializable
 @SuppressWarnings("FieldMayBeFinal")
 public class TemplateConfiguration {
+
+    @Comment("Should only appear on Bukkit-like platforms.")
+    @PlatformSpecific({PlatformType.BUKKIT, PlatformType.PAPER})
+    private String exampleString = "hello, bukkit!";
 
     /**
      * The version of the configuration file.

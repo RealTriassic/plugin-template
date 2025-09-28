@@ -10,9 +10,12 @@
 package dev.triassic.template.configuration;
 
 import dev.triassic.template.BuildParameters;
+import dev.triassic.template.annotation.PlatformSpecific;
+import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -20,6 +23,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.objectmapping.ObjectMapper;
+import org.spongepowered.configurate.objectmapping.meta.Processor;
+import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
@@ -57,14 +63,22 @@ public final class ConfigurationManager<T> {
      */
     public static <T> ConfigurationManager<T> load(
         Path path,
-        final Class<T> clazz
+        final Class<T> clazz,
+        final PlatformType platform
     ) throws IOException {
         path = path.resolve("config.yml");
 
         final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
             .indent(2)
             .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions(opts -> opts.header(HEADER))
+            .defaultOptions(opts -> opts
+                .header(HEADER)
+                .serializers(TypeSerializerCollection.defaults().childBuilder()
+                    .registerAnnotatedObjects(ObjectMapper.factoryBuilder()
+                        .addProcessor(PlatformSpecific.class, platformSpecific(platform))
+                        .build()
+                    )
+                    .build()))
             .path(path)
             .build();
 
@@ -76,6 +90,19 @@ public final class ConfigurationManager<T> {
         }
 
         return new ConfigurationManager<>(clazz, loader, new AtomicReference<>(config));
+    }
+
+    private static Processor.Factory<PlatformSpecific, Object> platformSpecific(
+        PlatformType currentPlatform
+    ) {
+        return (annotation, fieldType) -> (value, destination) -> {
+            boolean allowed = Arrays.asList(annotation.value()).contains(currentPlatform);
+
+            if (!allowed) {
+                System.out.println("Removing " + destination.key());
+                destination.parent().removeChild(destination.key());
+            }
+        };
     }
 
     /**

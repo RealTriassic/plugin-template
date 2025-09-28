@@ -10,10 +10,12 @@
 package dev.triassic.template.command.defaults;
 
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.annotation.PlatformSpecific;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
+import dev.triassic.template.util.PlatformType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 /**
  * A command that reloads the plugin's configuration.
  */
+@PlatformSpecific({PlatformType.BUKKIT, PlatformType.PAPER})
 public final class ReloadCommand extends TemplateCommand {
 
     private final Logger logger;

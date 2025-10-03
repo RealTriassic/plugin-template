@@ -53,14 +53,15 @@ public final class TemplateImpl {
         final long startTime = System.currentTimeMillis();
 
         try {
-            this.config = ConfigurationManager.load(dataDirectory, TemplateConfiguration.class);
+            this.config = ConfigurationManager.load(
+                dataDirectory, TemplateConfiguration.class, platformType);
         } catch (IOException e) {
             logger.error("Failed to load configuration", e);
             return;
         }
 
         this.commandRegistry = new CommandRegistry(this, commandManager);
-        commandRegistry.registerAll();
+        commandRegistry.registerAll(platformType);
 
         logger.info("Enabled in {}ms", System.currentTimeMillis() - startTime);
     }

@@ -10,6 +10,8 @@
 package dev.triassic.template.configuration;
 
 import dev.triassic.template.BuildParameters;
+import dev.triassic.template.annotation.ExcludePlatform;
+import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +22,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.objectmapping.ObjectMapper;
+import org.spongepowered.configurate.objectmapping.meta.Processor;
+import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
@@ -57,14 +62,22 @@ public final class ConfigurationManager<T> {
      */
     public static <T> ConfigurationManager<T> load(
         Path path,
-        final Class<T> clazz
+        final Class<T> clazz,
+        final PlatformType platformType
     ) throws IOException {
         path = path.resolve("config.yml");
 
         final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
             .indent(2)
             .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions(opts -> opts.header(HEADER))
+            .defaultOptions(opts -> opts
+                .header(HEADER)
+                .serializers(TypeSerializerCollection.defaults().childBuilder()
+                    .registerAnnotatedObjects(ObjectMapper.factoryBuilder()
+                        .addProcessor(ExcludePlatform.class, excludePlatform(platformType))
+                        .build()
+                    )
+                    .build()))
             .path(path)
             .build();
 
@@ -102,5 +115,18 @@ public final class ConfigurationManager<T> {
      */
     public T get() {
         return config.get();
+    }
+
+    private static Processor.Factory<ExcludePlatform, Object> excludePlatform(
+        final PlatformType platformType
+    ) {
+        return (annotation, fieldType) -> (value, destination) -> {
+            for (PlatformType platform : annotation.value()) {
+                if (platformType.equals(platform)) {
+                    destination.parent().removeChild(destination.key());
+                    break;
+                }
+            }
+        };
     }
 }

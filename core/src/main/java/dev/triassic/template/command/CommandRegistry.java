@@ -10,7 +10,10 @@
 package dev.triassic.template.command;
 
 import dev.triassic.template.TemplateImpl;
+import dev.triassic.template.annotation.ExcludePlatform;
 import dev.triassic.template.command.defaults.ReloadCommand;
+import dev.triassic.template.util.PlatformType;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.incendo.cloud.CommandManager;
@@ -27,11 +30,21 @@ public final class CommandRegistry {
     /**
      * Registers all commands with the command manager.
      */
-    public void registerAll() {
+    public void registerAll(final PlatformType platformType) {
         final List<TemplateCommand> commands = List.of(
             new ReloadCommand(instance)
         );
 
-        commands.forEach(command -> command.register(commandManager));
+        commands.forEach(command -> {
+            final ExcludePlatform exclude = command.getClass().getAnnotation(ExcludePlatform.class);
+            if (exclude != null) {
+                if (Arrays.asList(exclude.value()).contains(platformType)) {
+                    return;
+                }
+            }
+
+            command.register(commandManager);
+        });
     }
+
 }

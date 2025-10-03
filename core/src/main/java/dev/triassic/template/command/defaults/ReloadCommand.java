@@ -10,12 +10,10 @@
 package dev.triassic.template.command.defaults;
 
 import dev.triassic.template.TemplateImpl;
-import dev.triassic.template.annotation.ExcludePlatform;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.command.TemplateCommand;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
-import dev.triassic.template.util.PlatformType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;

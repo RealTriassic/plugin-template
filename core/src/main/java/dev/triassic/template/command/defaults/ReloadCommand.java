@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 /**
  * A command that reloads the plugin's configuration.
  */
-@ExcludePlatform({PlatformType.VELOCITY})
 public final class ReloadCommand extends TemplateCommand {
 
     private final Logger logger;

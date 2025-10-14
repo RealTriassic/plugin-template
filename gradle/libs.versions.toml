@@ -1,11 +1,11 @@
 [versions]
-adventure = "4.24.0"
+adventure = "4.25.0"
 adventure-platform = "4.4.1"
-cloud-minecraft = "2.0.0-beta.11"
+cloud-minecraft = "2.0.0-beta.13"
 slf4j = "2.0.17"
 
 [plugins]
-blossom = { id = "net.kyori.blossom", version = "2.1.0" }
+blossom = { id = "net.kyori.blossom", version = "2.2.0" }
 indra-git = { id = "net.kyori.indra.git", version = "4.0.0-SNAPSHOT" }
 
 [libraries]
@@ -37,6 +37,6 @@ velocity-api = { group = "com.velocitypowered", name = "velocity-api", version =
 
 # Gradle Plugins
 checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.0.1" }
-lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "8.14.2" }
-shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.1.0" }
-spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "7.2.1" }
+lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.0.0" }
+shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.2.2" }
+spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "8.0.0" }

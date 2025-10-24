@@ -36,7 +36,7 @@ paper-api = { group = "io.papermc.paper", name = "paper-api", version = "1.20.6-
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version = "3.4.0-SNAPSHOT" }
 
 # Gradle Plugins
-checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.0.1" }
+checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.1.0" }
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.0.0" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.2.2" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "8.0.0" }

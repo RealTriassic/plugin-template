@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "UNLICENSED"
+
+[[mods]]
+modId = "example_mod"
+version = "1.0.0"
+displayName = "Template"
+authors = "Triassic"
+description = "Testing around"
+#logoFile = ""
+
+[[dependencies.example_mod]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.8,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.example_mod]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.8,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.example_mod]]
+modId = "cloud"
+type = "required"
+versionRange = "[1.0,)"
+ordering = "NONE"
+side = "BOTH"

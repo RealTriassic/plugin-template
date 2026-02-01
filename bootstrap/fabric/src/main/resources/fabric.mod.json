@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "example_mod",
+  "version": "1.0.0",
+  "name": "template-plugin",
+  "description": "testing",
+  "authors": [
+    "Me"
+  ],
+  "contact": {
+    "homepage": "https://example.com"
+  },
+  "license": "UNLICENSED",
+  "environment": "SERVER",
+  "entrypoints": {
+    "main": [
+      "dev.triassic.template.fabric.FabricTemplatePlugin"
+    ],
+    "client": []
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric-permissions-api-v0": "*",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "cloud": "*"
+  }
+}

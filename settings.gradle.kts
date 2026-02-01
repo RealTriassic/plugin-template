@@ -2,9 +2,11 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    rulesMode = RulesMode.FAIL_ON_PROJECT_RULES
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
     repositories {
+        mavenLocal()
         mavenCentral()
         maven("https://repo.opencollab.dev/main/")
         maven("https://repo.papermc.io/repository/maven-public/")
@@ -21,6 +23,8 @@ pluginManagement {
 
     repositories {
         gradlePluginPortal()
+        maven("https://maven.fabricmc.net/")
+        maven("https://maven.neoforged.net/releases/")
         maven("https://repo.papermc.io/repository/maven-snapshots/") {
             mavenContent {
                 snapshotsOnly()
@@ -31,6 +35,8 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("fabric-loom") version "1.13-SNAPSHOT"
+    id("net.neoforged.moddev.repositories") version "2.0.116"
 }
 
 rootProject.name = "plugin-template"

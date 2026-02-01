@@ -11,17 +11,16 @@ package dev.triassic.template.configuration;
 
 import dev.triassic.template.annotation.ExcludePlatform;
 import dev.triassic.template.util.PlatformType;
-import lombok.Getter;
+import org.spongepowered.configurate.interfaces.meta.defaults.DefaultNumeric;
+import org.spongepowered.configurate.interfaces.meta.defaults.DefaultString;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 /**
  * Represents the plugin's base configuration file.
  */
-@Getter
 @ConfigSerializable
-@SuppressWarnings("FieldMayBeFinal")
-public class TemplateConfiguration {
+public interface TemplateConfiguration {
 
     /**
      * An example string that showcases the usage of {@link ExcludePlatform}.
@@ -31,12 +30,14 @@ public class TemplateConfiguration {
      * otherwise the node will be recreated empty to add the comment.</p>
      */
     @Comment("This string should not appear on Velocity and Bungeecord platforms.")
+    @DefaultString("This is an example string!")
     @ExcludePlatform({PlatformType.BUNGEECORD, PlatformType.VELOCITY})
-    private String exampleString = "This is an example string!";
+    String exampleString();
 
     /**
      * The version of the configuration file.
      */
     @Comment("Used internally, do not change.")
-    private int configVersion = 1;
+    @DefaultNumeric(1)
+    int configVersion();
 }

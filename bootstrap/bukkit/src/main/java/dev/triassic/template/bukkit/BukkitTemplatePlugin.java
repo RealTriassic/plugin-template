@@ -61,11 +61,15 @@ public final class BukkitTemplatePlugin extends JavaPlugin implements TemplatePl
             )
         );
 
-        if (this.commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
-            this.commandManager.registerBrigadier();
-        } else if (this.commandManager.hasCapability(
-            CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
-            this.commandManager.registerAsynchronousCompletions();
+        /* Since we are using LegacyPaperCommandManager, we must check and register
+         platform capabilities ourselves. First we check for Brigadier support, before
+         resorting to using Asynchronous completion, if Brigadier is not available.
+
+         https://cloud.incendo.org/minecraft/paper/#execution-coordinators */
+        if (commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER)) {
+            commandManager.registerBrigadier();
+        } else if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+            commandManager.registerAsynchronousCompletions();
         }
 
         this.impl = new TemplateImpl(this);
@@ -74,12 +78,12 @@ public final class BukkitTemplatePlugin extends JavaPlugin implements TemplatePl
 
     /**
      * Called when the plugin is disabled.
-     *
-     * <p>Cleans up resources to increase the likelihood of a successful reload.</p>
      */
     @Override
     public void onDisable() {
-        impl.shutdown();
+        if (impl != null) {
+            impl.shutdown();
+        }
 
         if (adventure != null) {
             adventure.close();

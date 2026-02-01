@@ -5,6 +5,9 @@ plugins {
 }
 
 dependencies {
+    annotationProcessor(libs.configurate.`interface`.ap)
+    api(libs.configurate.`interface`)
+
     compileOnly(libs.adventure.api)
     compileOnly(libs.adventure.minimessage)
     implementation(libs.cloud.core)

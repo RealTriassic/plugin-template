@@ -97,7 +97,9 @@ public final class VelocityTemplatePlugin implements TemplatePlugin {
      */
     @Subscribe
     public void onDisable(final ProxyShutdownEvent event) {
-        impl.shutdown();
+        if (impl != null) {
+            impl.shutdown();
+        }
     }
 
     @Override

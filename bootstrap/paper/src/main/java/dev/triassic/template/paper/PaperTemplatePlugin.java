@@ -57,7 +57,9 @@ public final class PaperTemplatePlugin extends JavaPlugin implements TemplatePlu
      */
     @Override
     public void onDisable() {
-        impl.shutdown();
+        if (impl != null) {
+            impl.shutdown();
+        }
     }
 
     @Override

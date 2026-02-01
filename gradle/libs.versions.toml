@@ -1,42 +1,59 @@
 [versions]
 adventure = "4.25.0"
 adventure-platform = "4.4.1"
+adventure-platform-mod = "6.7.0"
+bungeecord-api = "1.21-R0.1"
+cloud = "2.0.0"
 cloud-minecraft = "2.0.0-beta.13"
+configurate = "4.3.0-GeyserMC-SNAPSHOT"
+minecraft = "1.21.10"
+neoforge = "21.10.49-beta"
 slf4j = "2.0.17"
+spigot-api = "1.21.10-R0.1-SNAPSHOT"
+paper-api = "1.21.10-R0.1-SNAPSHOT"
+velocity-api = "3.4.0-SNAPSHOT"
 
 [plugins]
 blossom = { id = "net.kyori.blossom", version = "2.2.0" }
+fabric-loom = { id = "fabric-loom", version = "1.13-SNAPSHOT" }
 indra-git = { id = "net.kyori.indra.git", version = "4.0.0-SNAPSHOT" }
+moddevgradle = { id = "net.neoforged.moddev", version = "2.0.116" }
 
 [libraries]
-# Adventure Libraries
 adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
 adventure-bukkit = { group = "net.kyori", name = "adventure-platform-bukkit", version.ref = "adventure-platform" }
 adventure-bungeecord = { group = "net.kyori", name = "adventure-platform-bungeecord", version.ref = "adventure-platform" }
+adventure-fabric = { group = "net.kyori", name = "adventure-platform-fabric", version.ref = "adventure-platform-mod" }
 adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+adventure-neoforge = { group = "net.kyori", name = "adventure-platform-neoforge", version.ref = "adventure-platform-mod" }
 
-# Cloud Libraries
 cloud-bungeecord = { group = "org.incendo", name = "cloud-bungee", version.ref = "cloud-minecraft" }
-cloud-core = { group = "org.incendo", name = "cloud-core", version = "2.0.0" }
+cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud" }
 cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version.ref = "cloud-minecraft" }
+cloud-fabric = { group = "org.incendo", name = "cloud-fabric", version.ref = "cloud-minecraft" }
+cloud-neoforge = { group = "org.incendo", name = "cloud-neoforge", version.ref = "cloud-minecraft" }
 cloud-paper = { group = "org.incendo", name = "cloud-paper", version.ref = "cloud-minecraft" }
 cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref = "cloud-minecraft" }
 
 # Config and YAML Libraries
-configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version = "4.2.0-GeyserMC-SNAPSHOT" }
+configurate-interface-ap = { group = "org.spongepowered", name = "configurate-extra-interface-ap", version.ref = "configurate" }
+configurate-interface = { group = "org.spongepowered", name = "configurate-extra-interface", version.ref = "configurate" }
+configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
+
+minecraft = { group = "net.minecraft", name = "minecraft", version.ref = "minecraft" }
 
 # Logging Libraries
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 slf4j-jdk14 = { group = "org.slf4j", name = "slf4j-jdk14", version.ref = "slf4j" }
 
 # Server APIs
-bungeecord-api = { group = "net.md-5", name = "bungeecord-api", version = "1.21-R0.1" }
-spigot-api = { group = "org.spigotmc", name = "spigot-api", version = "1.20.6-R0.1-SNAPSHOT" }
-paper-api = { group = "io.papermc.paper", name = "paper-api", version = "1.20.6-R0.1-SNAPSHOT" }
-velocity-api = { group = "com.velocitypowered", name = "velocity-api", version = "3.4.0-SNAPSHOT" }
+bungeecord-api = { group = "net.md-5", name = "bungeecord-api", version.ref = "bungeecord-api" }
+spigot-api = { group = "org.spigotmc", name = "spigot-api", version.ref = "spigot-api" }
+paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api" }
+velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity-api" }
 
 # Gradle Plugins
-checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.1.0" }
+checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "12.1.2" }
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.0.0" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.2.2" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "8.0.0" }

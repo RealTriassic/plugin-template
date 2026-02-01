@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.core)
+    api(projects.core)
 
     compileOnly(libs.paper.api)
     implementation(libs.cloud.paper)

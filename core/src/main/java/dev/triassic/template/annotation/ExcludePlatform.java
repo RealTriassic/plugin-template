@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
  * are included on all platforms by default.</p>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
 public @interface ExcludePlatform {
 
     /**

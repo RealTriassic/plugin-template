@@ -38,12 +38,14 @@ public record ConfigurationManager<T>(
     AtomicReference<T> config
 ) {
 
-    private static final String HEADER = String.format("""
+    private static final String HEADER = String.format(
+        """
         %s Configuration File
         %s
         
         Report any issues on our GitHub repository:
-        %s""", BuildParameters.NAME, BuildParameters.DESCRIPTION, BuildParameters.URL);
+        %s
+        """, BuildParameters.NAME, BuildParameters.DESCRIPTION, BuildParameters.URL);
 
     /**
      * Loads the configuration from the path and

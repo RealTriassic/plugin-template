@@ -47,7 +47,7 @@ public final class NeoForgeTemplatePlugin implements TemplatePlugin {
     private TemplateImpl impl;
 
     /**
-     * hi!.
+     * Construct a new NeoForgeTemplatePlugin instance.
      */
     public NeoForgeTemplatePlugin() {
         this.logger = LoggerFactory.getLogger(NeoForgeTemplatePlugin.class);

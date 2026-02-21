@@ -63,7 +63,8 @@ public final class TemplateImpl {
         this.commandRegistry = new CommandRegistry(this, commandManager);
         commandRegistry.registerAll(platformType);
 
-        logger.info("Enabled in {}ms", System.currentTimeMillis() - startTime);
+        logger.info("Enabled on {} in {}ms",
+            getPlatformType(), System.currentTimeMillis() - startTime);
     }
 
     /**

@@ -74,11 +74,25 @@ public final class PaperTemplatePlugin extends JavaPlugin implements TemplatePlu
 
     @Override
     public @NonNull PlatformType platformType() {
-        return PlatformType.PAPER;
+        return isFolia() ? PlatformType.FOLIA : PlatformType.PAPER;
     }
 
     @Override
     public @NonNull CommandManager<Commander> commandManager() {
         return this.commandManager;
+    }
+
+    /**
+     * Check if the server is running on Folia.
+     *
+     * @return {@code true} if running on Folia, otherwise {@code false}
+     */
+    public static boolean isFolia() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }

@@ -53,7 +53,7 @@ paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "pap
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity-api" }
 
 # Gradle Plugins
-checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "13.1.0" }
+checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "13.2.0" }
 lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.2.0" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.3.1" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "8.2.1" }

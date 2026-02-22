@@ -69,9 +69,9 @@ public record ConfigurationManager<T>(
             .path(path)
             .indent(2)
             .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions(opts -> InterfaceDefaultOptions.addTo(opts, builder -> {
-                builder.addProcessor(ExcludePlatform.class, excludePlatform(platformType));
-            })
+            .defaultOptions(opts -> InterfaceDefaultOptions.addTo(opts,
+                    builder -> builder.addProcessor(ExcludePlatform.class,
+                        excludePlatform(platformType)))
                 .header(HEADER))
             .build();
 
@@ -117,6 +117,7 @@ public record ConfigurationManager<T>(
         return (annotation, fieldType) -> (value, destination) -> {
             for (PlatformType platform : annotation.value()) {
                 if (platformType.equals(platform)) {
+                    // noinspection DataFlowIssue
                     destination.parent().removeChild(destination.key());
                     break;
                 }

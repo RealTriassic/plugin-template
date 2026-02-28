@@ -11,9 +11,9 @@
     "homepage": "https://example.com"
   },
   "license": "UNLICENSED",
-  "environment": "SERVER",
+  "environment": "server",
   "entrypoints": {
-    "main": [
+    "server": [
       "dev.triassic.template.fabric.FabricTemplatePlugin"
     ],
     "client": []

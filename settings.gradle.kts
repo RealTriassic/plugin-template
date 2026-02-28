@@ -1,5 +1,4 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 dependencyResolutionManagement {
     rulesMode = RulesMode.FAIL_ON_PROJECT_RULES
@@ -34,8 +33,12 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("fabric-loom") version "1.13-SNAPSHOT"
-    id("net.neoforged.moddev.repositories") version "2.0.116"
+    /*
+    Loom and ModDevGradle get applied here, because
+    otherwise they will fail to add repositories properly.
+     */
+    id("fabric-loom") version "1.15-SNAPSHOT"  // https://github.com/FabricMC/fabric-loom
+    id("net.neoforged.moddev.repositories") version "2.0.140"  // https://projects.neoforged.net/neoforged/ModDevGradle
 }
 
 rootProject.name = "plugin-template"

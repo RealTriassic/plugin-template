@@ -11,6 +11,7 @@ tasks {
     val shadowJar by existing(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class) {
         archiveBaseName.set("${rootProject.name}-${project.name}")
         archiveClassifier.set(null as String?)
+        mergeServiceFiles()
     }
 
     register<Copy>("copyShadowJar") {

@@ -1,23 +1,33 @@
 [versions]
-adventure = "4.25.0"
-adventure-platform = "4.4.1"
-adventure-platform-mod = "6.7.0"
+# Adventure
+adventure = "4.26.1"  # https://github.com/PaperMC/adventure
+adventure-platform = "4.4.1"  # https://github.com/PaperMC/adventure-platform
+adventure-platform-mod = "6.8.0"  # https://github.com/PaperMC/adventure-platform-mod
+
+# Cloud
+cloud = "2.0.0"  # https://github.com/Incendo/cloud
+cloud-minecraft = "2.0.0-beta.14"  # https://github.com/Incendo/cloud-minecraft
+cloud-minecraft-modded = "2.0.0-beta.15"  # https://github.com/Incendo/cloud-minecraft-modded
+
+# Server APIs
 bungeecord-api = "1.21-R0.1"
-cloud = "2.0.0"
-cloud-minecraft = "2.0.0-beta.13"
+spigot-api = "1.21.11-R0.1-SNAPSHOT"
+paper-api = "1.21.11-R0.1-SNAPSHOT"
+velocity-api = "3.5.0-SNAPSHOT"
+
+# Modding
+minecraft = "1.21.11"
+fabric-loader = "0.18.4"
+fabric-api = "0.141.3+1.21.11"
+fabric-permissions-api = "0.6.1"
+neoforge = "21.11.38-beta"
+
 configurate = "4.2.0-GeyserMC-SNAPSHOT"
-minecraft = "1.21.10"
-neoforge = "21.10.49-beta"
 slf4j = "2.0.17"
-spigot-api = "1.21.10-R0.1-SNAPSHOT"
-paper-api = "1.21.10-R0.1-SNAPSHOT"
-velocity-api = "3.4.0-SNAPSHOT"
 
 [plugins]
 blossom = { id = "net.kyori.blossom", version = "2.2.0" }
-fabric-loom = { id = "fabric-loom", version = "1.13-SNAPSHOT" }
-indra-git = { id = "net.kyori.indra.git", version = "4.0.0-SNAPSHOT" }
-moddevgradle = { id = "net.neoforged.moddev", version = "2.0.116" }
+indra-git = { id = "net.kyori.indra.git", version = "4.0.0" }
 
 [libraries]
 adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
@@ -30,8 +40,8 @@ adventure-neoforge = { group = "net.kyori", name = "adventure-platform-neoforge"
 cloud-bungeecord = { group = "org.incendo", name = "cloud-bungee", version.ref = "cloud-minecraft" }
 cloud-core = { group = "org.incendo", name = "cloud-core", version.ref = "cloud" }
 cloud-minecraft-extras = { group = "org.incendo", name = "cloud-minecraft-extras", version.ref = "cloud-minecraft" }
-cloud-fabric = { group = "org.incendo", name = "cloud-fabric", version.ref = "cloud-minecraft" }
-cloud-neoforge = { group = "org.incendo", name = "cloud-neoforge", version.ref = "cloud-minecraft" }
+cloud-fabric = { group = "org.incendo", name = "cloud-fabric", version.ref = "cloud-minecraft-modded" }
+cloud-neoforge = { group = "org.incendo", name = "cloud-neoforge", version.ref = "cloud-minecraft-modded" }
 cloud-paper = { group = "org.incendo", name = "cloud-paper", version.ref = "cloud-minecraft" }
 cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref = "cloud-minecraft" }
 
@@ -41,6 +51,10 @@ configurate-interface = { group = "org.spongepowered", name = "configurate-extra
 configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
 
 minecraft = { group = "net.minecraft", name = "minecraft", version.ref = "minecraft" }
+
+fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
+fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric-api" }
+fabric-permissions-api = { group = "me.lucko", name = "fabric-permissions-api", version.ref = "fabric-permissions-api" }
 
 # Logging Libraries
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }

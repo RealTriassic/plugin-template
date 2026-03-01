@@ -6,9 +6,9 @@ dependencyResolutionManagement {
 
     repositories {
         mavenCentral()
-        maven("https://repo.opencollab.dev/main/")
-        maven("https://repo.papermc.io/repository/maven-public/")
-        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+        maven("https://repo.opencollab.dev/main")
+        maven("https://repo.papermc.io/repository/maven-public")
+        maven("https://oss.sonatype.org/content/repositories/snapshots") {
             mavenContent {
                 snapshotsOnly()
             }
@@ -21,13 +21,8 @@ pluginManagement {
 
     repositories {
         gradlePluginPortal()
-        maven("https://maven.fabricmc.net/")
-        maven("https://maven.neoforged.net/releases/")
-        maven("https://repo.papermc.io/repository/maven-snapshots/") {
-            mavenContent {
-                snapshotsOnly()
-            }
-        }
+        maven("https://maven.fabricmc.net")
+        maven("https://maven.neoforged.net/releases")
     }
 }
 

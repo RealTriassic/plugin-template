@@ -28,10 +28,8 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    /*
-    Loom and ModDevGradle get applied here, because
-    otherwise they will fail to add repositories properly.
-     */
+    /* Loom and ModDevGradle get applied here, because
+    otherwise they will fail to add repositories properly. */
     id("fabric-loom") version "1.15-SNAPSHOT"  // https://github.com/FabricMC/fabric-loom
     id("net.neoforged.moddev.repositories") version "2.0.140"  // https://projects.neoforged.net/neoforged/ModDevGradle
 }

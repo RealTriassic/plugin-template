@@ -20,7 +20,7 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.atomic.AtomicReference;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
-import org.spongepowered.configurate.interfaces.InterfaceDefaultOptions;
+import org.spongepowered.configurate.objectmapping.ObjectMapper;
 import org.spongepowered.configurate.objectmapping.meta.Processor;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
@@ -33,7 +33,7 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
  * @param <T> the type of the configuration object
  */
 public record ConfigurationManager<T>(
-    Class<T> clazz,
+    Class<T> configClass,
     YamlConfigurationLoader loader,
     AtomicReference<T> config
 ) {
@@ -50,52 +50,59 @@ public record ConfigurationManager<T>(
     /**
      * Loads the configuration from the path and
      * creates a new {@link ConfigurationManager} instance.
-     * If the configuration file does not exist, it will create a new one with default values.
      *
-     * @param path  the path to the directory containing the configuration file
-     * @param clazz the class type of the configuration object
-     * @param <T>   the type of the configuration object
+     * <p>If the configuration file does not exist, it'll create a new one with default values.</p>
+     *
+     * @param path        the path to the directory containing the configuration file
+     * @param configClass the class type of the configuration object
+     * @param <T>         the type of the configuration object
      * @return a {@link ConfigurationManager} instance containing the loaded configuration
      * @throws IOException if an error occurs while loading the configuration
      */
     public static <T> ConfigurationManager<T> load(
         Path path,
-        final Class<T> clazz,
-        final PlatformType platformType
+        Class<T> configClass,
+        PlatformType platformType
     ) throws IOException {
         path = path.resolve("config.yml");
 
-        final YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
+        ObjectMapper.Factory mapperFactory = ObjectMapper.factoryBuilder()
+            .addProcessor(ExcludePlatform.class, excludePlatform(platformType))
+            .build();
+
+        YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
             .path(path)
             .indent(2)
             .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions(opts -> InterfaceDefaultOptions.addTo(opts,
-                    builder -> builder.addProcessor(ExcludePlatform.class,
-                        excludePlatform(platformType)))
-                .header(HEADER))
+            .defaultOptions(options -> options
+                .header(HEADER)
+                .serializers(builder ->
+                    builder.registerAnnotatedObjects(mapperFactory))
+            )
             .build();
 
-        final CommentedConfigurationNode root = loader.load();
-        final T config = root.get(clazz);
+        CommentedConfigurationNode root = loader.load();
+        T config = root.get(configClass);
 
         if (Files.notExists(path)) {
             loader.save(root);
         }
 
-        return new ConfigurationManager<>(clazz, loader, new AtomicReference<>(config));
+        return new ConfigurationManager<>(configClass, loader, new AtomicReference<>(config));
     }
 
     /**
      * Asynchronously reloads the configuration from disk.
-     * The current configuration object is updated with the newly loaded data.
+     *
+     * <p>The current configuration object is updated with the newly loaded data.</p>
      *
      * @return a {@link CompletableFuture} that completes when the reload is complete
      */
     public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             try {
-                final CommentedConfigurationNode root = loader.load();
-                config.set(root.get(clazz));
+                CommentedConfigurationNode root = loader.load();
+                config.set(root.get(configClass));
             } catch (ConfigurateException e) {
                 throw new CompletionException("Failed to load configuration", e);
             }
@@ -112,7 +119,7 @@ public record ConfigurationManager<T>(
     }
 
     private static Processor.Factory<ExcludePlatform, Object> excludePlatform(
-        final PlatformType platformType
+        PlatformType platformType
     ) {
         return (annotation, fieldType) -> (value, destination) -> {
             for (PlatformType platform : annotation.value()) {

@@ -45,9 +45,6 @@ cloud-neoforge = { group = "org.incendo", name = "cloud-neoforge", version.ref =
 cloud-paper = { group = "org.incendo", name = "cloud-paper", version.ref = "cloud-minecraft" }
 cloud-velocity = { group = "org.incendo", name = "cloud-velocity", version.ref = "cloud-minecraft" }
 
-# Config and YAML Libraries
-configurate-interface-ap = { group = "org.spongepowered", name = "configurate-extra-interface-ap", version.ref = "configurate" }
-configurate-interface = { group = "org.spongepowered", name = "configurate-extra-interface", version.ref = "configurate" }
 configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
 
 minecraft = { group = "net.minecraft", name = "minecraft", version.ref = "minecraft" }

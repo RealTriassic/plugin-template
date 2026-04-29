@@ -8,6 +8,12 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://repo.opencollab.dev/main")
         maven("https://repo.papermc.io/repository/maven-public")
+        maven("https://hub.spigotmc.org/nexus/content/groups/public") {
+            content {
+                includeGroup("org.spigotmc")
+                includeGroup("net.md_5")
+            }
+        }
         maven("https://oss.sonatype.org/content/repositories/snapshots") {
             mavenContent {
                 snapshotsOnly()
@@ -30,8 +36,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
     /* Loom and ModDevGradle get applied here, because
     otherwise they will fail to add repositories properly. */
-    id("fabric-loom") version "1.15-SNAPSHOT"  // https://github.com/FabricMC/fabric-loom
-    id("net.neoforged.moddev.repositories") version "2.0.140"  // https://projects.neoforged.net/neoforged/ModDevGradle
+    id("net.fabricmc.fabric-loom-repositories") version "1.16-SNAPSHOT" // https://github.com/FabricMC/fabric-loom
+    id("net.neoforged.moddev.repositories") version "2.0.141" // https://projects.neoforged.net/neoforged/ModDevGradle
 }
 
 rootProject.name = "plugin-template"

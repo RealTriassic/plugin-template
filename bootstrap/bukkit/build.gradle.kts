@@ -7,6 +7,7 @@ dependencies {
 
     runtimeOnly(libs.slf4j.jdk14)
     compileOnly(libs.spigot.api)
+    compileOnly("com.mojang:brigadier:1.0.18")
     implementation(libs.adventure.bukkit)
     implementation(libs.cloud.paper)
     implementation(libs.slf4j)

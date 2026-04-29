@@ -1,26 +1,26 @@
 [versions]
 # Adventure
-adventure = "4.26.1"  # https://github.com/PaperMC/adventure
-adventure-platform = "4.4.1"  # https://github.com/PaperMC/adventure-platform
-adventure-platform-mod = "6.8.0"  # https://github.com/PaperMC/adventure-platform-mod
+adventure = "5.0.1" # https://github.com/PaperMC/adventure
+adventure-platform = "4.4.1" # https://github.com/PaperMC/adventure-platform
+adventure-platform-mod = "6.9.0" # https://github.com/PaperMC/adventure-platform-mod
 
 # Cloud
-cloud = "2.0.0"  # https://github.com/Incendo/cloud
-cloud-minecraft = "2.0.0-beta.14"  # https://github.com/Incendo/cloud-minecraft
-cloud-minecraft-modded = "2.0.0-beta.15"  # https://github.com/Incendo/cloud-minecraft-modded
+cloud = "2.0.0" # https://github.com/Incendo/cloud
+cloud-minecraft = "2.0.0-beta.15" # https://github.com/Incendo/cloud-minecraft
+cloud-minecraft-modded = "2.0.0-beta.16" # https://github.com/Incendo/cloud-minecraft-modded
 
 # Server APIs
-bungeecord-api = "1.21-R0.1"
-spigot-api = "1.21.11-R0.1-SNAPSHOT"
-paper-api = "1.21.11-R0.1-SNAPSHOT"
+bungeecord-api = "26.1-R0.1-SNAPSHOT"
+spigot-api = "26.1.2-R0.1-SNAPSHOT"
+paper-api = "26.1.2.build.+"
 velocity-api = "3.5.0-SNAPSHOT"
 
-# Modding
-minecraft = "1.21.11"
-fabric-loader = "0.18.4"
-fabric-api = "0.141.3+1.21.11"
-fabric-permissions-api = "0.6.1"
-neoforge = "21.11.38-beta"
+# Mod loader APIs
+minecraft = "26.1.2"
+fabric-loader = "0.19.2"
+fabric-api = "0.146.1+26.1.2"
+fabric-permissions-api = "0.7.0"
+neoforge = "26.1.2.22-beta"
 
 configurate = "4.2.0-GeyserMC-SNAPSHOT"
 slf4j = "2.0.17"
@@ -65,6 +65,6 @@ velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.r
 
 # Gradle Plugins
 checkstyle = { group = "com.puppycrawl.tools", name = "checkstyle", version = "13.3.0" }
-lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.2.0" }
+lombok-plugin = { group = "io.freefair.gradle", name = "lombok-plugin", version = "9.4.0" }
 shadow-plugin = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version = "9.4.0" }
 spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version = "8.4.0" }

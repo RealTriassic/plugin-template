@@ -1,6 +1,6 @@
 [versions]
 # Adventure
-adventure = "5.0.1" # https://github.com/PaperMC/adventure
+adventure = "5.1.1" # https://github.com/PaperMC/adventure
 adventure-platform = "4.4.1" # https://github.com/PaperMC/adventure-platform
 adventure-platform-mod = "6.9.0" # https://github.com/PaperMC/adventure-platform-mod
 

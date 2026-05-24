@@ -13,6 +13,7 @@ import dev.triassic.template.command.CommandRegistry;
 import dev.triassic.template.command.Commander;
 import dev.triassic.template.configuration.ConfigurationManager;
 import dev.triassic.template.configuration.TemplateConfiguration;
+import dev.triassic.template.i18n.TranslationManager;
 import dev.triassic.template.util.PlatformType;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,6 +33,7 @@ public final class TemplateImpl {
     private final CommandManager<Commander> commandManager;
 
     private CommandRegistry commandRegistry;
+    private TranslationManager translationManager;
     private ConfigurationManager<TemplateConfiguration> config;
 
     /**
@@ -51,6 +53,12 @@ public final class TemplateImpl {
      */
     public void initialize() {
         final long startTime = System.currentTimeMillis();
+
+        try {
+            this.translationManager = TranslationManager.load(dataDirectory);
+        } catch (IOException e) {
+            logger.error("Failed to load translations", e);
+        }
 
         try {
             this.config = ConfigurationManager.load(
